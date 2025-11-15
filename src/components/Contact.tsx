@@ -5,6 +5,17 @@ import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
+import { z } from "zod";
+
+const contactSchema = z.object({
+  name: z.string().trim().min(1, "Le nom est requis").max(100, "Le nom ne doit pas dépasser 100 caractères"),
+  email: z.string().trim().email("Email invalide").max(255, "L'email ne doit pas dépasser 255 caractères"),
+  phone: z.string().trim().min(1, "Le téléphone est requis").max(20, "Le téléphone ne doit pas dépasser 20 caractères"),
+  message: z.string().trim().min(1, "Le message est requis").max(1000, "Le message ne doit pas dépasser 1000 caractères"),
+});
+
+type RequestType = 'quote' | 'info' | 'emergency';
 
 const Contact = () => {
   const { toast } = useToast();
@@ -14,14 +25,55 @@ const Contact = () => {
     phone: "",
     message: "",
   });
+  const [requestType, setRequestType] = useState<RequestType>('quote');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Message envoyé !",
-      description: "Nous vous répondrons dans les plus brefs délais.",
-    });
-    setFormData({ name: "", email: "", phone: "", message: "" });
+    
+    try {
+      setIsSubmitting(true);
+      
+      // Validate form data
+      const validatedData = contactSchema.parse(formData);
+      
+      // Insert into Supabase
+      const { error } = await supabase
+        .from('customer_requests')
+        .insert({
+          request_type: requestType,
+          name: validatedData.name,
+          email: validatedData.email,
+          phone: validatedData.phone,
+          message: validatedData.message,
+        });
+
+      if (error) throw error;
+
+      toast({
+        title: "Message envoyé !",
+        description: "Nous vous répondrons dans les plus brefs délais.",
+      });
+      
+      setFormData({ name: "", email: "", phone: "", message: "" });
+      setRequestType('quote');
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        toast({
+          title: "Erreur de validation",
+          description: error.errors[0].message,
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Erreur",
+          description: "Une erreur s'est produite. Veuillez réessayer.",
+          variant: "destructive",
+        });
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -94,49 +146,104 @@ const Contact = () => {
             <CardDescription>Remplissez ce formulaire et nous vous recontacterons rapidement</CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-foreground">Type de demande</label>
+                <div className="grid grid-cols-3 gap-4">
+                  <Button
+                    type="button"
+                    variant={requestType === 'quote' ? 'default' : 'outline'}
+                    onClick={() => setRequestType('quote')}
+                    className="w-full"
+                  >
+                    Devis
+                  </Button>
+                  <Button
+                    type="button"
+                    variant={requestType === 'info' ? 'default' : 'outline'}
+                    onClick={() => setRequestType('info')}
+                    className="w-full"
+                  >
+                    Info
+                  </Button>
+                  <Button
+                    type="button"
+                    variant={requestType === 'emergency' ? 'default' : 'outline'}
+                    onClick={() => setRequestType('emergency')}
+                    className="w-full"
+                  >
+                    Urgence
+                  </Button>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="name" className="text-sm font-medium text-foreground">
+                  Nom complet
+                </label>
                 <Input
+                  id="name"
                   name="name"
-                  placeholder="Votre nom"
+                  type="text"
+                  placeholder="Jean Dupont"
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="h-12"
                 />
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+              <div className="space-y-2">
+                <label htmlFor="email" className="text-sm font-medium text-foreground">
+                  Email
+                </label>
                 <Input
+                  id="email"
                   name="email"
                   type="email"
-                  placeholder="Votre email"
+                  placeholder="jean.dupont@example.com"
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="h-12"
                 />
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="phone" className="text-sm font-medium text-foreground">
+                  Téléphone
+                </label>
                 <Input
+                  id="phone"
                   name="phone"
                   type="tel"
-                  placeholder="Votre téléphone"
+                  placeholder="06 12 34 56 78"
                   value={formData.phone}
                   onChange={handleChange}
-                  className="h-12"
+                  required
                 />
               </div>
-              <div>
+
+              <div className="space-y-2">
+                <label htmlFor="message" className="text-sm font-medium text-foreground">
+                  Message
+                </label>
                 <Textarea
+                  id="message"
                   name="message"
-                  placeholder="Décrivez votre projet..."
+                  placeholder="Décrivez votre projet ou votre besoin..."
                   value={formData.message}
                   onChange={handleChange}
+                  rows={5}
                   required
-                  rows={6}
-                  className="resize-none"
                 />
               </div>
-              <Button type="submit" size="lg" className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 h-12">
-                Envoyer ma demande
+
+              <Button
+                type="submit"
+                className="w-full"
+                size="lg"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Envoi en cours..." : "Envoyer la demande"}
               </Button>
             </form>
           </CardContent>
