@@ -139,7 +139,10 @@ serve(async (req) => {
   } catch (error) {
     console.error("Function Error:", error);
     return new Response(
-      JSON.stringify({ status: "error", message: error.message || "Internal Server Error" }),
+      JSON.stringify({ 
+        status: "error", 
+        message: error instanceof Error ? error.message : "Internal Server Error" 
+      }),
       { status: 500, headers: { "Content-Type": "application/json" } }
     );
   }

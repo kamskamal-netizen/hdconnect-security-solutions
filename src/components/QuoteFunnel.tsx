@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin, ChevronLeft, ChevronRight, Check, Camera, Shield, Lock, PhoneCall, Wifi, Wrench, HelpCircle, AlertTriangle } from "lucide-react";
 import { useState, useMemo } from "react";
@@ -109,10 +110,15 @@ const QuoteFunnel = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const updateFormData = (path: keyof FunnelData, data: any) => {
-    setFormData(prev => ({
-      ...prev,
-      [path]: { ...prev[path], ...data }
-    }));
+    setFormData(prev => {
+      const previousValue = prev[path];
+      return {
+        ...prev,
+        [path]: typeof previousValue === 'object' && previousValue !== null
+          ? { ...previousValue, ...data }
+          : data
+      };
+    });
   };
 
   const nextStep = () => setStep(prev => prev + 1);
@@ -451,39 +457,54 @@ const QuoteFunnel = () => {
     return (
       <div className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Input
-            label="Nom complet *"
-            placeholder="Votre nom et prénom"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <Input
-            label="Téléphone *"
-            placeholder="Ex: 06 12 34 56 78"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-          />
+          <div className="space-y-2">
+            <Label htmlFor="name">Nom complet *</Label>
+            <Input
+              id="name"
+              placeholder="Votre nom et prénom"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="phone">Téléphone *</Label>
+            <Input
+              id="phone"
+              placeholder="Ex: 06 12 34 56 78"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+            />
+          </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Input
-            label="Email *"
-            placeholder="contact@votreentreprise.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <Input
-            label="Adresse (Ville et Code Postal) *"
-            placeholder="Ex: Paris 75008"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
+          <div className="space-y-2">
+            <Label htmlFor="email">Email *</Label>
+            <Input
+              id="email"
+              placeholder="contact@votreentreprise.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="address">Adresse (Ville et Code Postal) *</Label>
+            <Input
+              id="address"
+              placeholder="Ex: Paris 75008"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+            />
+          </div>
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="message">Message complémentaire (Optionnel)</Label>
+          <Textarea
+            id="message"
+            placeholder="Toute information supplémentaire utile pour votre demande..."
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
           />
         </div>
-        <Textarea
-          label="Message complémentaire (Optionnel)"
-          placeholder="Toute information supplémentaire utile pour votre demande..."
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-        />
         <div className="flex justify-end pt-4">
           <Button type="button" onClick={handleNext}>
             Étape suivante <ChevronRight className="w-4 h-4 ml-2" />
