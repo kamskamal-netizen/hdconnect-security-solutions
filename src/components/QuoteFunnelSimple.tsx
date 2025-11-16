@@ -6,6 +6,7 @@ import { ChevronLeft, ChevronRight, Check, Camera, Shield, Lock, PhoneCall, Wifi
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
+import { useToast } from "@/hooks/use-toast";
 
 // Types
 type ServiceType = 'camera' | 'alarm' | 'access' | 'intercom' | 'network' | 'maintenance' | 'other';
@@ -55,6 +56,7 @@ const OptionButton = ({ icon: Icon, label, isSelected, onClick }: OptionButtonPr
 );
 
 const QuoteFunnelSimple = () => {
+  const { toast } = useToast();
   const [step, setStep] = useState(1);
   const [requestType, setRequestType] = useState<RequestType>('quote');
   const [selectedService, setSelectedService] = useState('');
@@ -76,9 +78,13 @@ const QuoteFunnelSimple = () => {
 
   const handleSubmit = async () => {
     try {
-      // Validation simple (à étendre si nécessaire)
+      // Validation simple
       if (!formData.name || !formData.phone || !formData.email || !formData.address) {
-        alert("Veuillez remplir les champs obligatoires.");
+        toast({
+          title: "Erreur",
+          description: "Veuillez remplir tous les champs obligatoires.",
+          variant: "destructive",
+        });
         return;
       }
 
@@ -95,15 +101,18 @@ const QuoteFunnelSimple = () => {
       });
 
       if (error) {
-        throw new Error(`Erreur de la fonction Supabase: ${error.message}`);
+        throw error;
       }
       
-      // Vérification du statut de la réponse de la fonction Edge (si elle retourne un objet JSON)
+      // Vérification du statut de la réponse
       if (data && data.status === 'error') {
          throw new Error(data.message || "L'envoi de l'e-mail a échoué.");
       }
 
-      alert("Demande envoyée avec succès ! Nous vous recontacterons rapidement.");
+      toast({
+        title: "Demande envoyée !",
+        description: "Nous vous recontacterons rapidement.",
+      });
       
       // Réinitialiser
       setTimeout(() => {
@@ -121,11 +130,15 @@ const QuoteFunnelSimple = () => {
           urgency: '',
           message: '',
         });
-      }, 2000);
+      }, 1000);
 
     } catch (error) {
       console.error("Erreur lors de la soumission:", error);
-      alert(error instanceof Error ? error.message : "Une erreur inattendue est survenue.");
+      toast({
+        title: "Erreur",
+        description: error instanceof Error ? error.message : "Une erreur s'est produite lors de l'envoi.",
+        variant: "destructive",
+      });
     }
   };
 

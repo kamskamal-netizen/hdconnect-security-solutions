@@ -37,19 +37,28 @@ const Contact = () => {
       // Validate form data
       const validatedData = contactSchema.parse(formData);
       
-      // Mode autonome : créer un email mailto avec toutes les informations
-      const emailSubject = `[HD Connect] ${requestType === 'quote' ? 'Demande de devis' : requestType === 'info' ? 'Demande d\'information' : 'Demande urgente'}`;
-      const emailBody = `Nom: ${validatedData.name}%0D%0AEmail: ${validatedData.email}%0D%0ATéléphone: ${validatedData.phone}%0D%0A%0D%0AMessage:%0D%0A${validatedData.message}`;
-      
-      // Ouvrir le client email par défaut
-      window.location.href = `mailto:kamal@hdconnect.fr,hdconnect@hdconnect.fr?subject=${emailSubject}&body=${emailBody}`;
+      // Appel de la fonction Edge Supabase
+      const { data, error } = await supabase.functions.invoke('send-quote-email', {
+        body: {
+          requestType,
+          ...validatedData,
+        },
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      if (data && data.status === 'error') {
+        throw new Error(data.message || "L'envoi de l'e-mail a échoué.");
+      }
 
       toast({
-        title: "Redirection vers votre client email",
-        description: "Veuillez envoyer l'email depuis votre client de messagerie.",
+        title: "Message envoyé !",
+        description: "Nous vous recontacterons rapidement.",
       });
       
-      // Réinitialiser le formulaire après un court délai
+      // Réinitialiser le formulaire
       setTimeout(() => {
         setFormData({ name: "", email: "", phone: "", message: "" });
         setRequestType('quote');
@@ -62,9 +71,10 @@ const Contact = () => {
           variant: "destructive",
         });
       } else {
+        console.error('Erreur lors de l\'envoi:', error);
         toast({
           title: "Erreur",
-          description: "Une erreur s'est produite. Veuillez réessayer.",
+          description: error instanceof Error ? error.message : "Une erreur s'est produite. Veuillez réessayer.",
           variant: "destructive",
         });
       }

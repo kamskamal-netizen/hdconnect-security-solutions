@@ -1,26 +1,25 @@
 import { serve } from "https://deno.land/std@0.177.0/http/server.ts";
+import { Resend } from "npm:resend@4.0.0";
 
-// Nécessite l'installation de @sendgrid/mail dans le projet Supabase Edge Function
-// Pour cet exemple, nous allons simuler l'envoi avec fetch à une API d'envoi d'e-mails
-// NOTE: L'utilisateur doit configurer sa propre clé API SendGrid (ou autre) dans les secrets Supabase.
-
-const SENDGRID_API_KEY = Deno.env.get("SENDGRID_API_KEY");
+const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
 const TARGET_EMAIL = "kamal@hdconnect.fr";
-const SENDER_EMAIL = "no-reply@hdconnect.fr"; // Adresse générique
+const SENDER_EMAIL = "onboarding@resend.dev"; // Utilisez votre domaine vérifié
+
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+};
 
 serve(async (req) => {
+  // Handle CORS preflight requests
+  if (req.method === "OPTIONS") {
+    return new Response(null, { headers: corsHeaders });
+  }
+
   if (req.method !== "POST") {
     return new Response(
       JSON.stringify({ status: "error", message: "Method Not Allowed" }),
-      { status: 405, headers: { "Content-Type": "application/json" } }
-    );
-  }
-
-  if (!SENDGRID_API_KEY) {
-    console.error("SENDGRID_API_KEY not set in environment variables.");
-    return new Response(
-      JSON.stringify({ status: "error", message: "Server configuration error: Email service not available." }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
+      { status: 405, headers: { "Content-Type": "application/json", ...corsHeaders } }
     );
   }
 
@@ -101,49 +100,30 @@ serve(async (req) => {
       body += `Message: ${formData.message || 'Aucun'}\n`;
     }
 
-    // 2. Envoi de l'e-mail via SendGrid (ou autre service)
-    const sendgridResponse = await fetch("https://api.sendgrid.com/v3/mail/send", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${SENDGRID_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        personalizations: [
-          {
-            to: [{ email: TARGET_EMAIL }],
-            // Optionnel: Répondre à l'adresse du client
-            // reply_to: { email: formData.clientInfo?.email || formData.email, name: formData.clientInfo?.name || formData.name },
-          },
-        ],
-        from: { email: SENDER_EMAIL, name: "HD Connect - Formulaire" },
-        subject: subject,
-        content: [{ type: "text/plain", value: body }],
-      }),
+    // 2. Envoi de l'e-mail via Resend
+    const emailResponse = await resend.emails.send({
+      from: SENDER_EMAIL,
+      to: [TARGET_EMAIL],
+      subject: subject,
+      text: body,
+      reply_to: formData.clientInfo?.email || formData.email,
     });
 
-    if (sendgridResponse.ok) {
-      return new Response(
-        JSON.stringify({ status: "success", message: "Email sent successfully" }),
-        { status: 200, headers: { "Content-Type": "application/json" } }
-      );
-    } else {
-      const errorBody = await sendgridResponse.json();
-      console.error("SendGrid Error:", errorBody);
-      return new Response(
-        JSON.stringify({ status: "error", message: `Failed to send email: ${sendgridResponse.statusText}` }),
-        { status: 500, headers: { "Content-Type": "application/json" } }
-      );
-    }
+    console.log("Email sent successfully:", emailResponse);
+
+    return new Response(
+      JSON.stringify({ status: "success", message: "Email envoyé avec succès" }),
+      { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+    );
 
   } catch (error) {
     console.error("Function Error:", error);
     return new Response(
       JSON.stringify({ 
         status: "error", 
-        message: error instanceof Error ? error.message : "Internal Server Error" 
+        message: error instanceof Error ? error.message : "Erreur lors de l'envoi de l'email" 
       }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
+      { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
     );
   }
 });
