@@ -63,15 +63,21 @@ const Footer = () => {
               <li className="flex items-start gap-2">
                 <Phone className="w-5 h-5 flex-shrink-0 mt-0.5" />
                 <div>
-                  <a href="tel:+33123456789" className="hover:text-background transition-colors">01 23 45 67 89</a>
-                  <p className="text-xs">Lundi - Vendredi: 9h - 18h</p>
+                  <a href="tel:+33627135304" className="hover:text-background transition-colors block">+33 6 27 13 53 04</a>
+                  <a href="tel:+33183643640" className="hover:text-background transition-colors block">+33 1 83 64 36 40</a>
+                  <p className="text-xs mt-1">Lundi - Vendredi: 9h - 18h</p>
                 </div>
               </li>
               <li className="flex items-start gap-2">
                 <Mail className="w-5 h-5 flex-shrink-0 mt-0.5" />
-                <a href="mailto:contact@hdconnect.fr" className="hover:text-background transition-colors break-all">
-                  contact@hdconnect.fr
-                </a>
+                <div>
+                  <a href="mailto:kamal@hdconnect.fr" className="hover:text-background transition-colors break-all block">
+                    kamal@hdconnect.fr
+                  </a>
+                  <a href="mailto:hdconnect@hdconnect.fr" className="hover:text-background transition-colors break-all block">
+                    hdconnect@hdconnect.fr
+                  </a>
+                </div>
               </li>
               <li className="flex items-start gap-2">
                 <MapPin className="w-5 h-5 flex-shrink-0 mt-0.5" />

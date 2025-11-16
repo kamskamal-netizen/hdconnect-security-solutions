@@ -43,10 +43,17 @@ const Header = () => {
           </nav>
 
           <div className="hidden md:flex items-center gap-4">
-            <a href="tel:+33123456789" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
-              <Phone className="w-5 h-5" />
-              <span className="font-semibold">01 23 45 67 89</span>
-            </a>
+            <div className="flex items-center gap-3">
+              <a href="tel:+33627135304" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
+                <Phone className="w-4 h-4" />
+                <span className="font-semibold text-sm">+33 6 27 13 53 04</span>
+              </a>
+              <span className="text-muted-foreground">|</span>
+              <a href="tel:+33183643640" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
+                <Phone className="w-4 h-4" />
+                <span className="font-semibold text-sm">+33 1 83 64 36 40</span>
+              </a>
+            </div>
             <Button onClick={() => scrollToSection("contact")} className="bg-gradient-to-r from-primary to-accent hover:opacity-90">
               Devis Gratuit
             </Button>
@@ -72,9 +79,13 @@ const Header = () => {
               <button onClick={() => scrollToSection("contact")} className="text-left text-foreground hover:text-primary transition-colors">
                 Contact
               </button>
-              <a href="tel:+33123456789" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
+              <a href="tel:+33627135304" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
                 <Phone className="w-5 h-5" />
-                <span className="font-semibold">01 23 45 67 89</span>
+                <span className="font-semibold">+33 6 27 13 53 04</span>
+              </a>
+              <a href="tel:+33183643640" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
+                <Phone className="w-5 h-5" />
+                <span className="font-semibold">+33 1 83 64 36 40</span>
               </a>
               <Button onClick={() => scrollToSection("contact")} className="bg-gradient-to-r from-primary to-accent hover:opacity-90">
                 Devis Gratuit

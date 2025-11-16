@@ -37,26 +37,23 @@ const Contact = () => {
       // Validate form data
       const validatedData = contactSchema.parse(formData);
       
-      // Insert into Supabase
-      const { error } = await supabase
-        .from('customer_requests')
-        .insert({
-          request_type: requestType,
-          name: validatedData.name,
-          email: validatedData.email,
-          phone: validatedData.phone,
-          message: validatedData.message,
-        });
-
-      if (error) throw error;
+      // Mode autonome : créer un email mailto avec toutes les informations
+      const emailSubject = `[HD Connect] ${requestType === 'quote' ? 'Demande de devis' : requestType === 'info' ? 'Demande d\'information' : 'Demande urgente'}`;
+      const emailBody = `Nom: ${validatedData.name}%0D%0AEmail: ${validatedData.email}%0D%0ATéléphone: ${validatedData.phone}%0D%0A%0D%0AMessage:%0D%0A${validatedData.message}`;
+      
+      // Ouvrir le client email par défaut
+      window.location.href = `mailto:kamal@hdconnect.fr,hdconnect@hdconnect.fr?subject=${emailSubject}&body=${emailBody}`;
 
       toast({
-        title: "Message envoyé !",
-        description: "Nous vous répondrons dans les plus brefs délais.",
+        title: "Redirection vers votre client email",
+        description: "Veuillez envoyer l'email depuis votre client de messagerie.",
       });
       
-      setFormData({ name: "", email: "", phone: "", message: "" });
-      setRequestType('quote');
+      // Réinitialiser le formulaire après un court délai
+      setTimeout(() => {
+        setFormData({ name: "", email: "", phone: "", message: "" });
+        setRequestType('quote');
+      }, 1000);
     } catch (error) {
       if (error instanceof z.ZodError) {
         toast({
@@ -102,9 +99,14 @@ const Contact = () => {
               <CardDescription>Appelez-nous du lundi au vendredi</CardDescription>
             </CardHeader>
             <CardContent>
-              <a href="tel:+33123456789" className="text-primary font-semibold text-lg hover:underline">
-                01 23 45 67 89
-              </a>
+              <div className="space-y-2">
+                <a href="tel:+33627135304" className="text-primary font-semibold text-lg hover:underline block">
+                  +33 6 27 13 53 04
+                </a>
+                <a href="tel:+33183643640" className="text-primary font-semibold text-lg hover:underline block">
+                  +33 1 83 64 36 40
+                </a>
+              </div>
               <p className="text-sm text-muted-foreground mt-2">9h - 18h</p>
             </CardContent>
           </Card>
@@ -118,9 +120,14 @@ const Contact = () => {
               <CardDescription>Écrivez-nous à tout moment</CardDescription>
             </CardHeader>
             <CardContent>
-              <a href="mailto:contact@hdconnect.fr" className="text-primary font-semibold text-lg hover:underline break-all">
-                contact@hdconnect.fr
-              </a>
+              <div className="space-y-2">
+                <a href="mailto:kamal@hdconnect.fr" className="text-primary font-semibold text-lg hover:underline break-all block">
+                  kamal@hdconnect.fr
+                </a>
+                <a href="mailto:hdconnect@hdconnect.fr" className="text-primary font-semibold text-lg hover:underline break-all block">
+                  hdconnect@hdconnect.fr
+                </a>
+              </div>
               <p className="text-sm text-muted-foreground mt-2">Réponse sous 24h</p>
             </CardContent>
           </Card>
