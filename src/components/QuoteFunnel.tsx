@@ -158,10 +158,10 @@ const QuoteFunnel = () => {
       });
 
       if (error) {
-        throw new Error(`Erreur de la fonction Supabase: ${error.message}`);
+        throw error;
       }
       
-      // Vérification du statut de la réponse de la fonction Edge (si elle retourne un objet JSON)
+      // Vérification du statut de la réponse
       if (data && data.status === 'error') {
          throw new Error(data.message || "L'envoi de l'e-mail a échoué.");
       }
@@ -171,7 +171,7 @@ const QuoteFunnel = () => {
         description: "Nous avons bien reçu votre demande et nous vous répondrons dans les plus brefs délais.",
       });
       
-      // Réinitialiser le formulaire après un court délai
+      // Réinitialiser le formulaire
       setTimeout(() => {
         setStep(1);
         setFormData({
@@ -180,13 +180,13 @@ const QuoteFunnel = () => {
           quoteData: {},
           interventionData: {},
         });
-      }, 2000);
+      }, 1000);
 
     } catch (error) {
       console.error("Erreur lors de la soumission:", error);
       toast({
         title: "Erreur de soumission",
-        description: error instanceof Error ? error.message : "Une erreur inattendue est survenue.",
+        description: error instanceof Error ? error.message : "Une erreur s'est produite lors de l'envoi.",
         variant: "destructive",
       });
     } finally {
