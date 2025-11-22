@@ -1,6 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Camera, ShieldAlert, Lock, Wifi, Monitor, Wrench } from "lucide-react";
+import { Link } from "react-router-dom";
 import cameraImage from "@/assets/service-camera.jpg";
 import alarmImage from "@/assets/service-alarm.jpg";
 import accessImage from "@/assets/service-access.jpg";
@@ -13,6 +14,7 @@ const Services = () => {
       description: "Installation de caméras HD et 4K avec enregistrement continu et accès à distance",
       image: cameraImage,
       features: ["Caméras intérieur/extérieur", "Vision nocturne", "Application mobile", "Stockage cloud"],
+      link: "/services/videosurveillance"
     },
     {
       icon: ShieldAlert,
@@ -20,6 +22,7 @@ const Services = () => {
       description: "Alarmes anti-intrusion connectées avec détection intelligente",
       image: alarmImage,
       features: ["Détecteurs de mouvement", "Sirènes intégrées", "Notification instantanée", "Télésurveillance"],
+      link: "/services/alarme"
     },
     {
       icon: Lock,
@@ -27,24 +30,28 @@ const Services = () => {
       description: "Systèmes de contrôle d'accès par badge, code ou biométrie",
       image: accessImage,
       features: ["Badge RFID", "Empreinte digitale", "Gestion centralisée", "Historique d'accès"],
+      link: "/services/controle-acces"
     },
     {
       icon: Wifi,
       title: "Réseau & Connectivité",
       description: "Installation de réseaux sécurisés pour vos équipements connectés",
       features: ["Réseau filaire/WiFi", "Configuration VPN", "Firewall sécurisé", "Maintenance réseau"],
+      link: "/services/reseau"
     },
     {
       icon: Monitor,
       title: "Solutions Domotique",
       description: "Intégration de systèmes domotiques pour une sécurité intelligente",
       features: ["Automatisation", "Contrôle centralisé", "Scénarios personnalisés", "Compatible tous systèmes"],
+      link: "/services/domotique"
     },
     {
       icon: Wrench,
       title: "Maintenance & Support",
       description: "Service de maintenance préventive et support technique réactif",
       features: ["Support 24/7", "Interventions rapides", "Contrats de maintenance", "Mise à jour systèmes"],
+      link: "/services/maintenance"
     },
   ];
 
@@ -90,9 +97,11 @@ const Services = () => {
                       </li>
                     ))}
                   </ul>
-                  <Button variant="outline" className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                    En savoir plus
-                  </Button>
+                  <Link to={service.link}>
+                    <Button variant="outline" className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                      En savoir plus
+                    </Button>
+                  </Link>
                 </CardContent>
               </Card>
             );
