@@ -9,33 +9,33 @@ const ControleAcces = () => {
   const features = [
     {
       icon: CreditCard,
-      title: "Badge RFID",
-      description: "Badges personnalisés pour un accès simple et sécurisé"
+      title: "Badge RFID & NFC",
+      description: "Badges personnalisés MIFARE pour un accès simple et sécurisé avec cryptage 128 bits anti-clonage"
     },
     {
       icon: Fingerprint,
-      title: "Biométrie avancée",
-      description: "Reconnaissance d'empreinte digitale pour une sécurité maximale"
+      title: "Biométrie avancée certifiée",
+      description: "Reconnaissance d'empreinte digitale ou faciale avec précision 99,9% pour une sécurité maximale"
     },
     {
       icon: Key,
-      title: "Code PIN",
-      description: "Contrôle d'accès par code personnalisé"
+      title: "Code PIN sécurisé",
+      description: "Contrôle d'accès par code personnalisé avec fonction anti-code forcé et temporisation programmable"
     },
     {
       icon: Users,
-      title: "Gestion centralisée",
-      description: "Administration facile des droits d'accès depuis une interface unique"
+      title: "Gestion centralisée cloud",
+      description: "Administration facile des droits d'accès depuis une interface web unique avec rapports détaillés"
     },
     {
       icon: History,
-      title: "Historique complet",
-      description: "Traçabilité de tous les accès avec horodatage précis"
+      title: "Historique complet certifié",
+      description: "Traçabilité RGPD de tous les accès avec horodatage précis, photos et alertes d'anomalie"
     },
     {
       icon: Lock,
-      title: "Sécurité multicouche",
-      description: "Combinaison de plusieurs méthodes d'authentification"
+      title: "Sécurité multicouche avancée",
+      description: "Combinaison de plusieurs méthodes d'authentification avec gestion des zones et horaires"
     }
   ];
 
@@ -52,7 +52,7 @@ const ControleAcces = () => {
                   Contrôle d'Accès Intelligent
                 </h1>
                 <p className="text-xl text-muted-foreground mb-8">
-                  Systèmes de contrôle d'accès par badge, code ou biométrie pour sécuriser vos locaux
+                  Systèmes de contrôle d'accès par badge, code ou biométrie pour sécuriser vos locaux. Solutions évolutives de la serrure connectée au système multi-sites avec gestion de la pointeuse horaire.
                 </p>
                 <Link to="/#quote">
                   <Button size="lg" className="mr-4">
@@ -155,13 +155,63 @@ const ControleAcces = () => {
               Sécurisez vos accès intelligemment
             </h2>
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Découvrez nos solutions de contrôle d'accès adaptées à vos besoins
+              Découvrez nos solutions de contrôle d'accès adaptées à vos besoins avec démonstration gratuite
             </p>
             <Link to="/#quote">
               <Button size="lg">
                 Demander un devis gratuit
               </Button>
             </Link>
+          </div>
+        </section>
+
+        {/* Technologies */}
+        <section className="py-20 bg-secondary/30">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">
+              Technologies & Compatibilité
+            </h2>
+            <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+              <div className="text-center">
+                <h3 className="text-xl font-bold mb-3">Standards RFID</h3>
+                <p className="text-muted-foreground">Compatible MIFARE, EM, HID - Tous standards du marché avec migration possible</p>
+              </div>
+              <div className="text-center">
+                <h3 className="text-xl font-bold mb-3">Intégration complète</h3>
+                <p className="text-muted-foreground">Compatible avec logiciels RH, ERP, et systèmes de gestion de temps existants</p>
+              </div>
+              <div className="text-center">
+                <h3 className="text-xl font-bold mb-3">Conformité RGPD</h3>
+                <p className="text-muted-foreground">Solution 100% conforme RGPD avec hébergement données en France et chiffrement</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section className="py-20">
+          <div className="container mx-auto px-4 max-w-3xl">
+            <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">
+              Questions Fréquentes
+            </h2>
+            <div className="space-y-6">
+              <div className="p-6 rounded-lg bg-card border">
+                <h3 className="text-lg font-bold mb-2">Puis-je gérer les accès temporaires (visiteurs, prestataires) ?</h3>
+                <p className="text-muted-foreground">Oui, vous pouvez créer des badges temporaires avec date de validité limitée ou des codes PIN à usage unique via l'interface web ou mobile.</p>
+              </div>
+              <div className="p-6 rounded-lg bg-card border">
+                <h3 className="text-lg font-bold mb-2">Le système peut-il gérer plusieurs bâtiments ?</h3>
+                <p className="text-muted-foreground">Absolument, notre solution centralise la gestion de tous vos sites avec droits d'accès différenciés par bâtiment, étage ou zone.</p>
+              </div>
+              <div className="p-6 rounded-lg bg-card border">
+                <h3 className="text-lg font-bold mb-2">Que se passe-t-il en cas de coupure internet ?</h3>
+                <p className="text-muted-foreground">Le système fonctionne en mode autonome. Les contrôleurs stockent les droits localement et synchronisent automatiquement au retour de la connexion.</p>
+              </div>
+              <div className="p-6 rounded-lg bg-card border">
+                <h3 className="text-lg font-bold mb-2">Puis-je intégrer la pointeuse horaire ?</h3>
+                <p className="text-muted-foreground">Oui, nos systèmes incluent la gestion du temps de travail avec exports Excel/PDF pour la paie et conformité légale.</p>
+              </div>
+            </div>
           </div>
         </section>
       </main>

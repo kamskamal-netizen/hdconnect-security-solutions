@@ -36,22 +36,22 @@ const Footer = () => {
           <div>
             <h4 className="font-bold text-lg mb-4">Services</h4>
             <ul className="space-y-2 text-sm text-background/70">
-              <li><a href="#services" className="hover:text-background transition-colors">Vidéosurveillance</a></li>
-              <li><a href="#services" className="hover:text-background transition-colors">Systèmes d'alarme</a></li>
-              <li><a href="#services" className="hover:text-background transition-colors">Contrôle d'accès</a></li>
-              <li><a href="#services" className="hover:text-background transition-colors">Réseau & Connectivité</a></li>
-              <li><a href="#services" className="hover:text-background transition-colors">Solutions Domotique</a></li>
-              <li><a href="#services" className="hover:text-background transition-colors">Maintenance</a></li>
+              <li><a href="/services/videosurveillance" className="hover:text-background transition-colors">Vidéosurveillance</a></li>
+              <li><a href="/services/alarme" className="hover:text-background transition-colors">Systèmes d'alarme</a></li>
+              <li><a href="/services/controle-acces" className="hover:text-background transition-colors">Contrôle d'accès</a></li>
+              <li><a href="/services/reseau" className="hover:text-background transition-colors">Réseau & Connectivité</a></li>
+              <li><a href="/services/domotique" className="hover:text-background transition-colors">Solutions Domotique</a></li>
+              <li><a href="/services/maintenance" className="hover:text-background transition-colors">Maintenance</a></li>
             </ul>
           </div>
 
           <div>
             <h4 className="font-bold text-lg mb-4">Liens Rapides</h4>
             <ul className="space-y-2 text-sm text-background/70">
-              <li><a href="#accueil" className="hover:text-background transition-colors">Accueil</a></li>
-              <li><a href="#services" className="hover:text-background transition-colors">Services</a></li>
-              <li><a href="#apropos" className="hover:text-background transition-colors">À Propos</a></li>
-              <li><a href="#contact" className="hover:text-background transition-colors">Contact</a></li>
+              <li><a href="/" className="hover:text-background transition-colors">Accueil</a></li>
+              <li><a href="/#services" className="hover:text-background transition-colors">Services</a></li>
+              <li><a href="/#apropos" className="hover:text-background transition-colors">À Propos</a></li>
+              <li><a href="/#contact" className="hover:text-background transition-colors">Contact</a></li>
               <li><a href="#" className="hover:text-background transition-colors">Mentions légales</a></li>
               <li><a href="#" className="hover:text-background transition-colors">Politique de confidentialité</a></li>
             </ul>
