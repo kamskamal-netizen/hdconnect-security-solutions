@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin, ChevronLeft, ChevronRight, Check, Camera, Shield, Lock, PhoneCall, Wifi, Wrench, HelpCircle, AlertTriangle } from "lucide-react";
 import { useState, useMemo } from "react";
 import { useToast } from "@/components/ui/use-toast";
-import { supabase } from "@/integrations/supabase/client";
+
 import { z } from "zod";
 import { cn } from "@/lib/utils";
 
@@ -146,24 +146,23 @@ const QuoteFunnel = () => {
   const currentStep = steps[step - 1];
   const StepComponent = currentStep?.component;
 
-  // --- Logique de soumission (Supabase Edge Function) ---
+  // --- Logique de soumission (Formspree - Sécurisé) ---
   const handleSubmit = async () => {
     setIsSubmitting(true);
     try {
       const finalData = funnelSchema.parse(formData);
       
-      // Appel de la fonction Edge Supabase
-      const { data, error } = await supabase.functions.invoke('send-quote-email', {
-        body: finalData,
+      // Envoi via Formspree (avec rate limiting intégré)
+      const response = await fetch('https://formspree.io/f/mwpzrqyl', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(finalData),
       });
 
-      if (error) {
-        throw error;
-      }
-      
-      // Vérification du statut de la réponse
-      if (data && data.status === 'error') {
-         throw new Error(data.message || "L'envoi de l'e-mail a échoué.");
+      if (!response.ok) {
+        throw new Error("L'envoi de l'e-mail a échoué.");
       }
 
       toast({

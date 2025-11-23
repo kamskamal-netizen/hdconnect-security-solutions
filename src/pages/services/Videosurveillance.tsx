@@ -10,32 +10,32 @@ const Videosurveillance = () => {
     {
       icon: Camera,
       title: "Caméras HD et 4K",
-      description: "Installation de caméras haute définition pour une surveillance optimale de vos locaux"
+      description: "Installation de caméras haute définition pour une surveillance optimale de vos locaux avec une résolution exceptionnelle"
     },
     {
       icon: Eye,
-      title: "Vision nocturne",
-      description: "Surveillance 24h/24 grâce à la vision infrarouge avancée"
+      title: "Vision nocturne avancée",
+      description: "Surveillance 24h/24 grâce à la vision infrarouge jusqu'à 30 mètres, même dans l'obscurité totale"
     },
     {
       icon: Smartphone,
-      title: "Accès mobile",
-      description: "Visualisez vos caméras en temps réel depuis votre smartphone ou tablette"
+      title: "Accès mobile sécurisé",
+      description: "Visualisez vos caméras en temps réel depuis votre smartphone, tablette ou ordinateur partout dans le monde"
     },
     {
       icon: Cloud,
-      title: "Stockage sécurisé",
-      description: "Enregistrement continu avec stockage local et cloud sécurisé"
+      title: "Stockage hybride sécurisé",
+      description: "Enregistrement continu avec stockage local (NVR) et cloud sécurisé pour une double protection de vos données"
     },
     {
       icon: Shield,
-      title: "Détection intelligente",
-      description: "Analyse vidéo avec détection de mouvement et alertes instantanées"
+      title: "Analyse vidéo intelligente",
+      description: "Détection de mouvement avancée, reconnaissance faciale, comptage de personnes et alertes intelligentes en temps réel"
     },
     {
       icon: Clock,
-      title: "Enregistrement continu",
-      description: "Archivage automatique avec historique consultable à tout moment"
+      title: "Enregistrement continu H24",
+      description: "Archivage automatique de 30 à 90 jours avec historique consultable à tout moment et fonction de recherche rapide"
     }
   ];
 
@@ -52,7 +52,7 @@ const Videosurveillance = () => {
                   Vidéosurveillance IP Professionnelle
                 </h1>
                 <p className="text-xl text-muted-foreground mb-8">
-                  Installation de caméras HD et 4K avec enregistrement continu et accès à distance pour une sécurité optimale de vos locaux
+                  Installation de caméras HD et 4K avec enregistrement continu et accès à distance pour une sécurité optimale de vos locaux. Solutions professionnelles adaptées aux particuliers, commerces et entreprises avec garantie 3 ans.
                 </p>
                 <Link to="/#quote">
                   <Button size="lg" className="mr-4">
@@ -155,13 +155,63 @@ const Videosurveillance = () => {
               Prêt à sécuriser vos locaux ?
             </h2>
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Contactez-nous pour une étude personnalisée et un devis gratuit
+              Contactez-nous pour une étude personnalisée et un devis gratuit sous 24h
             </p>
             <Link to="/#quote">
               <Button size="lg">
                 Demander un devis gratuit
               </Button>
             </Link>
+          </div>
+        </section>
+
+        {/* Technologies & Garanties */}
+        <section className="py-20 bg-secondary/30">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">
+              Technologies & Garanties
+            </h2>
+            <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+              <div className="text-center">
+                <h3 className="text-xl font-bold mb-3">Marques Premium</h3>
+                <p className="text-muted-foreground">Hikvision, Dahua, Axis, Hanwha - Leaders mondiaux en vidéosurveillance</p>
+              </div>
+              <div className="text-center">
+                <h3 className="text-xl font-bold mb-3">Certification NF</h3>
+                <p className="text-muted-foreground">Installateurs certifiés et conformes aux normes françaises et européennes</p>
+              </div>
+              <div className="text-center">
+                <h3 className="text-xl font-bold mb-3">Garantie 3 ans</h3>
+                <p className="text-muted-foreground">Garantie constructeur + installation avec maintenance préventive incluse</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section className="py-20">
+          <div className="container mx-auto px-4 max-w-3xl">
+            <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">
+              Questions Fréquentes
+            </h2>
+            <div className="space-y-6">
+              <div className="p-6 rounded-lg bg-card border">
+                <h3 className="text-lg font-bold mb-2">Combien de caméras faut-il pour mon local ?</h3>
+                <p className="text-muted-foreground">Cela dépend de la surface et des zones à surveiller. Pour une maison de 100m², 3-4 caméras suffisent généralement. Pour un commerce, nous recommandons une étude sur site gratuite.</p>
+              </div>
+              <div className="p-6 rounded-lg bg-card border">
+                <h3 className="text-lg font-bold mb-2">Puis-je consulter mes caméras depuis l'étranger ?</h3>
+                <p className="text-muted-foreground">Oui, nos systèmes permettent un accès sécurisé depuis n'importe où dans le monde via application mobile ou navigateur web.</p>
+              </div>
+              <div className="p-6 rounded-lg bg-card border">
+                <h3 className="text-lg font-bold mb-2">Combien de temps sont conservées les images ?</h3>
+                <p className="text-muted-foreground">De 30 à 90 jours selon la capacité de stockage choisie. Nous dimensionnons le système selon vos besoins légaux et pratiques.</p>
+              </div>
+              <div className="p-6 rounded-lg bg-card border">
+                <h3 className="text-lg font-bold mb-2">Le système fonctionne-t-il en cas de coupure internet ?</h3>
+                <p className="text-muted-foreground">Oui, l'enregistrement continue en local. Vous retrouverez les notifications une fois la connexion rétablie.</p>
+              </div>
+            </div>
           </div>
         </section>
       </main>

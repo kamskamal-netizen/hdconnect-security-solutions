@@ -8,33 +8,33 @@ const Domotique = () => {
   const features = [
     {
       icon: Smartphone,
-      title: "Contrôle centralisé",
-      description: "Pilotez tous vos équipements depuis une interface unique"
+      title: "Contrôle centralisé universel",
+      description: "Pilotez tous vos équipements depuis une interface unique compatible Google Home, Alexa et Apple HomeKit"
     },
     {
       icon: Zap,
-      title: "Automatisation intelligente",
-      description: "Scénarios personnalisés pour automatiser votre quotidien"
+      title: "Automatisation intelligente IA",
+      description: "Scénarios personnalisés auto-apprenants pour automatiser votre quotidien et économiser jusqu'à 30% d'énergie"
     },
     {
       icon: Sun,
-      title: "Gestion éclairage",
-      description: "Contrôle intelligent de l'éclairage intérieur et extérieur"
+      title: "Gestion éclairage avancée",
+      description: "Contrôle intelligent RGB + blanc variable avec détection de présence et adaptation automatique à la luminosité"
     },
     {
       icon: Thermometer,
-      title: "Contrôle climatique",
-      description: "Optimisation du chauffage et de la climatisation"
+      title: "Contrôle climatique optimisé",
+      description: "Optimisation chauffage/climatisation par zone avec apprentissage de vos habitudes et météo connectée"
     },
     {
       icon: Home,
-      title: "Sécurité intégrée",
-      description: "Synchronisation avec alarme, caméras et accès"
+      title: "Sécurité intégrée complète",
+      description: "Synchronisation totale avec alarme, caméras, accès et simulation de présence pendant vos absences"
     },
     {
       icon: Monitor,
-      title: "Compatible tous systèmes",
-      description: "Intégration avec les principales marques du marché"
+      title: "Compatible tous protocoles",
+      description: "Intégration KNX, Z-Wave, Zigbee, Matter - Toutes les marques du marché avec évolutivité garantie"
     }
   ];
 
@@ -50,7 +50,7 @@ const Domotique = () => {
                 Solutions Domotique Intelligentes
               </h1>
               <p className="text-xl text-muted-foreground mb-8">
-                Intégration de systèmes domotiques pour une sécurité et un confort intelligents
+                Intégration de systèmes domotiques pour une sécurité et un confort intelligents. De la maison connectée simple au Building Management System (BMS) industriel avec économies d'énergie garanties.
               </p>
               <Link to="/#quote">
                 <Button size="lg" className="mr-4">
@@ -149,13 +149,63 @@ const Domotique = () => {
               Transformez votre habitat en maison intelligente
             </h2>
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Découvrez le confort et la sécurité d'une installation domotique professionnelle
+              Découvrez le confort et la sécurité d'une installation domotique professionnelle avec démonstration à domicile
             </p>
             <Link to="/#quote">
               <Button size="lg">
                 Demander un devis gratuit
               </Button>
             </Link>
+          </div>
+        </section>
+
+        {/* Protocoles & Économies */}
+        <section className="py-20 bg-secondary/30">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">
+              Protocoles & Économies d'Énergie
+            </h2>
+            <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+              <div className="text-center">
+                <h3 className="text-xl font-bold mb-3">Multi-protocoles</h3>
+                <p className="text-muted-foreground">KNX, Z-Wave, Zigbee, Matter - Compatible avec 1000+ marques et évolutif</p>
+              </div>
+              <div className="text-center">
+                <h3 className="text-xl font-bold mb-3">Économies 20-35%</h3>
+                <p className="text-muted-foreground">Réduction garantie de vos factures énergétiques avec ROI en 2-4 ans selon usage</p>
+              </div>
+              <div className="text-center">
+                <h3 className="text-xl font-bold mb-3">Contrôle vocal</h3>
+                <p className="text-muted-foreground">Compatible Alexa, Google Assistant, Siri pour un contrôle mains-libres naturel</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section className="py-20">
+          <div className="container mx-auto px-4 max-w-3xl">
+            <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">
+              Questions Fréquentes
+            </h2>
+            <div className="space-y-6">
+              <div className="p-6 rounded-lg bg-card border">
+                <h3 className="text-lg font-bold mb-2">Puis-je installer la domotique dans une maison existante ?</h3>
+                <p className="text-muted-foreground">Oui, avec des solutions sans fil (Z-Wave, Zigbee) l'installation se fait sans travaux majeurs. Pour du neuf, nous recommandons du KNX filaire plus robuste.</p>
+              </div>
+              <div className="p-6 rounded-lg bg-card border">
+                <h3 className="text-lg font-bold mb-2">Mes données sont-elles sécurisées ?</h3>
+                <p className="text-muted-foreground">Oui, nous privilégions les solutions avec contrôle local (pas de cloud obligatoire) et chiffrement bout-en-bout. Vos données restent chez vous.</p>
+              </div>
+              <div className="p-6 rounded-lg bg-card border">
+                <h3 className="text-lg font-bold mb-2">Que se passe-t-il en cas de panne internet ou électrique ?</h3>
+                <p className="text-muted-foreground">Les automatisations locales continuent de fonctionner. Seul l'accès à distance est temporairement indisponible. Possibilité d'onduleur pour maintien total.</p>
+              </div>
+              <div className="p-6 rounded-lg bg-card border">
+                <h3 className="text-lg font-bold mb-2">Combien de temps faut-il pour l'installation ?</h3>
+                <p className="text-muted-foreground">Pour une maison de 100m², comptez 2-3 jours pour une installation complète avec formation incluse. Mise en service progressive possible.</p>
+              </div>
+            </div>
           </div>
         </section>
       </main>

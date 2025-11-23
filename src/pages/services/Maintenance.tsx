@@ -8,33 +8,33 @@ const Maintenance = () => {
   const features = [
     {
       icon: Clock,
-      title: "Support 24/7",
-      description: "Assistance technique disponible à tout moment pour vos urgences"
+      title: "Support 24/7 prioritaire",
+      description: "Assistance technique disponible à tout moment pour vos urgences avec hotline dédiée et intervention sous 4h en Île-de-France"
     },
     {
       icon: PhoneCall,
-      title: "Interventions rapides",
-      description: "Délai d'intervention garanti pour maintenir votre sécurité"
+      title: "Interventions rapides garanties",
+      description: "Délai d'intervention garanti sous contrat (4h, 8h ou 24h) pour maintenir votre sécurité opérationnelle"
     },
     {
       icon: CheckCircle,
-      title: "Maintenance préventive",
-      description: "Contrôles réguliers pour prévenir les pannes et dysfonctionnements"
+      title: "Maintenance préventive planifiée",
+      description: "Contrôles réguliers semestriels ou annuels pour prévenir les pannes avec checklist exhaustive et rapport détaillé"
     },
     {
       icon: TrendingUp,
-      title: "Mises à jour systèmes",
-      description: "Installation des dernières mises à jour logicielles et firmware"
+      title: "Mises à jour logicielles incluses",
+      description: "Installation des dernières mises à jour firmware, patches de sécurité et nouvelles fonctionnalités incluses"
     },
     {
       icon: Shield,
-      title: "Contrats personnalisés",
-      description: "Formules adaptées à vos besoins et à votre budget"
+      title: "Contrats sur mesure évolutifs",
+      description: "Formules flexibles adaptées à vos besoins et budget avec extension de garantie jusqu'à 5 ans"
     },
     {
       icon: Wrench,
-      title: "Réparations garanties",
-      description: "Pièces détachées d'origine et travaux garantis"
+      title: "Réparations et pièces garanties",
+      description: "Pièces détachées d'origine en stock et travaux garantis avec main d'œuvre incluse selon contrat"
     }
   ];
 
@@ -50,7 +50,7 @@ const Maintenance = () => {
                 Maintenance & Support Technique
               </h1>
               <p className="text-xl text-muted-foreground mb-8">
-                Service de maintenance préventive et support technique réactif pour tous vos équipements de sécurité
+                Service de maintenance préventive et support technique réactif pour tous vos équipements de sécurité. Contrats adaptés aux particuliers, PME et grandes entreprises avec intervention garantie.
               </p>
               <Link to="/#quote">
                 <Button size="lg" className="mr-4">
@@ -187,13 +187,63 @@ const Maintenance = () => {
               Assurez la pérennité de vos installations
             </h2>
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Souscrivez à un contrat de maintenance adapté à vos besoins
+              Souscrivez à un contrat de maintenance adapté à vos besoins avec premier mois offert
             </p>
             <Link to="/#quote">
               <Button size="lg">
                 Demander un devis gratuit
               </Button>
             </Link>
+          </div>
+        </section>
+
+        {/* Avantages maintenance */}
+        <section className="py-20 bg-secondary/30">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">
+              Pourquoi un contrat de maintenance ?
+            </h2>
+            <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+              <div className="text-center">
+                <h3 className="text-xl font-bold mb-3">Conformité assurance</h3>
+                <p className="text-muted-foreground">Maintenance obligatoire pour validité garantie et prise en charge par l'assurance</p>
+              </div>
+              <div className="text-center">
+                <h3 className="text-xl font-bold mb-3">Durée de vie +40%</h3>
+                <p className="text-muted-foreground">Prolongez la durée de vie de vos équipements et évitez les pannes coûteuses</p>
+              </div>
+              <div className="text-center">
+                <h3 className="text-xl font-bold mb-3">Tarifs préférentiels</h3>
+                <p className="text-muted-foreground">Économisez jusqu'à 30% sur les interventions et pièces avec contrat annuel</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section className="py-20">
+          <div className="container mx-auto px-4 max-w-3xl">
+            <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">
+              Questions Fréquentes
+            </h2>
+            <div className="space-y-6">
+              <div className="p-6 rounded-lg bg-card border">
+                <h3 className="text-lg font-bold mb-2">La maintenance est-elle obligatoire ?</h3>
+                <p className="text-muted-foreground">Pour les ERP et certaines installations professionnelles, oui. Pour les particuliers, fortement recommandée pour la garantie et performance optimale.</p>
+              </div>
+              <div className="p-6 rounded-lg bg-card border">
+                <h3 className="text-lg font-bold mb-2">Que comprend une visite de maintenance préventive ?</h3>
+                <p className="text-muted-foreground">Test complet de tous les équipements, nettoyage, vérification connexions, mise à jour logiciels, test batterie de secours et rapport détaillé avec photos.</p>
+              </div>
+              <div className="p-6 rounded-lg bg-card border">
+                <h3 className="text-lg font-bold mb-2">Puis-je souscrire pour une installation existante ?</h3>
+                <p className="text-muted-foreground">Oui, après un audit technique initial (gratuit) pour évaluer l'état et définir le contrat adapté. Compatible toutes marques.</p>
+              </div>
+              <div className="p-6 rounded-lg bg-card border">
+                <h3 className="text-lg font-bold mb-2">Que se passe-t-il en cas de panne hors heures ouvrées ?</h3>
+                <p className="text-muted-foreground">Les contrats Premium et Enterprise incluent astreinte 24/7 avec intervention sous 4h même nuits et week-ends en Île-de-France.</p>
+              </div>
+            </div>
           </div>
         </section>
       </main>
