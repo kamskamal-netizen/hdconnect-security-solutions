@@ -54,7 +54,7 @@ const Header = () => {
                 <span className="font-semibold text-sm">+33 1 83 64 36 40</span>
               </a>
             </div>
-            <Button onClick={() => scrollToSection("contact")} className="bg-gradient-to-r from-primary to-accent hover:opacity-90">
+            <Button onClick={() => scrollToSection("quote")} className="bg-gradient-to-r from-primary to-accent hover:opacity-90">
               Devis Gratuit
             </Button>
           </div>
@@ -87,7 +87,7 @@ const Header = () => {
                 <Phone className="w-5 h-5" />
                 <span className="font-semibold">+33 1 83 64 36 40</span>
               </a>
-              <Button onClick={() => scrollToSection("contact")} className="bg-gradient-to-r from-primary to-accent hover:opacity-90">
+              <Button onClick={() => scrollToSection("quote")} className="bg-gradient-to-r from-primary to-accent hover:opacity-90">
                 Devis Gratuit
               </Button>
             </nav>
