@@ -35,11 +35,8 @@ const Hero = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 mb-12">
-            <Button onClick={() => scrollToSection("contact")} size="lg" className="bg-gradient-to-r from-primary to-accent hover:opacity-90 text-lg h-14 px-8">
+            <Button onClick={() => scrollToSection("quote")} size="lg" className="bg-gradient-to-r from-primary to-accent hover:opacity-90 text-lg h-14 px-8">
               Demander un Devis Gratuit
-            </Button>
-            <Button onClick={() => scrollToSection("services")} size="lg" variant="outline" className="text-lg h-14 px-8 border-2">
-              Découvrir nos Services
             </Button>
           </div>
 
