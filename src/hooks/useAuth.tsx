@@ -9,46 +9,66 @@ export const useAuth = () => {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
+    let mounted = true;
+
     // Set up auth state listener FIRST
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
+      async (event, session) => {
+        if (!mounted) return;
+        
+        setLoading(true);
         setSession(session);
         setUser(session?.user ?? null);
         
-        // Check admin role after state update
+        // Check admin role synchronously
         if (session?.user) {
-          setTimeout(() => {
-            checkAdminRole(session.user.id);
-          }, 0);
+          const { data } = await supabase
+            .from('user_roles')
+            .select('role')
+            .eq('user_id', session.user.id)
+            .eq('role', 'admin')
+            .maybeSingle();
+          
+          if (mounted) {
+            setIsAdmin(!!data);
+            setLoading(false);
+          }
         } else {
           setIsAdmin(false);
+          setLoading(false);
         }
       }
     );
 
     // THEN check for existing session
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
+      if (!mounted) return;
+      
       setSession(session);
       setUser(session?.user ?? null);
+      
       if (session?.user) {
-        checkAdminRole(session.user.id);
+        const { data } = await supabase
+          .from('user_roles')
+          .select('role')
+          .eq('user_id', session.user.id)
+          .eq('role', 'admin')
+          .maybeSingle();
+        
+        if (mounted) {
+          setIsAdmin(!!data);
+          setLoading(false);
+        }
+      } else {
+        setLoading(false);
       }
-      setLoading(false);
     });
 
-    return () => subscription.unsubscribe();
+    return () => {
+      mounted = false;
+      subscription.unsubscribe();
+    };
   }, []);
-
-  const checkAdminRole = async (userId: string) => {
-    const { data } = await supabase
-      .from('user_roles')
-      .select('role')
-      .eq('user_id', userId)
-      .eq('role', 'admin')
-      .maybeSingle();
-    
-    setIsAdmin(!!data);
-  };
 
   const signIn = async (email: string, password: string) => {
     const { error } = await supabase.auth.signInWithPassword({
