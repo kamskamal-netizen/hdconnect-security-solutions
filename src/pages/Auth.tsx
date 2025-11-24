@@ -20,13 +20,14 @@ const Auth = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
-  const { signIn, user, isAdmin } = useAuth();
+  const { signIn, user, isAdmin, loading } = useAuth();
 
   useEffect(() => {
-    if (user && isAdmin) {
+    // Only redirect when loading is complete and user is admin
+    if (!loading && user && isAdmin) {
       navigate('/admin');
     }
-  }, [user, isAdmin, navigate]);
+  }, [user, isAdmin, loading, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
