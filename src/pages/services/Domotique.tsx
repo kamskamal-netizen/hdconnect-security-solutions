@@ -52,13 +52,23 @@ const Domotique = () => {
               <p className="text-xl text-muted-foreground mb-8">
                 Intégration de systèmes domotiques pour une sécurité et un confort intelligents. De la maison connectée simple au Building Management System (BMS) industriel avec économies d'énergie garanties.
               </p>
-              <Link to="/#quote">
-                <Button size="lg" className="mr-4">
+              <Link to="/">
+                <Button size="lg" className="mr-4" onClick={() => {
+                  setTimeout(() => {
+                    const element = document.getElementById("quote");
+                    if (element) element.scrollIntoView({ behavior: "smooth" });
+                  }, 100);
+                }}>
                   Demander un devis
                 </Button>
               </Link>
-              <Link to="/#contact">
-                <Button size="lg" variant="outline">
+              <Link to="/">
+                <Button size="lg" variant="outline" onClick={() => {
+                  setTimeout(() => {
+                    const element = document.getElementById("contact");
+                    if (element) element.scrollIntoView({ behavior: "smooth" });
+                  }, 100);
+                }}>
                   Nous contacter
                 </Button>
               </Link>
@@ -151,8 +161,13 @@ const Domotique = () => {
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
               Découvrez le confort et la sécurité d'une installation domotique professionnelle avec démonstration à domicile
             </p>
-            <Link to="/#quote">
-              <Button size="lg">
+            <Link to="/">
+              <Button size="lg" onClick={() => {
+                setTimeout(() => {
+                  const element = document.getElementById("quote");
+                  if (element) element.scrollIntoView({ behavior: "smooth" });
+                }, 100);
+              }}>
                 Demander un devis gratuit
               </Button>
             </Link>

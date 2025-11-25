@@ -54,13 +54,23 @@ const Alarme = () => {
                 <p className="text-xl text-muted-foreground mb-8">
                   Alarmes connectées avec détection intelligente pour protéger vos locaux contre les intrusions. Systèmes sans fil ou filaires certifiés NF&A2P avec télésurveillance optionnelle 24/7.
                 </p>
-                <Link to="/#quote">
-                  <Button size="lg" className="mr-4">
+                <Link to="/">
+                  <Button size="lg" className="mr-4" onClick={() => {
+                    setTimeout(() => {
+                      const element = document.getElementById("quote");
+                      if (element) element.scrollIntoView({ behavior: "smooth" });
+                    }, 100);
+                  }}>
                     Demander un devis
                   </Button>
                 </Link>
-                <Link to="/#contact">
-                  <Button size="lg" variant="outline">
+                <Link to="/">
+                  <Button size="lg" variant="outline" onClick={() => {
+                    setTimeout(() => {
+                      const element = document.getElementById("contact");
+                      if (element) element.scrollIntoView({ behavior: "smooth" });
+                    }, 100);
+                  }}>
                     Nous contacter
                   </Button>
                 </Link>
@@ -157,8 +167,13 @@ const Alarme = () => {
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
               Demandez une évaluation gratuite de vos besoins en sécurité avec visite sur site
             </p>
-            <Link to="/#quote">
-              <Button size="lg">
+            <Link to="/">
+              <Button size="lg" onClick={() => {
+                setTimeout(() => {
+                  const element = document.getElementById("quote");
+                  if (element) element.scrollIntoView({ behavior: "smooth" });
+                }, 100);
+              }}>
                 Demander un devis gratuit
               </Button>
             </Link>

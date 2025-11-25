@@ -54,13 +54,23 @@ const ControleAcces = () => {
                 <p className="text-xl text-muted-foreground mb-8">
                   Systèmes de contrôle d'accès par badge, code ou biométrie pour sécuriser vos locaux. Solutions évolutives de la serrure connectée au système multi-sites avec gestion de la pointeuse horaire.
                 </p>
-                <Link to="/#quote">
-                  <Button size="lg" className="mr-4">
+                <Link to="/">
+                  <Button size="lg" className="mr-4" onClick={() => {
+                    setTimeout(() => {
+                      const element = document.getElementById("quote");
+                      if (element) element.scrollIntoView({ behavior: "smooth" });
+                    }, 100);
+                  }}>
                     Demander un devis
                   </Button>
                 </Link>
-                <Link to="/#contact">
-                  <Button size="lg" variant="outline">
+                <Link to="/">
+                  <Button size="lg" variant="outline" onClick={() => {
+                    setTimeout(() => {
+                      const element = document.getElementById("contact");
+                      if (element) element.scrollIntoView({ behavior: "smooth" });
+                    }, 100);
+                  }}>
                     Nous contacter
                   </Button>
                 </Link>
@@ -157,8 +167,13 @@ const ControleAcces = () => {
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
               Découvrez nos solutions de contrôle d'accès adaptées à vos besoins avec démonstration gratuite
             </p>
-            <Link to="/#quote">
-              <Button size="lg">
+            <Link to="/">
+              <Button size="lg" onClick={() => {
+                setTimeout(() => {
+                  const element = document.getElementById("quote");
+                  if (element) element.scrollIntoView({ behavior: "smooth" });
+                }, 100);
+              }}>
                 Demander un devis gratuit
               </Button>
             </Link>

@@ -54,13 +54,23 @@ const Videosurveillance = () => {
                 <p className="text-xl text-muted-foreground mb-8">
                   Installation de caméras HD et 4K avec enregistrement continu et accès à distance pour une sécurité optimale de vos locaux. Solutions professionnelles adaptées aux particuliers, commerces et entreprises avec garantie 3 ans.
                 </p>
-                <Link to="/#quote">
-                  <Button size="lg" className="mr-4">
+                <Link to="/">
+                  <Button size="lg" className="mr-4" onClick={() => {
+                    setTimeout(() => {
+                      const element = document.getElementById("quote");
+                      if (element) element.scrollIntoView({ behavior: "smooth" });
+                    }, 100);
+                  }}>
                     Demander un devis
                   </Button>
                 </Link>
-                <Link to="/#contact">
-                  <Button size="lg" variant="outline">
+                <Link to="/">
+                  <Button size="lg" variant="outline" onClick={() => {
+                    setTimeout(() => {
+                      const element = document.getElementById("contact");
+                      if (element) element.scrollIntoView({ behavior: "smooth" });
+                    }, 100);
+                  }}>
                     Nous contacter
                   </Button>
                 </Link>
@@ -157,8 +167,13 @@ const Videosurveillance = () => {
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
               Contactez-nous pour une étude personnalisée et un devis gratuit sous 24h
             </p>
-            <Link to="/#quote">
-              <Button size="lg">
+            <Link to="/">
+              <Button size="lg" onClick={() => {
+                setTimeout(() => {
+                  const element = document.getElementById("quote");
+                  if (element) element.scrollIntoView({ behavior: "smooth" });
+                }, 100);
+              }}>
                 Demander un devis gratuit
               </Button>
             </Link>
