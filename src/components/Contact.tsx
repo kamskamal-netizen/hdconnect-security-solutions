@@ -90,10 +90,10 @@ const Contact = () => {
     <section id="contact" className="py-24 bg-secondary/30">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 text-center">
             Contactez-nous
           </h2>
-          <p className="text-xl text-muted-foreground">
+          <p className="text-xl text-muted-foreground text-center">
             Une question ? Un projet ? N'hésitez pas à nous contacter pour un devis gratuit
           </p>
         </div>

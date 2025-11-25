@@ -351,6 +351,7 @@ const QuoteFunnelSimple = () => {
                 Demande de Devis
               </Button>
               <Button 
+                data-intervention-btn
                 variant={requestType === 'intervention' ? 'default' : 'outline'}
                 onClick={() => setRequestType('intervention')}
               >

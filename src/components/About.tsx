@@ -14,10 +14,10 @@ const About = () => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-center md:text-left">
               Votre partenaire de confiance en sécurité
             </h2>
-            <div className="space-y-4 text-muted-foreground text-lg">
+            <div className="space-y-4 text-muted-foreground text-lg text-center md:text-left">
               <p>
                 <span className="text-primary font-semibold">HD Connect</span> est une entreprise spécialisée dans
                 l'installation et la maintenance de systèmes de sécurité professionnels depuis plus de 10 ans.
