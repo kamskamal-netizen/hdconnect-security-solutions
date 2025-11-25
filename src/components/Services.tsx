@@ -59,10 +59,10 @@ const Services = () => {
     <section id="services" className="py-24 bg-secondary/30">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 text-center">
             Nos Services de Sécurité
           </h2>
-          <p className="text-xl text-muted-foreground">
+          <p className="text-xl text-muted-foreground text-center">
             Des solutions complètes pour protéger vos locaux professionnels et résidentiels
           </p>
         </div>

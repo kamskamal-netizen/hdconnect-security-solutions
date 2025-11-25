@@ -24,12 +24,12 @@ const Hero = () => {
             <span className="text-sm font-semibold text-primary">Expert en Sécurité depuis 10 ans</span>
           </div>
 
-          <h1 className="text-5xl md:text-7xl font-bold text-foreground mb-6 leading-tight">
+          <h1 className="text-5xl md:text-7xl font-bold text-foreground mb-6 leading-tight text-center md:text-left">
             Protégez ce qui compte
             <span className="block text-primary">avec HD Connect</span>
           </h1>
 
-          <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
+          <p className="text-xl text-muted-foreground mb-8 leading-relaxed text-center md:text-left">
             Installation et maintenance de systèmes de sécurité professionnels : caméras de surveillance, alarmes,
             contrôle d'accès et bien plus encore.
           </p>
@@ -37,6 +37,20 @@ const Hero = () => {
           <div className="flex flex-col sm:flex-row gap-4 mb-12">
             <Button onClick={() => scrollToSection("quote")} size="lg" className="bg-gradient-to-r from-primary to-accent hover:opacity-90 text-lg h-14 px-8">
               Demander un Devis Gratuit
+            </Button>
+            <Button 
+              onClick={() => {
+                scrollToSection("quote");
+                setTimeout(() => {
+                  const interventionBtn = document.querySelector('[data-intervention-btn]') as HTMLButtonElement;
+                  interventionBtn?.click();
+                }, 300);
+              }} 
+              size="lg" 
+              variant="outline"
+              className="text-lg h-14 px-8 border-2 border-accent text-accent hover:bg-accent hover:text-accent-foreground"
+            >
+              Dépannage
             </Button>
           </div>
 
