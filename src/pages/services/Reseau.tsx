@@ -52,13 +52,23 @@ const Reseau = () => {
               <p className="text-xl text-muted-foreground mb-8">
                 Installation de réseaux sécurisés pour vos équipements connectés professionnels et résidentiels. Du WiFi mesh domestique aux infrastructures d'entreprise avec fibre optique et supervision.
               </p>
-              <Link to="/#quote">
-                <Button size="lg" className="mr-4">
+              <Link to="/">
+                <Button size="lg" className="mr-4" onClick={() => {
+                  setTimeout(() => {
+                    const element = document.getElementById("quote");
+                    if (element) element.scrollIntoView({ behavior: "smooth" });
+                  }, 100);
+                }}>
                   Demander un devis
                 </Button>
               </Link>
-              <Link to="/#contact">
-                <Button size="lg" variant="outline">
+              <Link to="/">
+                <Button size="lg" variant="outline" onClick={() => {
+                  setTimeout(() => {
+                    const element = document.getElementById("contact");
+                    if (element) element.scrollIntoView({ behavior: "smooth" });
+                  }, 100);
+                }}>
                   Nous contacter
                 </Button>
               </Link>
@@ -151,8 +161,13 @@ const Reseau = () => {
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
               Bénéficiez d'un réseau performant et sécurisé adapté à vos besoins avec audit gratuit
             </p>
-            <Link to="/#quote">
-              <Button size="lg">
+            <Link to="/">
+              <Button size="lg" onClick={() => {
+                setTimeout(() => {
+                  const element = document.getElementById("quote");
+                  if (element) element.scrollIntoView({ behavior: "smooth" });
+                }, 100);
+              }}>
                 Demander un devis gratuit
               </Button>
             </Link>

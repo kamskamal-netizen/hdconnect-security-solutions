@@ -52,13 +52,23 @@ const Maintenance = () => {
               <p className="text-xl text-muted-foreground mb-8">
                 Service de maintenance préventive et support technique réactif pour tous vos équipements de sécurité. Contrats adaptés aux particuliers, PME et grandes entreprises avec intervention garantie.
               </p>
-              <Link to="/#quote">
-                <Button size="lg" className="mr-4">
+              <Link to="/">
+                <Button size="lg" className="mr-4" onClick={() => {
+                  setTimeout(() => {
+                    const element = document.getElementById("quote");
+                    if (element) element.scrollIntoView({ behavior: "smooth" });
+                  }, 100);
+                }}>
                   Demander un devis
                 </Button>
               </Link>
-              <Link to="/#contact">
-                <Button size="lg" variant="outline">
+              <Link to="/">
+                <Button size="lg" variant="outline" onClick={() => {
+                  setTimeout(() => {
+                    const element = document.getElementById("contact");
+                    if (element) element.scrollIntoView({ behavior: "smooth" });
+                  }, 100);
+                }}>
                   Nous contacter
                 </Button>
               </Link>
@@ -117,8 +127,13 @@ const Maintenance = () => {
                     <span>Tarif préférentiel dépannage</span>
                   </li>
                 </ul>
-                <Link to="/#quote">
-                  <Button variant="outline" className="w-full">Choisir</Button>
+                <Link to="/">
+                  <Button variant="outline" className="w-full" onClick={() => {
+                    setTimeout(() => {
+                      const element = document.getElementById("quote");
+                      if (element) element.scrollIntoView({ behavior: "smooth" });
+                    }, 100);
+                  }}>Choisir</Button>
                 </Link>
               </div>
 
@@ -146,8 +161,13 @@ const Maintenance = () => {
                     <span>Pièces de rechange prioritaires</span>
                   </li>
                 </ul>
-                <Link to="/#quote">
-                  <Button className="w-full">Choisir</Button>
+                <Link to="/">
+                  <Button className="w-full" onClick={() => {
+                    setTimeout(() => {
+                      const element = document.getElementById("quote");
+                      if (element) element.scrollIntoView({ behavior: "smooth" });
+                    }, 100);
+                  }}>Choisir</Button>
                 </Link>
               </div>
 
@@ -172,8 +192,13 @@ const Maintenance = () => {
                     <span>Reporting et audits réguliers</span>
                   </li>
                 </ul>
-                <Link to="/#quote">
-                  <Button variant="outline" className="w-full">Nous contacter</Button>
+                <Link to="/">
+                  <Button variant="outline" className="w-full" onClick={() => {
+                    setTimeout(() => {
+                      const element = document.getElementById("quote");
+                      if (element) element.scrollIntoView({ behavior: "smooth" });
+                    }, 100);
+                  }}>Nous contacter</Button>
                 </Link>
               </div>
             </div>
@@ -189,8 +214,13 @@ const Maintenance = () => {
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
               Souscrivez à un contrat de maintenance adapté à vos besoins avec premier mois offert
             </p>
-            <Link to="/#quote">
-              <Button size="lg">
+            <Link to="/">
+              <Button size="lg" onClick={() => {
+                setTimeout(() => {
+                  const element = document.getElementById("quote");
+                  if (element) element.scrollIntoView({ behavior: "smooth" });
+                }, 100);
+              }}>
                 Demander un devis gratuit
               </Button>
             </Link>

@@ -3,10 +3,22 @@ import { Shield, CheckCircle } from "lucide-react";
 import heroImage from "@/assets/hero-security.jpg";
 
 const Hero = () => {
-  const scrollToSection = (id: string) => {
+  const scrollToSection = (id: string, mode?: 'devis' | 'intervention') => {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
+      
+      // Activer le mode approprié après le scroll
+      if (id === "quote" && mode) {
+        setTimeout(() => {
+          const targetBtn = document.querySelector(
+            mode === 'intervention' ? '[data-intervention-btn]' : '[data-quote-btn]'
+          ) as HTMLButtonElement;
+          if (targetBtn) {
+            targetBtn.click();
+          }
+        }, 500);
+      }
     }
   };
 
@@ -35,17 +47,15 @@ const Hero = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 mb-12">
-            <Button onClick={() => scrollToSection("quote")} size="lg" className="bg-gradient-to-r from-primary to-accent hover:opacity-90 text-lg h-14 px-8">
+            <Button 
+              onClick={() => scrollToSection("quote", "devis")} 
+              size="lg" 
+              className="bg-gradient-to-r from-primary to-accent hover:opacity-90 text-lg h-14 px-8"
+            >
               Demander un Devis Gratuit
             </Button>
             <Button 
-              onClick={() => {
-                scrollToSection("quote");
-                setTimeout(() => {
-                  const interventionBtn = document.querySelector('[data-intervention-btn]') as HTMLButtonElement;
-                  interventionBtn?.click();
-                }, 300);
-              }} 
+              onClick={() => scrollToSection("quote", "intervention")} 
               size="lg" 
               variant="outline"
               className="text-lg h-14 px-8 border-2 border-accent text-accent hover:bg-accent hover:text-accent-foreground"

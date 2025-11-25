@@ -345,6 +345,7 @@ const QuoteFunnelSimple = () => {
           <CardContent>
             <div className="flex items-center justify-center space-x-4 mb-6">
               <Button 
+                data-quote-btn
                 variant={requestType === 'quote' ? 'default' : 'outline'}
                 onClick={() => setRequestType('quote')}
               >
