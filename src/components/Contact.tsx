@@ -36,20 +36,35 @@ const Contact = () => {
       // Validate form data
       const validatedData = contactSchema.parse(formData);
       
-      // Envoi via Formspree
-      const response = await fetch('https://formspree.io/f/mwpzrqyl', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          requestType,
-          ...validatedData,
-        }),
+      // Envoi vers Supabase
+      const { supabase } = await import("@/integrations/supabase/client");
+      
+      const { error: insertError } = await supabase
+        .from('customer_requests')
+        .insert({
+          request_type: requestType,
+          name: validatedData.name,
+          email: validatedData.email,
+          phone: validatedData.phone,
+          message: validatedData.message,
+          status: 'new'
+        });
+
+      if (insertError) throw insertError;
+
+      // Envoi de l'email via edge function
+      const { error: emailError } = await supabase.functions.invoke('send-quote-email', {
+        body: {
+          requestType: 'contact',
+          name: validatedData.name,
+          email: validatedData.email,
+          phone: validatedData.phone,
+          message: validatedData.message
+        }
       });
 
-      if (!response.ok) {
-        throw new Error("L'envoi de l'e-mail a échoué.");
+      if (emailError) {
+        console.error('Erreur envoi email:', emailError);
       }
 
       toast({

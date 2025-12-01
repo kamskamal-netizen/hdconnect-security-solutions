@@ -47,11 +47,11 @@ const Videosurveillance = () => {
         <section className="relative py-20 bg-gradient-to-br from-primary/10 to-accent/10">
           <div className="container mx-auto px-4">
             <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div>
-                <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+              <div className="text-center md:text-left">
+                <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-center md:text-left">
                   Vidéosurveillance IP Professionnelle
                 </h1>
-                <p className="text-xl text-muted-foreground mb-8">
+                <p className="text-xl text-muted-foreground mb-8 text-center md:text-left">
                   Installation de caméras HD et 4K avec enregistrement continu et accès à distance pour une sécurité optimale de vos locaux. Solutions professionnelles adaptées aux particuliers, commerces et entreprises avec garantie 3 ans.
                 </p>
                 <Link to="/">
@@ -92,12 +92,12 @@ const Videosurveillance = () => {
               {features.map((feature, index) => {
                 const Icon = feature.icon;
                 return (
-                  <div key={index} className="p-6 rounded-lg border bg-card hover:shadow-lg transition-shadow">
+                <div className="p-6 rounded-lg border bg-card hover:shadow-lg transition-shadow">
                     <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-4">
                       <Icon className="w-6 h-6 text-primary-foreground" />
                     </div>
-                    <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                    <p className="text-muted-foreground">{feature.description}</p>
+                    <h3 className="text-xl font-semibold mb-2 text-center md:text-left">{feature.title}</h3>
+                    <p className="text-muted-foreground text-center md:text-left">{feature.description}</p>
                   </div>
                 );
               })}
@@ -113,8 +113,8 @@ const Videosurveillance = () => {
             </h2>
             <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
               <div className="p-8 rounded-lg bg-card border">
-                <h3 className="text-2xl font-bold mb-4">Pour Particuliers</h3>
-                <ul className="space-y-3 text-muted-foreground">
+                <h3 className="text-2xl font-bold mb-4 text-center md:text-left">Pour Particuliers</h3>
+                <ul className="space-y-3 text-muted-foreground text-center md:text-left">
                   <li className="flex items-start gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2"></div>
                     <span>Caméras intérieures et extérieures</span>
@@ -134,8 +134,8 @@ const Videosurveillance = () => {
                 </ul>
               </div>
               <div className="p-8 rounded-lg bg-card border">
-                <h3 className="text-2xl font-bold mb-4">Pour Professionnels</h3>
-                <ul className="space-y-3 text-muted-foreground">
+                <h3 className="text-2xl font-bold mb-4 text-center md:text-left">Pour Professionnels</h3>
+                <ul className="space-y-3 text-muted-foreground text-center md:text-left">
                   <li className="flex items-start gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2"></div>
                     <span>Systèmes multi-sites centralisés</span>
@@ -211,20 +211,20 @@ const Videosurveillance = () => {
             </h2>
             <div className="space-y-6">
               <div className="p-6 rounded-lg bg-card border">
-                <h3 className="text-lg font-bold mb-2">Combien de caméras faut-il pour mon local ?</h3>
-                <p className="text-muted-foreground">Cela dépend de la surface et des zones à surveiller. Pour une maison de 100m², 3-4 caméras suffisent généralement. Pour un commerce, nous recommandons une étude sur site gratuite.</p>
+                <h3 className="text-lg font-bold mb-2 text-center md:text-left">Combien de caméras faut-il pour mon local ?</h3>
+                <p className="text-muted-foreground text-center md:text-left">Cela dépend de la surface et des zones à surveiller. Pour une maison de 100m², 3-4 caméras suffisent généralement. Pour un commerce, nous recommandons une étude sur site gratuite.</p>
               </div>
               <div className="p-6 rounded-lg bg-card border">
-                <h3 className="text-lg font-bold mb-2">Puis-je consulter mes caméras depuis l'étranger ?</h3>
-                <p className="text-muted-foreground">Oui, nos systèmes permettent un accès sécurisé depuis n'importe où dans le monde via application mobile ou navigateur web.</p>
+                <h3 className="text-lg font-bold mb-2 text-center md:text-left">Puis-je consulter mes caméras depuis l'étranger ?</h3>
+                <p className="text-muted-foreground text-center md:text-left">Oui, nos systèmes permettent un accès sécurisé depuis n'importe où dans le monde via application mobile ou navigateur web.</p>
               </div>
               <div className="p-6 rounded-lg bg-card border">
-                <h3 className="text-lg font-bold mb-2">Combien de temps sont conservées les images ?</h3>
-                <p className="text-muted-foreground">De 30 à 90 jours selon la capacité de stockage choisie. Nous dimensionnons le système selon vos besoins légaux et pratiques.</p>
+                <h3 className="text-lg font-bold mb-2 text-center md:text-left">Combien de temps sont conservées les images ?</h3>
+                <p className="text-muted-foreground text-center md:text-left">De 30 à 90 jours selon la capacité de stockage choisie. Nous dimensionnons le système selon vos besoins légaux et pratiques.</p>
               </div>
               <div className="p-6 rounded-lg bg-card border">
-                <h3 className="text-lg font-bold mb-2">Le système fonctionne-t-il en cas de coupure internet ?</h3>
-                <p className="text-muted-foreground">Oui, l'enregistrement continue en local. Vous retrouverez les notifications une fois la connexion rétablie.</p>
+                <h3 className="text-lg font-bold mb-2 text-center md:text-left">Le système fonctionne-t-il en cas de coupure internet ?</h3>
+                <p className="text-muted-foreground text-center md:text-left">Oui, l'enregistrement continue en local. Vous retrouverez les notifications une fois la connexion rétablie.</p>
               </div>
             </div>
           </div>

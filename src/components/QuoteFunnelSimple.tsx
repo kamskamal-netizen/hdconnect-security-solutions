@@ -87,24 +87,66 @@ const QuoteFunnelSimple = () => {
         return;
       }
 
-      const finalData = {
-        requestType,
-        selectedService,
-        selectedProblem,
-        ...formData
-      };
+      // Préparer le message détaillé
+      let detailedMessage = `Type de demande: ${requestType === 'quote' ? 'Devis' : 'Intervention'}\n\n`;
+      
+      if (requestType === 'quote') {
+        detailedMessage += `Service demandé: ${serviceOptions.find(s => s.id === selectedService)?.label || selectedService}\n`;
+        detailedMessage += `Période souhaitée: ${formData.timeline}\n`;
+        if (formData.budget) detailedMessage += `Budget estimé: ${formData.budget}\n`;
+        if (formData.description) detailedMessage += `\nDescription du projet:\n${formData.description}\n`;
+      } else {
+        detailedMessage += `Type de problème: ${interventionOptions.find(o => o.id === selectedProblem)?.label || selectedProblem}\n`;
+        detailedMessage += `Urgence: ${formData.urgency}\n`;
+        detailedMessage += `\nDescription du problème:\n${formData.description}\n`;
+      }
+      
+      detailedMessage += `\nAdresse: ${formData.address}`;
+      if (formData.message) detailedMessage += `\n\nMessage supplémentaire:\n${formData.message}`;
 
-      // Envoi via Formspree
-      const response = await fetch('https://formspree.io/f/mwpzrqyl', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(finalData),
+      // Envoi vers Supabase
+      const { supabase } = await import("@/integrations/supabase/client");
+      
+      const { error: insertError } = await supabase
+        .from('customer_requests')
+        .insert({
+          request_type: requestType === 'quote' ? 'quote' : 'emergency',
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          message: detailedMessage,
+          status: 'new'
+        });
+
+      if (insertError) throw insertError;
+
+      // Envoi de l'email via edge function
+      const { error: emailError } = await supabase.functions.invoke('send-quote-email', {
+        body: {
+          requestType: requestType === 'quote' ? 'quote' : 'intervention',
+          clientInfo: {
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+            address: formData.address
+          },
+          quoteData: requestType === 'quote' ? {
+            service: serviceOptions.find(s => s.id === selectedService)?.label || selectedService,
+            timeline: formData.timeline,
+            budget: formData.budget,
+            description: formData.description
+          } : undefined,
+          interventionData: requestType === 'intervention' ? {
+            problemType: interventionOptions.find(o => o.id === selectedProblem)?.label || selectedProblem,
+            urgency: formData.urgency,
+            description: formData.description
+          } : undefined,
+          message: formData.message
+        }
       });
 
-      if (!response.ok) {
-        throw new Error("L'envoi de l'e-mail a échoué.");
+      if (emailError) {
+        console.error('Erreur envoi email:', emailError);
       }
 
       toast({
@@ -185,7 +227,7 @@ const QuoteFunnelSimple = () => {
       if (requestType === 'quote') {
         return (
           <div className="space-y-6">
-            <h3 className="text-lg font-semibold">Détails de votre projet</h3>
+            <h3 className="text-lg font-semibold text-center md:text-left">Détails de votre projet</h3>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
@@ -232,7 +274,7 @@ const QuoteFunnelSimple = () => {
       } else {
         return (
           <div className="space-y-6">
-            <h3 className="text-lg font-semibold">Détails du problème</h3>
+            <h3 className="text-lg font-semibold text-center md:text-left">Détails du problème</h3>
             
             <div className="space-y-2">
               <label className="text-sm font-medium">Description détaillée du problème *</label>
@@ -271,7 +313,7 @@ const QuoteFunnelSimple = () => {
     if (step === 3) {
       return (
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold">Vos coordonnées</h3>
+          <h3 className="text-lg font-semibold text-center md:text-left">Vos coordonnées</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
