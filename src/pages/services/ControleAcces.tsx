@@ -47,11 +47,11 @@ const ControleAcces = () => {
         <section className="relative py-20 bg-gradient-to-br from-primary/10 to-accent/10">
           <div className="container mx-auto px-4">
             <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div>
-                <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+              <div className="text-center md:text-left">
+                <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-center md:text-left">
                   Contrôle d'Accès Intelligent
                 </h1>
-                <p className="text-xl text-muted-foreground mb-8">
+                <p className="text-xl text-muted-foreground mb-8 text-center md:text-left">
                   Systèmes de contrôle d'accès par badge, code ou biométrie pour sécuriser vos locaux. Solutions évolutives de la serrure connectée au système multi-sites avec gestion de la pointeuse horaire.
                 </p>
                 <Link to="/">
@@ -96,8 +96,8 @@ const ControleAcces = () => {
                     <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-4">
                       <Icon className="w-6 h-6 text-primary-foreground" />
                     </div>
-                    <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                    <p className="text-muted-foreground">{feature.description}</p>
+                    <h3 className="text-xl font-semibold mb-2 text-center md:text-left">{feature.title}</h3>
+                    <p className="text-muted-foreground text-center md:text-left">{feature.description}</p>
                   </div>
                 );
               })}
@@ -113,8 +113,8 @@ const ControleAcces = () => {
             </h2>
             <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
               <div className="p-8 rounded-lg bg-card border">
-                <h3 className="text-2xl font-bold mb-4">Pour Particuliers</h3>
-                <ul className="space-y-3 text-muted-foreground">
+                <h3 className="text-2xl font-bold mb-4 text-center md:text-left">Pour Particuliers</h3>
+                <ul className="space-y-3 text-muted-foreground text-center md:text-left">
                   <li className="flex items-start gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2"></div>
                     <span>Serrures connectées intelligentes</span>
@@ -134,8 +134,8 @@ const ControleAcces = () => {
                 </ul>
               </div>
               <div className="p-8 rounded-lg bg-card border">
-                <h3 className="text-2xl font-bold mb-4">Pour Professionnels</h3>
-                <ul className="space-y-3 text-muted-foreground">
+                <h3 className="text-2xl font-bold mb-4 text-center md:text-left">Pour Professionnels</h3>
+                <ul className="space-y-3 text-muted-foreground text-center md:text-left">
                   <li className="flex items-start gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2"></div>
                     <span>Gestion multi-sites centralisée</span>
@@ -211,20 +211,20 @@ const ControleAcces = () => {
             </h2>
             <div className="space-y-6">
               <div className="p-6 rounded-lg bg-card border">
-                <h3 className="text-lg font-bold mb-2">Puis-je gérer les accès temporaires (visiteurs, prestataires) ?</h3>
-                <p className="text-muted-foreground">Oui, vous pouvez créer des badges temporaires avec date de validité limitée ou des codes PIN à usage unique via l'interface web ou mobile.</p>
+                <h3 className="text-lg font-bold mb-2 text-center md:text-left">Puis-je gérer les accès temporaires (visiteurs, prestataires) ?</h3>
+                <p className="text-muted-foreground text-center md:text-left">Oui, vous pouvez créer des badges temporaires avec date de validité limitée ou des codes PIN à usage unique via l'interface web ou mobile.</p>
               </div>
               <div className="p-6 rounded-lg bg-card border">
-                <h3 className="text-lg font-bold mb-2">Le système peut-il gérer plusieurs bâtiments ?</h3>
-                <p className="text-muted-foreground">Absolument, notre solution centralise la gestion de tous vos sites avec droits d'accès différenciés par bâtiment, étage ou zone.</p>
+                <h3 className="text-lg font-bold mb-2 text-center md:text-left">Le système peut-il gérer plusieurs bâtiments ?</h3>
+                <p className="text-muted-foreground text-center md:text-left">Absolument, notre solution centralise la gestion de tous vos sites avec droits d'accès différenciés par bâtiment, étage ou zone.</p>
               </div>
               <div className="p-6 rounded-lg bg-card border">
-                <h3 className="text-lg font-bold mb-2">Que se passe-t-il en cas de coupure internet ?</h3>
-                <p className="text-muted-foreground">Le système fonctionne en mode autonome. Les contrôleurs stockent les droits localement et synchronisent automatiquement au retour de la connexion.</p>
+                <h3 className="text-lg font-bold mb-2 text-center md:text-left">Que se passe-t-il en cas de coupure internet ?</h3>
+                <p className="text-muted-foreground text-center md:text-left">Le système fonctionne en mode autonome. Les contrôleurs stockent les droits localement et synchronisent automatiquement au retour de la connexion.</p>
               </div>
               <div className="p-6 rounded-lg bg-card border">
-                <h3 className="text-lg font-bold mb-2">Puis-je intégrer la pointeuse horaire ?</h3>
-                <p className="text-muted-foreground">Oui, nos systèmes incluent la gestion du temps de travail avec exports Excel/PDF pour la paie et conformité légale.</p>
+                <h3 className="text-lg font-bold mb-2 text-center md:text-left">Puis-je intégrer la pointeuse horaire ?</h3>
+                <p className="text-muted-foreground text-center md:text-left">Oui, nos systèmes incluent la gestion du temps de travail avec exports Excel/PDF pour la paie et conformité légale.</p>
               </div>
             </div>
           </div>

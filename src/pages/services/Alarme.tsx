@@ -47,11 +47,11 @@ const Alarme = () => {
         <section className="relative py-20 bg-gradient-to-br from-primary/10 to-accent/10">
           <div className="container mx-auto px-4">
             <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div>
-                <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+              <div className="text-center md:text-left">
+                <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-center md:text-left">
                   Systèmes d'Alarme Anti-Intrusion
                 </h1>
-                <p className="text-xl text-muted-foreground mb-8">
+                <p className="text-xl text-muted-foreground mb-8 text-center md:text-left">
                   Alarmes connectées avec détection intelligente pour protéger vos locaux contre les intrusions. Systèmes sans fil ou filaires certifiés NF&A2P avec télésurveillance optionnelle 24/7.
                 </p>
                 <Link to="/">
@@ -96,8 +96,8 @@ const Alarme = () => {
                     <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-4">
                       <Icon className="w-6 h-6 text-primary-foreground" />
                     </div>
-                    <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                    <p className="text-muted-foreground">{feature.description}</p>
+                    <h3 className="text-xl font-semibold mb-2 text-center md:text-left">{feature.title}</h3>
+                    <p className="text-muted-foreground text-center md:text-left">{feature.description}</p>
                   </div>
                 );
               })}
@@ -113,8 +113,8 @@ const Alarme = () => {
             </h2>
             <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
               <div className="p-8 rounded-lg bg-card border">
-                <h3 className="text-2xl font-bold mb-4">Pour Particuliers</h3>
-                <ul className="space-y-3 text-muted-foreground">
+                <h3 className="text-2xl font-bold mb-4 text-center md:text-left">Pour Particuliers</h3>
+                <ul className="space-y-3 text-muted-foreground text-center md:text-left">
                   <li className="flex items-start gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2"></div>
                     <span>Alarme sans fil facile à installer</span>
@@ -134,8 +134,8 @@ const Alarme = () => {
                 </ul>
               </div>
               <div className="p-8 rounded-lg bg-card border">
-                <h3 className="text-2xl font-bold mb-4">Pour Professionnels</h3>
-                <ul className="space-y-3 text-muted-foreground">
+                <h3 className="text-2xl font-bold mb-4 text-center md:text-left">Pour Professionnels</h3>
+                <ul className="space-y-3 text-muted-foreground text-center md:text-left">
                   <li className="flex items-start gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2"></div>
                     <span>Systèmes multi-zones personnalisables</span>
@@ -211,20 +211,20 @@ const Alarme = () => {
             </h2>
             <div className="space-y-6">
               <div className="p-6 rounded-lg bg-card border">
-                <h3 className="text-lg font-bold mb-2">Mon alarme peut-elle être reliée à mon assurance ?</h3>
-                <p className="text-muted-foreground">Oui, nos systèmes certifiés NF&A2P sont reconnus par les assureurs et peuvent vous faire bénéficier d'une réduction de prime allant jusqu'à 10%.</p>
+                <h3 className="text-lg font-bold mb-2 text-center md:text-left">Mon alarme peut-elle être reliée à mon assurance ?</h3>
+                <p className="text-muted-foreground text-center md:text-left">Oui, nos systèmes certifiés NF&A2P sont reconnus par les assureurs et peuvent vous faire bénéficier d'une réduction de prime allant jusqu'à 10%.</p>
               </div>
               <div className="p-6 rounded-lg bg-card border">
-                <h3 className="text-lg font-bold mb-2">Comment éviter les fausses alarmes ?</h3>
-                <p className="text-muted-foreground">Nos détecteurs de nouvelle génération analysent le type de mouvement et éliminent 99% des fausses alarmes (animaux domestiques, courants d'air, etc.).</p>
+                <h3 className="text-lg font-bold mb-2 text-center md:text-left">Comment éviter les fausses alarmes ?</h3>
+                <p className="text-muted-foreground text-center md:text-left">Nos détecteurs de nouvelle génération analysent le type de mouvement et éliminent 99% des fausses alarmes (animaux domestiques, courants d'air, etc.).</p>
               </div>
               <div className="p-6 rounded-lg bg-card border">
-                <h3 className="text-lg font-bold mb-2">L'alarme fonctionne-t-elle en cas de coupure de courant ?</h3>
-                <p className="text-muted-foreground">Oui, toutes nos centrales intègrent une batterie de secours permettant un fonctionnement de 12 à 48h en autonomie complète.</p>
+                <h3 className="text-lg font-bold mb-2 text-center md:text-left">L'alarme fonctionne-t-elle en cas de coupure de courant ?</h3>
+                <p className="text-muted-foreground text-center md:text-left">Oui, toutes nos centrales intègrent une batterie de secours permettant un fonctionnement de 12 à 48h en autonomie complète.</p>
               </div>
               <div className="p-6 rounded-lg bg-card border">
-                <h3 className="text-lg font-bold mb-2">Puis-je armer/désarmer à distance ?</h3>
-                <p className="text-muted-foreground">Absolument, via l'application mobile vous contrôlez votre alarme de n'importe où et recevez l'historique de tous les événements.</p>
+                <h3 className="text-lg font-bold mb-2 text-center md:text-left">Puis-je armer/désarmer à distance ?</h3>
+                <p className="text-muted-foreground text-center md:text-left">Absolument, via l'application mobile vous contrôlez votre alarme de n'importe où et recevez l'historique de tous les événements.</p>
               </div>
             </div>
           </div>

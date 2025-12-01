@@ -46,10 +46,10 @@ const Domotique = () => {
         <section className="relative py-20 bg-gradient-to-br from-primary/10 to-accent/10">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+              <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-center md:text-left">
                 Solutions Domotique Intelligentes
               </h1>
-              <p className="text-xl text-muted-foreground mb-8">
+              <p className="text-xl text-muted-foreground mb-8 text-center md:text-left">
                 Intégration de systèmes domotiques pour une sécurité et un confort intelligents. De la maison connectée simple au Building Management System (BMS) industriel avec économies d'énergie garanties.
               </p>
               <Link to="/">
@@ -90,8 +90,8 @@ const Domotique = () => {
                     <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-4">
                       <Icon className="w-6 h-6 text-primary-foreground" />
                     </div>
-                    <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                    <p className="text-muted-foreground">{feature.description}</p>
+                    <h3 className="text-xl font-semibold mb-2 text-center md:text-left">{feature.title}</h3>
+                    <p className="text-muted-foreground text-center md:text-left">{feature.description}</p>
                   </div>
                 );
               })}
@@ -107,8 +107,8 @@ const Domotique = () => {
             </h2>
             <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
               <div className="p-8 rounded-lg bg-card border">
-                <h3 className="text-2xl font-bold mb-4">Pour Particuliers</h3>
-                <ul className="space-y-3 text-muted-foreground">
+                <h3 className="text-2xl font-bold mb-4 text-center md:text-left">Pour Particuliers</h3>
+                <ul className="space-y-3 text-muted-foreground text-center md:text-left">
                   <li className="flex items-start gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2"></div>
                     <span>Maison connectée complète</span>
@@ -128,8 +128,8 @@ const Domotique = () => {
                 </ul>
               </div>
               <div className="p-8 rounded-lg bg-card border">
-                <h3 className="text-2xl font-bold mb-4">Pour Professionnels</h3>
-                <ul className="space-y-3 text-muted-foreground">
+                <h3 className="text-2xl font-bold mb-4 text-center md:text-left">Pour Professionnels</h3>
+                <ul className="space-y-3 text-muted-foreground text-center md:text-left">
                   <li className="flex items-start gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2"></div>
                     <span>Building Management System (BMS)</span>
@@ -205,20 +205,20 @@ const Domotique = () => {
             </h2>
             <div className="space-y-6">
               <div className="p-6 rounded-lg bg-card border">
-                <h3 className="text-lg font-bold mb-2">Puis-je installer la domotique dans une maison existante ?</h3>
-                <p className="text-muted-foreground">Oui, avec des solutions sans fil (Z-Wave, Zigbee) l'installation se fait sans travaux majeurs. Pour du neuf, nous recommandons du KNX filaire plus robuste.</p>
+                <h3 className="text-lg font-bold mb-2 text-center md:text-left">Puis-je installer la domotique dans une maison existante ?</h3>
+                <p className="text-muted-foreground text-center md:text-left">Oui, avec des solutions sans fil (Z-Wave, Zigbee) l'installation se fait sans travaux majeurs. Pour du neuf, nous recommandons du KNX filaire plus robuste.</p>
               </div>
               <div className="p-6 rounded-lg bg-card border">
-                <h3 className="text-lg font-bold mb-2">Mes données sont-elles sécurisées ?</h3>
-                <p className="text-muted-foreground">Oui, nous privilégions les solutions avec contrôle local (pas de cloud obligatoire) et chiffrement bout-en-bout. Vos données restent chez vous.</p>
+                <h3 className="text-lg font-bold mb-2 text-center md:text-left">Mes données sont-elles sécurisées ?</h3>
+                <p className="text-muted-foreground text-center md:text-left">Oui, nous privilégions les solutions avec contrôle local (pas de cloud obligatoire) et chiffrement bout-en-bout. Vos données restent chez vous.</p>
               </div>
               <div className="p-6 rounded-lg bg-card border">
-                <h3 className="text-lg font-bold mb-2">Que se passe-t-il en cas de panne internet ou électrique ?</h3>
-                <p className="text-muted-foreground">Les automatisations locales continuent de fonctionner. Seul l'accès à distance est temporairement indisponible. Possibilité d'onduleur pour maintien total.</p>
+                <h3 className="text-lg font-bold mb-2 text-center md:text-left">Que se passe-t-il en cas de panne internet ou électrique ?</h3>
+                <p className="text-muted-foreground text-center md:text-left">Les automatisations locales continuent de fonctionner. Seul l'accès à distance est temporairement indisponible. Possibilité d'onduleur pour maintien total.</p>
               </div>
               <div className="p-6 rounded-lg bg-card border">
-                <h3 className="text-lg font-bold mb-2">Combien de temps faut-il pour l'installation ?</h3>
-                <p className="text-muted-foreground">Pour une maison de 100m², comptez 2-3 jours pour une installation complète avec formation incluse. Mise en service progressive possible.</p>
+                <h3 className="text-lg font-bold mb-2 text-center md:text-left">Combien de temps faut-il pour l'installation ?</h3>
+                <p className="text-muted-foreground text-center md:text-left">Pour une maison de 100m², comptez 2-3 jours pour une installation complète avec formation incluse. Mise en service progressive possible.</p>
               </div>
             </div>
           </div>
