@@ -46,10 +46,10 @@ const Reseau = () => {
         <section className="relative py-20 bg-gradient-to-br from-primary/10 to-accent/10">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+              <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-center md:text-left">
                 Réseau & Connectivité
               </h1>
-              <p className="text-xl text-muted-foreground mb-8">
+              <p className="text-xl text-muted-foreground mb-8 text-center md:text-left">
                 Installation de réseaux sécurisés pour vos équipements connectés professionnels et résidentiels. Du WiFi mesh domestique aux infrastructures d'entreprise avec fibre optique et supervision.
               </p>
               <Link to="/">
@@ -90,8 +90,8 @@ const Reseau = () => {
                     <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-4">
                       <Icon className="w-6 h-6 text-primary-foreground" />
                     </div>
-                    <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                    <p className="text-muted-foreground">{feature.description}</p>
+                    <h3 className="text-xl font-semibold mb-2 text-center md:text-left">{feature.title}</h3>
+                    <p className="text-muted-foreground text-center md:text-left">{feature.description}</p>
                   </div>
                 );
               })}
@@ -107,8 +107,8 @@ const Reseau = () => {
             </h2>
             <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
               <div className="p-8 rounded-lg bg-card border">
-                <h3 className="text-2xl font-bold mb-4">Pour Particuliers</h3>
-                <ul className="space-y-3 text-muted-foreground">
+                <h3 className="text-2xl font-bold mb-4 text-center md:text-left">Pour Particuliers</h3>
+                <ul className="space-y-3 text-muted-foreground text-center md:text-left">
                   <li className="flex items-start gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2"></div>
                     <span>WiFi mesh pour toute la maison</span>
@@ -128,8 +128,8 @@ const Reseau = () => {
                 </ul>
               </div>
               <div className="p-8 rounded-lg bg-card border">
-                <h3 className="text-2xl font-bold mb-4">Pour Professionnels</h3>
-                <ul className="space-y-3 text-muted-foreground">
+                <h3 className="text-2xl font-bold mb-4 text-center md:text-left">Pour Professionnels</h3>
+                <ul className="space-y-3 text-muted-foreground text-center md:text-left">
                   <li className="flex items-start gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2"></div>
                     <span>Infrastructure réseau entreprise</span>
@@ -205,20 +205,20 @@ const Reseau = () => {
             </h2>
             <div className="space-y-6">
               <div className="p-6 rounded-lg bg-card border">
-                <h3 className="text-lg font-bold mb-2">Combien de bornes WiFi faut-il pour mon local ?</h3>
-                <p className="text-muted-foreground">1 borne couvre environ 100-150m² selon les obstacles. Pour un bureau de 300m², comptez 2-3 bornes avec système mesh pour un roaming transparent.</p>
+                <h3 className="text-lg font-bold mb-2 text-center md:text-left">Combien de bornes WiFi faut-il pour mon local ?</h3>
+                <p className="text-muted-foreground text-center md:text-left">1 borne couvre environ 100-150m² selon les obstacles. Pour un bureau de 300m², comptez 2-3 bornes avec système mesh pour un roaming transparent.</p>
               </div>
               <div className="p-6 rounded-lg bg-card border">
-                <h3 className="text-lg font-bold mb-2">Puis-je avoir plusieurs réseaux WiFi séparés ?</h3>
-                <p className="text-muted-foreground">Oui, nous configurons des SSID multiples (visiteurs, employés, IoT) avec isolation et niveaux de sécurité différents sur la même infrastructure.</p>
+                <h3 className="text-lg font-bold mb-2 text-center md:text-left">Puis-je avoir plusieurs réseaux WiFi séparés ?</h3>
+                <p className="text-muted-foreground text-center md:text-left">Oui, nous configurons des SSID multiples (visiteurs, employés, IoT) avec isolation et niveaux de sécurité différents sur la même infrastructure.</p>
               </div>
               <div className="p-6 rounded-lg bg-card border">
-                <h3 className="text-lg font-bold mb-2">Le câblage est-il vraiment nécessaire avec le WiFi ?</h3>
-                <p className="text-muted-foreground">Pour les postes fixes, serveurs et caméras IP, le câblage offre plus de stabilité, sécurité et débit. Nous recommandons une solution hybride.</p>
+                <h3 className="text-lg font-bold mb-2 text-center md:text-left">Le câblage est-il vraiment nécessaire avec le WiFi ?</h3>
+                <p className="text-muted-foreground text-center md:text-left">Pour les postes fixes, serveurs et caméras IP, le câblage offre plus de stabilité, sécurité et débit. Nous recommandons une solution hybride.</p>
               </div>
               <div className="p-6 rounded-lg bg-card border">
-                <h3 className="text-lg font-bold mb-2">Comment protéger mon réseau des cyberattaques ?</h3>
-                <p className="text-muted-foreground">Firewall nouvelle génération, segmentation VLAN, VPN chiffré, filtrage web et mises à jour automatiques. Nous incluons une formation sécurité.</p>
+                <h3 className="text-lg font-bold mb-2 text-center md:text-left">Comment protéger mon réseau des cyberattaques ?</h3>
+                <p className="text-muted-foreground text-center md:text-left">Firewall nouvelle génération, segmentation VLAN, VPN chiffré, filtrage web et mises à jour automatiques. Nous incluons une formation sécurité.</p>
               </div>
             </div>
           </div>

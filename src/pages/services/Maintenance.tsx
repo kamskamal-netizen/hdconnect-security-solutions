@@ -46,10 +46,10 @@ const Maintenance = () => {
         <section className="relative py-20 bg-gradient-to-br from-primary/10 to-accent/10">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+              <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-center md:text-left">
                 Maintenance & Support Technique
               </h1>
-              <p className="text-xl text-muted-foreground mb-8">
+              <p className="text-xl text-muted-foreground mb-8 text-center md:text-left">
                 Service de maintenance préventive et support technique réactif pour tous vos équipements de sécurité. Contrats adaptés aux particuliers, PME et grandes entreprises avec intervention garantie.
               </p>
               <Link to="/">
@@ -90,8 +90,8 @@ const Maintenance = () => {
                     <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-4">
                       <Icon className="w-6 h-6 text-primary-foreground" />
                     </div>
-                    <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                    <p className="text-muted-foreground">{feature.description}</p>
+                    <h3 className="text-xl font-semibold mb-2 text-center md:text-left">{feature.title}</h3>
+                    <p className="text-muted-foreground text-center md:text-left">{feature.description}</p>
                   </div>
                 );
               })}
@@ -258,20 +258,20 @@ const Maintenance = () => {
             </h2>
             <div className="space-y-6">
               <div className="p-6 rounded-lg bg-card border">
-                <h3 className="text-lg font-bold mb-2">La maintenance est-elle obligatoire ?</h3>
-                <p className="text-muted-foreground">Pour les ERP et certaines installations professionnelles, oui. Pour les particuliers, fortement recommandée pour la garantie et performance optimale.</p>
+                <h3 className="text-lg font-bold mb-2 text-center md:text-left">La maintenance est-elle obligatoire ?</h3>
+                <p className="text-muted-foreground text-center md:text-left">Pour les ERP et certaines installations professionnelles, oui. Pour les particuliers, fortement recommandée pour la garantie et performance optimale.</p>
               </div>
               <div className="p-6 rounded-lg bg-card border">
-                <h3 className="text-lg font-bold mb-2">Que comprend une visite de maintenance préventive ?</h3>
-                <p className="text-muted-foreground">Test complet de tous les équipements, nettoyage, vérification connexions, mise à jour logiciels, test batterie de secours et rapport détaillé avec photos.</p>
+                <h3 className="text-lg font-bold mb-2 text-center md:text-left">Que comprend une visite de maintenance préventive ?</h3>
+                <p className="text-muted-foreground text-center md:text-left">Test complet de tous les équipements, nettoyage, vérification connexions, mise à jour logiciels, test batterie de secours et rapport détaillé avec photos.</p>
               </div>
               <div className="p-6 rounded-lg bg-card border">
-                <h3 className="text-lg font-bold mb-2">Puis-je souscrire pour une installation existante ?</h3>
-                <p className="text-muted-foreground">Oui, après un audit technique initial (gratuit) pour évaluer l'état et définir le contrat adapté. Compatible toutes marques.</p>
+                <h3 className="text-lg font-bold mb-2 text-center md:text-left">Puis-je souscrire pour une installation existante ?</h3>
+                <p className="text-muted-foreground text-center md:text-left">Oui, après un audit technique initial (gratuit) pour évaluer l'état et définir le contrat adapté. Compatible toutes marques.</p>
               </div>
               <div className="p-6 rounded-lg bg-card border">
-                <h3 className="text-lg font-bold mb-2">Que se passe-t-il en cas de panne hors heures ouvrées ?</h3>
-                <p className="text-muted-foreground">Les contrats Premium et Enterprise incluent astreinte 24/7 avec intervention sous 4h même nuits et week-ends en Île-de-France.</p>
+                <h3 className="text-lg font-bold mb-2 text-center md:text-left">Que se passe-t-il en cas de panne hors heures ouvrées ?</h3>
+                <p className="text-muted-foreground text-center md:text-left">Les contrats Premium et Enterprise incluent astreinte 24/7 avec intervention sous 4h même nuits et week-ends en Île-de-France.</p>
               </div>
             </div>
           </div>
