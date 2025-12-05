@@ -37,9 +37,9 @@ const Contact = () => {
       const validatedData = contactSchema.parse(formData);
       
       // Envoi vers Supabase
-      const { supabase } = await import("@/integrations/supabase/client");
+      const { supabaseClient } = await import("@/lib/supabase");
       
-      const { error: insertError } = await supabase
+      const { error: insertError } = await supabaseClient
         .from('customer_requests')
         .insert({
           request_type: requestType,
@@ -53,7 +53,7 @@ const Contact = () => {
       if (insertError) throw insertError;
 
       // Envoi de l'email via edge function
-      const { error: emailError } = await supabase.functions.invoke('send-quote-email', {
+      const { error: emailError } = await supabaseClient.functions.invoke('send-quote-email', {
         body: {
           requestType: 'contact',
           name: validatedData.name,
