@@ -1,5 +1,5 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
-import { Resend } from "npm:resend@4.0.0";
+import { Resend } from "https://esm.sh/resend@4.0.0";
 
 const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
 const TARGET_EMAIL = "kamal@hdconnect.fr";
@@ -8,6 +8,72 @@ const SENDER_EMAIL = "HD Connect <onboarding@resend.dev>";
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+};
+
+// Email de confirmation pour le client
+const getClientConfirmationEmail = (clientName: string, requestType: string) => {
+  const typeLabels: Record<string, string> = {
+    quote: "demande de devis",
+    intervention: "demande d'intervention",
+    contact: "message"
+  };
+  
+  const typeLabel = typeLabels[requestType] || "demande";
+  
+  return `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #ffffff;">
+      <div style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); padding: 30px; text-align: center;">
+        <h1 style="color: #ffffff; margin: 0; font-size: 28px;">HD Connect</h1>
+        <p style="color: #bfdbfe; margin: 10px 0 0 0; font-size: 14px;">Sécurité & Technologie</p>
+      </div>
+      
+      <div style="padding: 40px 30px;">
+        <h2 style="color: #1f2937; margin-top: 0;">Bonjour ${clientName},</h2>
+        
+        <p style="color: #4b5563; font-size: 16px; line-height: 1.6;">
+          Nous avons bien reçu votre <strong>${typeLabel}</strong> et nous vous en remercions.
+        </p>
+        
+        <div style="background-color: #eff6ff; border-left: 4px solid #2563eb; padding: 20px; margin: 25px 0; border-radius: 0 8px 8px 0;">
+          <p style="color: #1e40af; margin: 0; font-weight: 600;">
+            ✓ Votre demande a été enregistrée avec succès
+          </p>
+        </div>
+        
+        <p style="color: #4b5563; font-size: 16px; line-height: 1.6;">
+          Notre équipe va étudier votre demande et vous recontactera dans les <strong>plus brefs délais</strong> 
+          (généralement sous 24 à 48 heures ouvrées).
+        </p>
+        
+        <div style="background-color: #f9fafb; padding: 25px; border-radius: 8px; margin: 25px 0;">
+          <h3 style="color: #1f2937; margin-top: 0; font-size: 16px;">En attendant, vous pouvez nous contacter :</h3>
+          <p style="color: #4b5563; margin: 10px 0;">
+            📞 <a href="tel:+33627135304" style="color: #2563eb; text-decoration: none;">+33 6 27 13 53 04</a> (Mobile)
+          </p>
+          <p style="color: #4b5563; margin: 10px 0;">
+            📞 <a href="tel:+33183643640" style="color: #2563eb; text-decoration: none;">+33 1 83 64 36 40</a> (Fixe)
+          </p>
+          <p style="color: #4b5563; margin: 10px 0;">
+            ✉️ <a href="mailto:kamal@hdconnect.fr" style="color: #2563eb; text-decoration: none;">kamal@hdconnect.fr</a>
+          </p>
+        </div>
+        
+        <p style="color: #4b5563; font-size: 16px; line-height: 1.6;">
+          Cordialement,<br/>
+          <strong>L'équipe HD Connect</strong>
+        </p>
+      </div>
+      
+      <div style="background-color: #1f2937; padding: 25px 30px; text-align: center;">
+        <p style="color: #9ca3af; margin: 0 0 10px 0; font-size: 14px;">
+          HD Connect - Expert en Sécurité depuis 10 ans
+        </p>
+        <p style="color: #6b7280; margin: 0; font-size: 12px;">
+          Vidéosurveillance • Alarmes • Contrôle d'accès • Domotique
+        </p>
+      </div>
+    </div>
+  `;
 };
 
 serve(async (req: Request) => {
@@ -30,9 +96,14 @@ serve(async (req: Request) => {
 
     let subject = "";
     let body = "";
+    let clientEmail = "";
+    let clientName = "";
 
     // Construction de l'email selon le type de demande
     if (formData.requestType === "quote") {
+      clientEmail = formData.clientInfo?.email || "";
+      clientName = formData.clientInfo?.name || "Client";
+      
       subject = "🔔 Nouvelle demande de devis - HD Connect";
       body = `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -69,6 +140,9 @@ serve(async (req: Request) => {
         </div>
       `;
     } else if (formData.requestType === "intervention") {
+      clientEmail = formData.clientInfo?.email || "";
+      clientName = formData.clientInfo?.name || "Client";
+      
       subject = "🚨 Demande d'intervention urgente - HD Connect";
       body = `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -108,6 +182,9 @@ serve(async (req: Request) => {
       `;
     } else {
       // Contact simple (depuis le formulaire Contact)
+      clientEmail = formData.email || "";
+      clientName = formData.name || "Client";
+      
       subject = "📧 Nouveau message de contact - HD Connect";
       body = `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -134,18 +211,39 @@ serve(async (req: Request) => {
       `;
     }
 
-    // Envoi de l'email via Resend
-    const emailResponse = await resend.emails.send({
+    // Envoi de l'email à HD Connect (notification)
+    const adminEmailResponse = await resend.emails.send({
       from: SENDER_EMAIL,
       to: [TARGET_EMAIL],
       subject: subject,
       html: body,
     });
 
-    console.log("Email sent successfully:", emailResponse);
+    console.log("Admin notification email sent:", adminEmailResponse);
+
+    // Envoi de l'email de confirmation au client
+    let clientEmailResponse = null;
+    if (clientEmail) {
+      try {
+        clientEmailResponse = await resend.emails.send({
+          from: SENDER_EMAIL,
+          to: [clientEmail],
+          subject: "✅ Confirmation de votre demande - HD Connect",
+          html: getClientConfirmationEmail(clientName, formData.requestType || "contact"),
+        });
+        console.log("Client confirmation email sent:", clientEmailResponse);
+      } catch (clientEmailError: any) {
+        console.error("Error sending client confirmation email:", clientEmailError);
+        // On continue même si l'email de confirmation échoue
+      }
+    }
 
     return new Response(
-      JSON.stringify({ success: true, messageId: emailResponse.id }),
+      JSON.stringify({ 
+        success: true, 
+        adminMessageId: (adminEmailResponse as any).id || "sent",
+        clientMessageId: (clientEmailResponse as any)?.id || null
+      }),
       {
         status: 200,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
