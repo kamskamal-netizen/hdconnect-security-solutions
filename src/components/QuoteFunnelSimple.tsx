@@ -87,7 +87,7 @@ const QuoteFunnelSimple = () => {
         return;
       }
 
-      // Préparer le message détaillé
+      // Préparer le message détaillé pour Formspree
       let detailedMessage = `Type de demande: ${requestType === 'quote' ? 'Devis' : 'Intervention'}\n\n`;
       
       if (requestType === 'quote') {
@@ -104,54 +104,50 @@ const QuoteFunnelSimple = () => {
       detailedMessage += `\nAdresse: ${formData.address}`;
       if (formData.message) detailedMessage += `\n\nMessage supplémentaire:\n${formData.message}`;
 
-      // Envoi vers Supabase
-      const { supabaseClient } = await import("@/lib/supabase");
-      
-      const { error: insertError } = await supabaseClient
-        .from('customer_requests')
-        .insert({
-          request_type: requestType === 'quote' ? 'quote' : 'emergency',
+      // Envoi vers Formspree (votre formulaire principal)
+      const formspreeResponse = await fetch('https://formspree.io/f/xjkbpzrz', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
+          address: formData.address,
           message: detailedMessage,
-          status: 'new'
-        });
-
-      if (insertError) throw insertError;
-
-      // Envoi de l'email via edge function
-      const { error: emailError } = await supabaseClient.functions.invoke('send-quote-email', {
-        body: {
-          requestType: requestType === 'quote' ? 'quote' : 'intervention',
-          clientInfo: {
-            name: formData.name,
-            email: formData.email,
-            phone: formData.phone,
-            address: formData.address
-          },
-          quoteData: requestType === 'quote' ? {
-            service: serviceOptions.find(s => s.id === selectedService)?.label || selectedService,
-            timeline: formData.timeline,
-            budget: formData.budget,
-            description: formData.description
-          } : undefined,
-          interventionData: requestType === 'intervention' ? {
-            problemType: interventionOptions.find(o => o.id === selectedProblem)?.label || selectedProblem,
-            urgency: formData.urgency,
-            description: formData.description
-          } : undefined,
-          message: formData.message
-        }
+          _subject: requestType === 'quote' ? '🔔 Nouvelle demande de devis - HD Connect' : '🚨 Demande d\'intervention - HD Connect'
+        })
       });
 
-      if (emailError) {
-        console.error('Erreur envoi email:', emailError);
+      if (!formspreeResponse.ok) {
+        throw new Error('Erreur lors de l\'envoi du formulaire');
+      }
+
+      // Envoi de l'email de confirmation au client via edge function
+      try {
+        const { supabaseClient } = await import("@/lib/supabase");
+        await supabaseClient.functions.invoke('send-quote-email', {
+          body: {
+            requestType: requestType === 'quote' ? 'quote' : 'intervention',
+            clientInfo: {
+              name: formData.name,
+              email: formData.email,
+              phone: formData.phone,
+              address: formData.address
+            },
+            confirmationOnly: true // Flag pour indiquer qu'on veut juste la confirmation client
+          }
+        });
+      } catch (emailError) {
+        console.error('Erreur envoi confirmation client:', emailError);
+        // On continue même si l'email de confirmation échoue
       }
 
       toast({
         title: "Demande envoyée !",
-        description: "Nous vous recontacterons rapidement.",
+        description: "Nous vous recontacterons rapidement. Un email de confirmation vous a été envoyé.",
       });
       
       // Réinitialiser

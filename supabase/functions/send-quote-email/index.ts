@@ -94,12 +94,38 @@ serve(async (req: Request) => {
     const formData = await req.json();
     console.log("Received form data:", formData);
 
+    // Si c'est une demande de confirmation uniquement (Formspree gère la notification admin)
+    if (formData.confirmationOnly) {
+      const clientEmail = formData.clientInfo?.email || "";
+      const clientName = formData.clientInfo?.name || "Client";
+      
+      if (clientEmail) {
+        const clientEmailResponse = await resend.emails.send({
+          from: SENDER_EMAIL,
+          to: [clientEmail],
+          subject: "✅ Confirmation de votre demande - HD Connect",
+          html: getClientConfirmationEmail(clientName, formData.requestType || "contact"),
+        });
+        console.log("Client confirmation email sent:", clientEmailResponse);
+        
+        return new Response(
+          JSON.stringify({ success: true, clientMessageId: (clientEmailResponse as any).id }),
+          { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+      
+      return new Response(
+        JSON.stringify({ success: true, message: "No client email provided" }),
+        { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
     let subject = "";
     let body = "";
     let clientEmail = "";
     let clientName = "";
 
-    // Construction de l'email selon le type de demande
+    // Construction de l'email selon le type de demande (pour usage futur si besoin)
     if (formData.requestType === "quote") {
       clientEmail = formData.clientInfo?.email || "";
       clientName = formData.clientInfo?.name || "Client";

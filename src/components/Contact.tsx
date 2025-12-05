@@ -35,41 +35,54 @@ const Contact = () => {
       
       // Validate form data
       const validatedData = contactSchema.parse(formData);
+
+      const typeLabels = {
+        quote: 'Devis',
+        info: 'Information',
+        emergency: 'Urgence'
+      };
       
-      // Envoi vers Supabase
-      const { supabaseClient } = await import("@/lib/supabase");
-      
-      const { error: insertError } = await supabaseClient
-        .from('customer_requests')
-        .insert({
-          request_type: requestType,
+      // Envoi vers Formspree
+      const formspreeResponse = await fetch('https://formspree.io/f/xjkbpzrz', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
           name: validatedData.name,
           email: validatedData.email,
           phone: validatedData.phone,
           message: validatedData.message,
-          status: 'new'
-        });
-
-      if (insertError) throw insertError;
-
-      // Envoi de l'email via edge function
-      const { error: emailError } = await supabaseClient.functions.invoke('send-quote-email', {
-        body: {
-          requestType: 'contact',
-          name: validatedData.name,
-          email: validatedData.email,
-          phone: validatedData.phone,
-          message: validatedData.message
-        }
+          type: typeLabels[requestType],
+          _subject: `📧 ${typeLabels[requestType]} - ${validatedData.name} - HD Connect`
+        })
       });
 
-      if (emailError) {
-        console.error('Erreur envoi email:', emailError);
+      if (!formspreeResponse.ok) {
+        throw new Error('Erreur lors de l\'envoi du formulaire');
+      }
+
+      // Envoi de l'email de confirmation au client via edge function
+      try {
+        const { supabaseClient } = await import("@/lib/supabase");
+        await supabaseClient.functions.invoke('send-quote-email', {
+          body: {
+            requestType: 'contact',
+            clientInfo: {
+              name: validatedData.name,
+              email: validatedData.email
+            },
+            confirmationOnly: true
+          }
+        });
+      } catch (emailError) {
+        console.error('Erreur envoi confirmation client:', emailError);
       }
 
       toast({
         title: "Message envoyé !",
-        description: "Nous vous recontacterons rapidement.",
+        description: "Nous vous recontacterons rapidement. Un email de confirmation vous a été envoyé.",
       });
       
       // Réinitialiser le formulaire
