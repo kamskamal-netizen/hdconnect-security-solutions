@@ -105,9 +105,9 @@ const QuoteFunnelSimple = () => {
       if (formData.message) detailedMessage += `\n\nMessage supplémentaire:\n${formData.message}`;
 
       // Envoi vers Supabase
-      const { supabase } = await import("@/integrations/supabase/client");
+      const { supabaseClient } = await import("@/lib/supabase");
       
-      const { error: insertError } = await supabase
+      const { error: insertError } = await supabaseClient
         .from('customer_requests')
         .insert({
           request_type: requestType === 'quote' ? 'quote' : 'emergency',
@@ -121,7 +121,7 @@ const QuoteFunnelSimple = () => {
       if (insertError) throw insertError;
 
       // Envoi de l'email via edge function
-      const { error: emailError } = await supabase.functions.invoke('send-quote-email', {
+      const { error: emailError } = await supabaseClient.functions.invoke('send-quote-email', {
         body: {
           requestType: requestType === 'quote' ? 'quote' : 'intervention',
           clientInfo: {

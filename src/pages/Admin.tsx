@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
-import { supabase } from '@/integrations/supabase/client';
+import { supabaseClient } from '@/lib/supabase';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -51,7 +51,7 @@ const Admin = () => {
 
   const fetchRequests = async () => {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await supabaseClient
         .from('customer_requests')
         .select('*')
         .order('created_at', { ascending: false });
@@ -71,7 +71,7 @@ const Admin = () => {
 
   const updateRequestStatus = async (requestId: string, newStatus: RequestStatus) => {
     try {
-      const { error } = await supabase
+      const { error } = await supabaseClient
         .from('customer_requests')
         .update({ status: newStatus })
         .eq('id', requestId);
