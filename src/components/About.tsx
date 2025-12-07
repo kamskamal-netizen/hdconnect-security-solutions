@@ -1,11 +1,17 @@
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { content } from "@/data/content";
-import { Award, Users, Clock, ThumbsUp, CheckCircle } from "lucide-react";
+import { Award, Users, Clock, CheckCircle } from "lucide-react";
 
-const iconMap = { Award, Users, Clock, ThumbsUp };
+const iconMap: Record<number, React.ComponentType<{ className?: string }>> = {
+  0: Award,
+  1: Users,
+  2: Clock,
+};
 
 const About = () => {
-  const aboutContent = content.about;return (
+  const aboutContent = content.about;
+
+  return (
     <section id="apropos" className="py-24 bg-background">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -22,7 +28,6 @@ const About = () => {
             <div className="mt-8 p-6 bg-gradient-to-r from-primary/10 to-accent/10 rounded-lg border border-primary/20">
               <h3 className="text-xl font-bold text-foreground mb-3">Nos valeurs</h3>
               <ul className="space-y-2 text-foreground">
-                {/* Les valeurs ne sont pas dans le content.ts actuel, je les laisse en dur pour l'instant */}
                 <li className="flex items-center gap-2">
                   <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
                   <span><span className="font-semibold">Expertise:</span> 10 ans d'expérience dans le domaine.</span>
@@ -41,7 +46,7 @@ const About = () => {
 
           <div className="grid grid-cols-2 gap-6">
             {aboutContent.stats.map((stat, index) => {
-              const Icon = iconMap[stat.icon] || Award; // Fallback
+              const Icon = iconMap[index] || Award;
               return (
                 <Card key={index} className="text-center hover:shadow-lg transition-shadow">
                   <CardContent className="pt-6">
