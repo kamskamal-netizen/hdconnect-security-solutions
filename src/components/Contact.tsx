@@ -6,6 +6,7 @@ import { Mail, Phone, MapPin } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
+import { content } from "@/data/content";
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Le nom est requis").max(100, "Le nom ne doit pas dépasser 100 caractères"),
@@ -18,6 +19,8 @@ type RequestType = 'quote' | 'info' | 'emergency';
 
 const Contact = () => {
   const { toast } = useToast();
+  const companyInfo = content.company.contact;
+  
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -42,21 +45,19 @@ const Contact = () => {
         emergency: 'Urgence'
       };
       
-      // 1. Enregistrement dans la table 'requests' (ou 'contacts')
+      // 1. Enregistrement dans Supabase
       const { supabaseClient } = await import("@/lib/supabase");
       
       const { data: requestData, error: insertError } = await supabaseClient
-        .from('requests') // Utilisation de la même table 'requests' pour l'archivage
+        .from('customer_requests')
         .insert([
           {
-            type: requestType === 'emergency' ? 'intervention' : 'contact',
-            status: 'new',
-            client_name: validatedData.name,
-            client_email: validatedData.email,
-            client_phone: validatedData.phone,
-            details: validatedData.message,
-            urgency: requestType === 'emergency' ? 'critique' : 'normale',
+            name: validatedData.name,
+            email: validatedData.email,
+            phone: validatedData.phone,
             message: validatedData.message,
+            request_type: requestType,
+            status: 'new',
           }
         ])
         .select();
@@ -66,41 +67,27 @@ const Contact = () => {
         throw new Error('Erreur lors de l\'enregistrement de la demande.');
       }
 
-      // 2. Envoi de l'email de notification et de confirmation via edge function
+      // 2. Envoi de l'email de confirmation via edge function
       try {
         await supabaseClient.functions.invoke('send-quote-email', {
           body: {
-            requestType: requestType === 'emergency' ? 'intervention' : 'contact',
-            clientInfo: {
-              name: validatedData.name,
-              email: validatedData.email,
-              phone: validatedData.phone,
-            },
-            // On envoie l'ID de la demande pour référence dans l'email admin
-            requestId: requestData[0].id,
-            // On envoie le message détaillé pour l'email admin
-            details: validatedData.message,
+            confirmationOnly: true,
+            clientName: validatedData.name,
+            clientEmail: validatedData.email,
+            requestType: typeLabels[requestType],
           }
         });
       } catch (emailError) {
-        console.error('Erreur envoi email (Admin/Client):', emailError);
-        // On continue, mais on avertit l'utilisateur que l'email n'a pas été envoyé
-        toast({ 
-          title: "Avertissement", 
-          description: "Votre message a été enregistré, mais l'email de confirmation n'a pas pu être envoyé (problème de configuration SMTP).", 
-          variant: "destructive" 
-        });
+        console.error('Erreur envoi email:', emailError);
       }
 
-   toast({
+      toast({
         title: "Message envoyé !",
-        description: "Nous vous recontacterons rapidement. Votre message a été archivé.",
+        description: "Nous vous recontacterons rapidement.",
       });
-      // Réinitialiser le formulaire
-      setTimeout(() => {
-        setFormData({ name: "", email: "", phone: "", message: "" });
-        setRequestType('quote');
-      }, 1000);
+
+      setFormData({ name: "", email: "", phone: "", message: "" });
+      setRequestType('quote');
     } catch (error) {
       if (error instanceof z.ZodError) {
         toast({
@@ -130,10 +117,10 @@ const Contact = () => {
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 text-center">
-            Contactez-nous
+            {content.contact.title}
           </h2>
           <p className="text-xl text-muted-foreground text-center">
-            Une question ? Un projet ? N'hésitez pas à nous contacter pour un devis gratuit
+            {content.contact.subtitle}
           </p>
         </div>
 
@@ -148,11 +135,11 @@ const Contact = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-2">
-                <a href="tel:+33627135304" className="text-primary font-semibold text-lg hover:underline block">
-                  +33 6 27 13 53 04
+                <a href={`tel:${companyInfo.phoneMobile.replace(/\s/g, '')}`} className="text-primary font-semibold text-lg hover:underline block">
+                  {companyInfo.phoneMobile}
                 </a>
-                <a href="tel:+33183643640" className="text-primary font-semibold text-lg hover:underline block">
-                  +33 1 83 64 36 40
+                <a href={`tel:${companyInfo.phoneFixe.replace(/\s/g, '')}`} className="text-primary font-semibold text-lg hover:underline block">
+                  {companyInfo.phoneFixe}
                 </a>
               </div>
               <p className="text-sm text-muted-foreground mt-2">9h - 18h</p>
@@ -168,14 +155,9 @@ const Contact = () => {
               <CardDescription>Écrivez-nous à tout moment</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-2">
-                <a href="mailto:kamal@hdconnect.fr" className="text-primary font-semibold text-lg hover:underline break-all block">
-                  kamal@hdconnect.fr
-                </a>
-                <a href="mailto:hdconnect@hdconnect.fr" className="text-primary font-semibold text-lg hover:underline break-all block">
-                  hdconnect@hdconnect.fr
-                </a>
-              </div>
+              <a href={`mailto:${companyInfo.email}`} className="text-primary font-semibold text-lg hover:underline break-all block">
+                {companyInfo.email}
+              </a>
               <p className="text-sm text-muted-foreground mt-2">Réponse sous 24h</p>
             </CardContent>
           </Card>
@@ -189,7 +171,7 @@ const Contact = () => {
               <CardDescription>Nos bureaux</CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-foreground font-semibold">Paris, France</p>
+              <p className="text-foreground font-semibold">{companyInfo.address}</p>
               <p className="text-sm text-muted-foreground mt-2">Intervention sur toute l'Île-de-France</p>
             </CardContent>
           </Card>
@@ -197,7 +179,7 @@ const Contact = () => {
 
         <Card className="max-w-2xl mx-auto mt-12">
           <CardHeader>
-            <CardTitle className="text-2xl">Demander un Devis Gratuit</CardTitle>
+            <CardTitle className="text-2xl">{content.contact.formTitle}</CardTitle>
             <CardDescription>Remplissez ce formulaire et nous vous recontacterons rapidement</CardDescription>
           </CardHeader>
           <CardContent>
