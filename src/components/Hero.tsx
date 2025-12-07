@@ -1,9 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Shield, CheckCircle } from "lucide-react";
+import { content } from "@/data/content";
 import heroImage from "@/assets/hero-security.jpg";
 
 const Hero = () => {
-  const scrollToSection = (id: string, mode?: 'devis' | 'intervention') => {
+  const heroContent = content.hero;
+  const scrollToSection = (id: string, mode?: 'quote' | 'intervention') => {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
@@ -33,26 +35,25 @@ const Hero = () => {
         <div className="max-w-3xl">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
             <Shield className="w-5 h-5 text-primary" />
-            <span className="text-sm font-semibold text-primary">Expert en Sécurité depuis 10 ans</span>
+            <span className="text-sm font-semibold text-primary">{heroContent.badge}</span>
           </div>
 
           <h1 className="text-5xl md:text-7xl font-bold text-foreground mb-6 leading-tight text-center md:text-left">
-            Protégez ce qui compte
-            <span className="block text-primary">avec HD Connect</span>
+            {heroContent.title}
+            <span className="block text-primary">{heroContent.titleHighlight}</span>
           </h1>
 
           <p className="text-xl text-muted-foreground mb-8 leading-relaxed text-center md:text-left">
-            Installation et maintenance de systèmes de sécurité professionnels : caméras de surveillance, alarmes,
-            contrôle d'accès et bien plus encore.
+            {heroContent.subtitle}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 mb-12">
             <Button 
-              onClick={() => scrollToSection("quote", "devis")} 
+              onClick={() => scrollToSection("quote", "quote")} 
               size="lg" 
               className="bg-gradient-to-r from-primary to-accent hover:opacity-90 text-lg h-14 px-8"
             >
-              Demander un Devis Gratuit
+              {heroContent.ctaPrimary.label}
             </Button>
             <Button 
               onClick={() => scrollToSection("quote", "intervention")} 
@@ -60,23 +61,17 @@ const Hero = () => {
               variant="outline"
               className="text-lg h-14 px-8 border-2 border-accent text-accent hover:bg-accent hover:text-accent-foreground"
             >
-              Dépannage
+              {heroContent.ctaSecondary.label}
             </Button>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            <div className="flex items-center gap-3">
-              <CheckCircle className="w-6 h-6 text-accent flex-shrink-0" />
-              <span className="text-foreground font-medium">Installation Rapide</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <CheckCircle className="w-6 h-6 text-accent flex-shrink-0" />
-              <span className="text-foreground font-medium">Support 24/7</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <CheckCircle className="w-6 h-6 text-accent flex-shrink-0" />
-              <span className="text-foreground font-medium">Garantie 5 ans</span>
-            </div>
+            {heroContent.trustBadges.map((badge) => (
+              <div key={badge.label} className="flex items-center gap-3">
+                <CheckCircle className="w-6 h-6 text-accent flex-shrink-0" />
+                <span className="text-foreground font-medium">{badge.label}</span>
+              </div>
+            ))}
           </div>
         </div>
       </div>

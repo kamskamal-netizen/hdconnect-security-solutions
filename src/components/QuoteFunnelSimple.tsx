@@ -104,52 +104,7 @@ const QuoteFunnelSimple = () => {
       detailedMessage += `\nAdresse: ${formData.address}`;
       if (formData.message) detailedMessage += `\n\nMessage supplémentaire:\n${formData.message}`;
 
-      // Envoi vers Formspree (votre formulaire principal)
-      const formspreeResponse = await fetch('https://formspree.io/f/xjkbpzrz', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          address: formData.address,
-          message: detailedMessage,
-          _subject: requestType === 'quote' ? '🔔 Nouvelle demande de devis - HD Connect' : '🚨 Demande d\'intervention - HD Connect'
-        })
-      });
-
-      if (!formspreeResponse.ok) {
-        throw new Error('Erreur lors de l\'envoi du formulaire');
-      }
-
-      // Envoi de l'email de confirmation au client via edge function
-      try {
-        const { supabaseClient } = await import("@/lib/supabase");
-        await supabaseClient.functions.invoke('send-quote-email', {
-          body: {
-            requestType: requestType === 'quote' ? 'quote' : 'intervention',
-            clientInfo: {
-              name: formData.name,
-              email: formData.email,
-              phone: formData.phone,
-              address: formData.address
-            },
-            confirmationOnly: true // Flag pour indiquer qu'on veut juste la confirmation client
-          }
-        });
-      } catch (emailError) {
-        console.error('Erreur envoi confirmation client:', emailError);
-        // On continue même si l'email de confirmation échoue
-      }
-
-      toast({
-        title: "Demande envoyée !",
-        description: "Nous vous recontacterons rapidement. Un email de confirmation vous a été envoyé.",
-      });
-      
+     // Envoi vers Supabase (enregistrement d      const { supabaseClient } = await import("@/lib/supabase");\n      \n      // 1. Enregistrement dans la table 'requests' (ou 'devis' / 'interventions')\n      const { data: requestData, error: insertError } = await supabaseClient\n        .from('requests') // Assumons une table 'requests' pour l'archivage\n        .insert([\n          {\n            type: requestType,\n            status: 'new',\n            client_name: formData.name,\n            client_email: formData.email,\n            client_phone: formData.phone,\n            client_address: formData.address,\n            details: detailedMessage, // On stocke le message détaillé pour l'admin\n            // Champs spécifiques au devis\n            service_requested: requestType === 'quote' ? (serviceOptions.find(s => s.id === selectedService)?.label || selectedService) : null,\n            timeline: requestType === 'quote' ? formData.timeline : null,\n            budget: requestType === 'quote' ? formData.budget : null,\n            // Champs spécifiques à l'intervention\n            problem_type: requestType === 'intervention' ? (interventionOptions.find(o => o.id === selectedProblem)?.label || selectedProblem) : null,\n            urgency: requestType === 'intervention' ? formData.urgency : null,\n            message: formData.message || null,\n          }\n        ])\n        .select();\n\n      if (insertError) {\n        console.error('Erreur Supabase lors de l\'insertion:', insertError);\n        throw new Error('Erreur lors de l\'enregistrement de la demande.');\n  // 2. Envoi de l'email de notification et de confirmation via edge function\n      // La fonction Edge Function doit être modifiée pour utiliser le SMTP ou un autre service\n      try {\n        await supabaseClient.functions.invoke('send-quote-email', {\n          body: {\n            requestType: requestType === 'quote' ? 'quote' : 'intervention',\n            clientInfo: {\n              name: formData.name,\n              email: formData.email,\n              phone: formData.phone,\n              address: formData.address\n            },\n            // On envoie l'ID de la demande pour référence dans l'email admin\n            requestId: requestData[0].id,\n            // On envoie le message détaillé pour l'email admin\n            details: detailedMessage,\n          }\n        });\n      } catch (emailError) {\n        console.error('Erreur envoi email (Admin/Client):', emailError);\n        // On continue, mais on avertit l'utilisateur que l'email n'a pas été envoyé\n        toast({ \n          title: "Avertissement", \n          description: "Votre demande a été enregistrée, mais l'email de confirmation n'a pas pu être envoyé (problème de configuration SMTP).", \n          variant: "destructive" \n        });\n     toast({\n        title: "Demande envoyée !",\n        description: "Nous vous recontacterons rapidement. Votre demande a été archivée.",\n      });      
       // Réinitialiser
       setTimeout(() => {
         setStep(1);

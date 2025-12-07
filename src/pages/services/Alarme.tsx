@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import { content } from "@/data/content";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { ShieldAlert, Bell, Smartphone, Radio, Home, Building2 } from "lucide-react";
@@ -6,6 +7,7 @@ import { Link } from "react-router-dom";
 import alarmImage from "@/assets/service-alarm.jpg";
 
 const Alarme = () => {
+  const { alarme } = content.pageServices;
   const features = [
     {
       icon: ShieldAlert,
@@ -48,12 +50,7 @@ const Alarme = () => {
           <div className="container mx-auto px-4">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="text-center md:text-left">
-                <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-center md:text-left">
-                  Systèmes d'Alarme Anti-Intrusion
-                </h1>
-                <p className="text-xl text-muted-foreground mb-8 text-center md:text-left">
-                  Alarmes connectées avec détection intelligente pour protéger vos locaux contre les intrusions. Systèmes sans fil ou filaires certifiés NF&A2P avec télésurveillance optionnelle 24/7.
-                </p>
+               <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-center md:text-left">\n                  {alarme.title}\n                </h1>              <p className="text-xl text-muted-foreground mb-8 text-center md:text-left">\n                  {alarme.description}\n                </p>
                 <Link to="/">
                   <Button size="lg" className="mr-4" onClick={() => {
                     setTimeout(() => {
@@ -76,7 +73,7 @@ const Alarme = () => {
                 </Link>
               </div>
               <div className="rounded-lg overflow-hidden shadow-2xl">
-                <img src={alarmImage} alt="Systèmes d'Alarme" className="w-full h-full object-cover" />
+                <img src={alarme.heroImage} alt={alarme.title} className="w-full h-full object-cover" />
               </div>
             </div>
           </div>

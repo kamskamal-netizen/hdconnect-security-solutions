@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { content } from "@/data/content";
 import { Phone, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
@@ -7,6 +8,9 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  
+  const navLinks = content.nav;
+  const contactInfo = content.company.contact;
 
   const scrollToSection = (id: string) => {
     setIsMenuOpen(false);
@@ -42,33 +46,30 @@ const Header = () => {
           </Link>
 
           <nav className="hidden md:flex items-center gap-8">
-            <button onClick={() => scrollToSection("accueil")} className="text-foreground hover:text-primary transition-colors">
-              Accueil
-            </button>
-            <button onClick={() => scrollToSection("services")} className="text-foreground hover:text-primary transition-colors">
-              Services
-            </button>
-            <button onClick={() => scrollToSection("apropos")} className="text-foreground hover:text-primary transition-colors">
-              À Propos
-            </button>
-            <button onClick={() => scrollToSection("contact")} className="text-foreground hover:text-primary transition-colors">
-              Contact
-            </button>
+            {navLinks.map((link) => (
+              <button
+                key={link.href}
+                onClick={() => scrollToSection(link.href.replace("/#", "") === "/" ? "accueil" : link.href.replace("/#", ""))}
+                className="text-foreground hover:text-primary transition-colors"
+              >
+                {link.label}
+              </button>
+            ))}
           </nav>
 
           <div className="hidden md:flex items-center gap-4">
             <div className="flex items-center gap-3">
-              <a href="tel:+33627135304" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
+              <a href={`tel:${contactInfo.phoneMobile}`} className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
                 <Phone className="w-4 h-4" />
-                <span className="font-semibold text-sm">+33 6 27 13 53 04</span>
+                <span className="font-semibold text-sm">{contactInfo.phoneMobile}</span>
               </a>
               <span className="text-muted-foreground">|</span>
-              <a href="tel:+33183643640" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
+              <a href={`tel:${contactInfo.phoneFixe}`} className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
                 <Phone className="w-4 h-4" />
-                <span className="font-semibold text-sm">+33 1 83 64 36 40</span>
+                <span className="font-semibold text-sm">{contactInfo.phoneFixe}</span>
               </a>
             </div>
-            <Button onClick={() => scrollToSection("quote")} className="bg-gradient-to-r from-primary to-accent hover:opacity-90">
+            <Button onClick={() => scrollToSection("contact")} className="bg-gradient-to-r from-primary to-accent hover:opacity-90">
               Devis Gratuit
             </Button>
           </div>
@@ -81,27 +82,24 @@ const Header = () => {
         {isMenuOpen && (
           <div className="md:hidden py-4 border-t border-border">
             <nav className="flex flex-col gap-4">
-              <button onClick={() => scrollToSection("accueil")} className="text-left text-foreground hover:text-primary transition-colors">
-                Accueil
-              </button>
-              <button onClick={() => scrollToSection("services")} className="text-left text-foreground hover:text-primary transition-colors">
-                Services
-              </button>
-              <button onClick={() => scrollToSection("apropos")} className="text-left text-foreground hover:text-primary transition-colors">
-                À Propos
-              </button>
-              <button onClick={() => scrollToSection("contact")} className="text-left text-foreground hover:text-primary transition-colors">
-                Contact
-              </button>
-              <a href="tel:+33627135304" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
+              {navLinks.map((link) => (
+                <button
+                  key={link.href}
+                  onClick={() => scrollToSection(link.href.replace("/#", "") === "/" ? "accueil" : link.href.replace("/#", ""))}
+                  className="text-left text-foreground hover:text-primary transition-colors"
+                >
+                  {link.label}
+                </button>
+              ))}
+              <a href={`tel:${contactInfo.phoneMobile}`} className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
                 <Phone className="w-5 h-5" />
-                <span className="font-semibold">+33 6 27 13 53 04</span>
+                <span className="font-semibold">{contactInfo.phoneMobile}</span>
               </a>
-              <a href="tel:+33183643640" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
+              <a href={`tel:${contactInfo.phoneFixe}`} className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
                 <Phone className="w-5 h-5" />
-                <span className="font-semibold">+33 1 83 64 36 40</span>
+                <span className="font-semibold">{contactInfo.phoneFixe}</span>
               </a>
-              <Button onClick={() => scrollToSection("quote")} className="bg-gradient-to-r from-primary to-accent hover:opacity-90">
+              <Button onClick={() => scrollToSection("contact")} className="bg-gradient-to-r from-primary to-accent hover:opacity-90">
                 Devis Gratuit
               </Button>
             </nav>

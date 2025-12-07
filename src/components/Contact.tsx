@@ -42,49 +42,60 @@ const Contact = () => {
         emergency: 'Urgence'
       };
       
-      // Envoi vers Formspree
-      const formspreeResponse = await fetch('https://formspree.io/f/xjkbpzrz', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          name: validatedData.name,
-          email: validatedData.email,
-          phone: validatedData.phone,
-          message: validatedData.message,
-          type: typeLabels[requestType],
-          _subject: `📧 ${typeLabels[requestType]} - ${validatedData.name} - HD Connect`
-        })
-      });
+      // 1. Enregistrement dans la table 'requests' (ou 'contacts')
+      const { supabaseClient } = await import("@/lib/supabase");
+      
+      const { data: requestData, error: insertError } = await supabaseClient
+        .from('requests') // Utilisation de la même table 'requests' pour l'archivage
+        .insert([
+          {
+            type: requestType === 'emergency' ? 'intervention' : 'contact',
+            status: 'new',
+            client_name: validatedData.name,
+            client_email: validatedData.email,
+            client_phone: validatedData.phone,
+            details: validatedData.message,
+            urgency: requestType === 'emergency' ? 'critique' : 'normale',
+            message: validatedData.message,
+          }
+        ])
+        .select();
 
-      if (!formspreeResponse.ok) {
-        throw new Error('Erreur lors de l\'envoi du formulaire');
+      if (insertError) {
+        console.error('Erreur Supabase lors de l\'insertion:', insertError);
+        throw new Error('Erreur lors de l\'enregistrement de la demande.');
       }
 
-      // Envoi de l'email de confirmation au client via edge function
+      // 2. Envoi de l'email de notification et de confirmation via edge function
       try {
-        const { supabaseClient } = await import("@/lib/supabase");
         await supabaseClient.functions.invoke('send-quote-email', {
           body: {
-            requestType: 'contact',
+            requestType: requestType === 'emergency' ? 'intervention' : 'contact',
             clientInfo: {
               name: validatedData.name,
-              email: validatedData.email
+              email: validatedData.email,
+              phone: validatedData.phone,
             },
-            confirmationOnly: true
+            // On envoie l'ID de la demande pour référence dans l'email admin
+            requestId: requestData[0].id,
+            // On envoie le message détaillé pour l'email admin
+            details: validatedData.message,
           }
         });
       } catch (emailError) {
-        console.error('Erreur envoi confirmation client:', emailError);
+        console.error('Erreur envoi email (Admin/Client):', emailError);
+        // On continue, mais on avertit l'utilisateur que l'email n'a pas été envoyé
+        toast({ 
+          title: "Avertissement", 
+          description: "Votre message a été enregistré, mais l'email de confirmation n'a pas pu être envoyé (problème de configuration SMTP).", 
+          variant: "destructive" 
+        });
       }
 
-      toast({
+   toast({
         title: "Message envoyé !",
-        description: "Nous vous recontacterons rapidement. Un email de confirmation vous a été envoyé.",
+        description: "Nous vous recontacterons rapidement. Votre message a été archivé.",
       });
-      
       // Réinitialiser le formulaire
       setTimeout(() => {
         setFormData({ name: "", email: "", phone: "", message: "" });

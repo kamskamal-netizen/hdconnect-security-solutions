@@ -1,42 +1,18 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import { content } from "@/data/content";
 import { Camera, Shield, Smartphone, Cloud, Eye, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
 import cameraImage from "@/assets/service-camera.jpg";
 
 const Videosurveillance = () => {
+  const { videosurveillance } = content.pageServices;
   const features = [
-    {
-      icon: Camera,
-      title: "Caméras HD et 4K",
-      description: "Installation de caméras haute définition pour une surveillance optimale de vos locaux avec une résolution exceptionnelle"
-    },
-    {
-      icon: Eye,
-      title: "Vision nocturne avancée",
-      description: "Surveillance 24h/24 grâce à la vision infrarouge jusqu'à 30 mètres, même dans l'obscurité totale"
-    },
-    {
-      icon: Smartphone,
-      title: "Accès mobile sécurisé",
-      description: "Visualisez vos caméras en temps réel depuis votre smartphone, tablette ou ordinateur partout dans le monde"
-    },
-    {
-      icon: Cloud,
-      title: "Stockage hybride sécurisé",
-      description: "Enregistrement continu avec stockage local (NVR) et cloud sécurisé pour une double protection de vos données"
-    },
-    {
-      icon: Shield,
-      title: "Analyse vidéo intelligente",
-      description: "Détection de mouvement avancée, reconnaissance faciale, comptage de personnes et alertes intelligentes en temps réel"
-    },
-    {
-      icon: Clock,
-      title: "Enregistrement continu H24",
-      description: "Archivage automatique de 30 à 90 jours avec historique consultable à tout moment et fonction de recherche rapide"
-    }
+    { icon: Camera, title: videosurveillance.features[0] },
+    { icon: Eye, title: videosurveillance.features[1] },
+    { icon: Smartphone, title: videosurveillance.features[2] },
+    { icon: Cloud, title: videosurveillance.features[3] },
   ];
 
   return (
@@ -48,11 +24,11 @@ const Videosurveillance = () => {
           <div className="container mx-auto px-4">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="text-center md:text-left">
-                <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-center md:text-left">
-                  Vidéosurveillance IP Professionnelle
+               <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-center md:text-left">
+                  {videosurveillance.title}
                 </h1>
                 <p className="text-xl text-muted-foreground mb-8 text-center md:text-left">
-                  Installation de caméras HD et 4K avec enregistrement continu et accès à distance pour une sécurité optimale de vos locaux. Solutions professionnelles adaptées aux particuliers, commerces et entreprises avec garantie 3 ans.
+                  {videosurveillance.description}
                 </p>
                 <Link to="/">
                   <Button size="lg" className="mr-4" onClick={() => {
@@ -76,7 +52,7 @@ const Videosurveillance = () => {
                 </Link>
               </div>
               <div className="rounded-lg overflow-hidden shadow-2xl">
-                <img src={cameraImage} alt="Vidéosurveillance IP" className="w-full h-full object-cover" />
+            <img src={videosurveillance.heroImage} alt={videosurveillance.title} className="w-full h-full object-cover" />
               </div>
             </div>
           </div>
@@ -96,9 +72,7 @@ const Videosurveillance = () => {
                     <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-4">
                       <Icon className="w-6 h-6 text-primary-foreground" />
                     </div>
-                    <h3 className="text-xl font-semibold mb-2 text-center md:text-left">{feature.title}</h3>
-                    <p className="text-muted-foreground text-center md:text-left">{feature.description}</p>
-                  </div>
+                   <h3 className="text-xl font-semibold mb-2 text-center md:text-left">{feature.title}</h3>                                     </div>
                 );
               })}
             </div>

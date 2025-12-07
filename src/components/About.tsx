@@ -1,63 +1,47 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { Award, Users, Clock, ThumbsUp } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { content } from "@/data/content";
+import { Award, Users, Clock, ThumbsUp, CheckCircle } from "lucide-react";
+
+const iconMap = { Award, Users, Clock, ThumbsUp };
 
 const About = () => {
-  const stats = [
-    { icon: Award, value: "10+", label: "Années d'expérience" },
-    { icon: Users, value: "500+", label: "Clients satisfaits" },
-    { icon: Clock, value: "24/7", label: "Support disponible" },
-    { icon: ThumbsUp, value: "98%", label: "Taux de satisfaction" },
-  ];
-
-  return (
+  const aboutContent = content.about;return (
     <section id="apropos" className="py-24 bg-background">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-center md:text-left">
-              Votre partenaire de confiance en sécurité
+              {aboutContent.title}
             </h2>
             <div className="space-y-4 text-muted-foreground text-lg text-center md:text-left">
-              <p>
-                <span className="text-primary font-semibold">HD Connect</span> est une entreprise spécialisée dans
-                l'installation et la maintenance de systèmes de sécurité professionnels depuis plus de 10 ans.
-              </p>
-              <p>
-                Notre équipe de techniciens certifiés met son expertise au service de votre sécurité, que vous soyez
-                un particulier, une entreprise ou une collectivité.
-              </p>
-              <p>
-                Nous sélectionnons les meilleures technologies du marché et assurons une installation de qualité,
-                suivie d'un accompagnement personnalisé pour garantir votre tranquillité d'esprit.
-              </p>
+              {aboutContent.content.map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}
             </div>
 
             <div className="mt-8 p-6 bg-gradient-to-r from-primary/10 to-accent/10 rounded-lg border border-primary/20">
               <h3 className="text-xl font-bold text-foreground mb-3">Nos valeurs</h3>
               <ul className="space-y-2 text-foreground">
+                {/* Les valeurs ne sont pas dans le content.ts actuel, je les laisse en dur pour l'instant */}
                 <li className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-accent"></div>
-                  <span>Excellence technique et innovation</span>
+                  <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
+                  <span><span className="font-semibold">Expertise:</span> 10 ans d'expérience dans le domaine.</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-accent"></div>
-                  <span>Écoute et conseil personnalisé</span>
+                  <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
+                  <span><span className="font-semibold">Réactivité:</span> Intervention rapide en Île-de-France.</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-accent"></div>
-                  <span>Réactivité et disponibilité</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-accent"></div>
-                  <span>Engagement qualité et durabilité</span>
+                  <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
+                  <span><span className="font-semibold">Qualité:</span> Utilisation de matériel certifié et premium.</span>
                 </li>
               </ul>
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-6">
-            {stats.map((stat, index) => {
-              const Icon = stat.icon;
+            {aboutContent.stats.map((stat, index) => {
+              const Icon = iconMap[stat.icon] || Award; // Fallback
               return (
                 <Card key={index} className="text-center hover:shadow-lg transition-shadow">
                   <CardContent className="pt-6">

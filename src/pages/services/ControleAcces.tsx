@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import { content } from "@/data/content";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Lock, Fingerprint, CreditCard, History, Users, Key } from "lucide-react";
@@ -6,6 +7,7 @@ import { Link } from "react-router-dom";
 import accessImage from "@/assets/service-access.jpg";
 
 const ControleAcces = () => {
+  const { controleacces } = content.pageServices;
   const features = [
     {
       icon: CreditCard,
@@ -48,13 +50,7 @@ const ControleAcces = () => {
           <div className="container mx-auto px-4">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="text-center md:text-left">
-                <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-center md:text-left">
-                  Contrôle d'Accès Intelligent
-                </h1>
-                <p className="text-xl text-muted-foreground mb-8 text-center md:text-left">
-                  Systèmes de contrôle d'accès par badge, code ou biométrie pour sécuriser vos locaux. Solutions évolutives de la serrure connectée au système multi-sites avec gestion de la pointeuse horaire.
-                </p>
-                <Link to="/">
+                <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-center md:text-left">\n                  {controleacces.title}\n                </h1>              <p className="text-xl text-muted-foreground mb-8 text-center md:text-left">\n                  {controleacces.description}\n                </p>                <Link to="/">
                   <Button size="lg" className="mr-4" onClick={() => {
                     setTimeout(() => {
                       const element = document.getElementById("quote");
@@ -76,7 +72,7 @@ const ControleAcces = () => {
                 </Link>
               </div>
               <div className="rounded-lg overflow-hidden shadow-2xl">
-                <img src={accessImage} alt="Contrôle d'Accès" className="w-full h-full object-cover" />
+                <img src={controleacces.heroImage} alt={controleacces.title} className="w-full h-full object-cover" />
               </div>
             </div>
           </div>

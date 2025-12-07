@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Auth from "./pages/Auth";
 import Admin from "./pages/Admin";
+import LegalPage from "./pages/LegalPage";
 import Videosurveillance from "./pages/services/Videosurveillance";
 import Alarme from "./pages/services/Alarme";
 import ControleAcces from "./pages/services/ControleAcces";
@@ -32,6 +33,7 @@ const App = () => (
           <Route path="/services/reseau" element={<Reseau />} />
           <Route path="/services/domotique" element={<Domotique />} />
           <Route path="/services/maintenance" element={<Maintenance />} />
+          <Route path="/:type(mentions-legales|politique-confidentialite)" element={<LegalPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -1,69 +1,39 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Camera, ShieldAlert, Lock, Wifi, Monitor, Wrench } from "lucide-react";
+import { content } from "@/data/content";
 import { Link } from "react-router-dom";
 import cameraImage from "@/assets/service-camera.jpg";
 import alarmImage from "@/assets/service-alarm.jpg";
 import accessImage from "@/assets/service-access.jpg";
 
+const iconMap = { Camera, ShieldAlert, Lock, Wifi, Monitor, Wrench };
+const imageMap = { "Vidéosurveillance IP": cameraImage, "Systèmes d'Alarme": alarmImage, "Contrôle d'Accès": accessImage };
+
 const Services = () => {
-  const services = [
-    {
-      icon: Camera,
-      title: "Vidéosurveillance IP",
-      description: "Installation de caméras HD et 4K avec enregistrement continu et accès à distance",
-      image: cameraImage,
-      features: ["Caméras intérieur/extérieur", "Vision nocturne", "Application mobile", "Stockage cloud"],
-      link: "/services/videosurveillance"
-    },
-    {
-      icon: ShieldAlert,
-      title: "Systèmes d'Alarme",
-      description: "Alarmes anti-intrusion connectées avec détection intelligente",
-      image: alarmImage,
-      features: ["Détecteurs de mouvement", "Sirènes intégrées", "Notification instantanée", "Télésurveillance"],
-      link: "/services/alarme"
-    },
-    {
-      icon: Lock,
-      title: "Contrôle d'Accès",
-      description: "Systèmes de contrôle d'accès par badge, code ou biométrie",
-      image: accessImage,
-      features: ["Badge RFID", "Empreinte digitale", "Gestion centralisée", "Historique d'accès"],
-      link: "/services/controle-acces"
-    },
-    {
-      icon: Wifi,
-      title: "Réseau & Connectivité",
-      description: "Installation de réseaux sécurisés pour vos équipements connectés",
-      features: ["Réseau filaire/WiFi", "Configuration VPN", "Firewall sécurisé", "Maintenance réseau"],
-      link: "/services/reseau"
-    },
-    {
-      icon: Monitor,
-      title: "Solutions Domotique",
-      description: "Intégration de systèmes domotiques pour une sécurité intelligente",
-      features: ["Automatisation", "Contrôle centralisé", "Scénarios personnalisés", "Compatible tous systèmes"],
-      link: "/services/domotique"
-    },
-    {
-      icon: Wrench,
-      title: "Maintenance & Support",
-      description: "Service de maintenance préventive et support technique réactif",
-      features: ["Support 24/7", "Interventions rapides", "Contrats de maintenance", "Mise à jour systèmes"],
-      link: "/services/maintenance"
-    },
-  ];
+  const services = content.services.items.map(service => {
+    const Icon = iconMap[service.icon] || Camera; // Fallback to Camera if icon not found
+    const image = imageMap[service.title]; // Use imported image if available
+    
+    return {
+      icon: Icon,
+      title: service.title,
+      description: service.description,
+      image: image,
+      features: service.points,
+      link: service.pagePath,
+    };
+  });
 
   return (
     <section id="services" className="py-24 bg-secondary/30">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 text-center">
-            Nos Services de Sécurité
+            {content.services.title}
           </h2>
           <p className="text-xl text-muted-foreground text-center">
-            Des solutions complètes pour protéger vos locaux professionnels et résidentiels
+            {content.services.subtitle}
           </p>
         </div>
 

@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
+import LocalSEO from "@/components/LocalSEO";
 import QuoteFunnelSimple from "@/components/QuoteFunnelSimple";
 import About from "@/components/About";
 import Contact from "@/components/Contact";
@@ -14,6 +15,7 @@ const Index = () => {
         <Hero />
         <Services />
         <QuoteFunnelSimple />
+        <LocalSEO />
         <About />
         <Contact />
       </main>
