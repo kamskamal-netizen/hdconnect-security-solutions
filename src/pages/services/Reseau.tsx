@@ -1,97 +1,141 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Wifi, Cable, Shield, Server, Network, Settings } from "lucide-react";
+import { content } from "@/data/content";
+import { Wifi, Cable, Shield, Server, Network, Settings, CheckCircle, Zap, HardHat, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const Reseau = () => {
+  const { reseau } = content.pageServices;
+  const contactInfo = content.company.contact;
+
   const features = [
-    {
-      icon: Wifi,
-      title: "Réseau WiFi professionnel mesh",
-      description: "Installation de bornes WiFi 6E haute performance pour une couverture optimale sans zone morte jusqu'à 500m²"
-    },
-    {
-      icon: Cable,
-      title: "Câblage structuré certifié",
-      description: "Infrastructure réseau Cat 6A/7 certifiée pour une fiabilité maximale avec garantie 25 ans sur câblage"
-    },
-    {
-      icon: Shield,
-      title: "VPN sécurisé d'entreprise",
-      description: "Configuration de réseaux privés virtuels chiffrés pour vos connexions à distance et télétravail sécurisé"
-    },
-    {
-      icon: Server,
-      title: "Firewall avancé nouvelle génération",
-      description: "Protection réseau contre les intrusions et menaces externes avec filtrage URL et antivirus intégré"
-    },
-    {
-      icon: Network,
-      title: "Architecture réseau évolutive",
-      description: "Conception et déploiement d'architectures VLAN segmentées pour PME et grandes entreprises"
-    },
-    {
-      icon: Settings,
-      title: "Maintenance réseau proactive",
-      description: "Support technique et maintenance préventive 24/7 avec monitoring temps réel de votre infrastructure"
-    }
+    { icon: Wifi, title: "WiFi Professionnel", description: "Installation de bornes WiFi 6E/7 pour une couverture optimale et des débits ultra-rapides." },
+    { icon: Cable, title: "Câblage Certifié", description: "Infrastructure réseau Cat 6A/7 certifiée pour une fiabilité maximale et une garantie 25 ans." },
+    { icon: Shield, title: "Sécurité Avancée", description: "Mise en place de pare-feu (Firewall) et de VPN pour protéger votre réseau contre les cyberattaques." },
+    { icon: Server, title: "Architecture Évolutive", description: "Conception de réseaux VLAN segmentés pour une performance et une sécurité accrues." },
+  ];
+
+  const processSteps = [
+    { icon: MapPin, title: "1. Audit et Conception", description: "Analyse de vos besoins, étude de site et conception de l'architecture réseau la plus performante." },
+    { icon: HardHat, title: "2. Installation Physique", description: "Déploiement du câblage, des baies de brassage et des équipements actifs (switchs, routeurs)." },
+    { icon: Settings, title: "3. Configuration et Sécurité", description: "Configuration des VLAN, du WiFi, du Firewall et des VPN pour une sécurité maximale." },
+    { icon: CheckCircle, title: "4. Certification et Support", description: "Tests de performance, certification du câblage et support technique continu." },
+  ];
+
+  const faqItems = [
+    { question: "Combien de bornes WiFi faut-il pour mon local ?", answer: "1 borne couvre environ 100-150m² selon les obstacles. Pour un bureau de 300m², comptez 2-3 bornes avec système mesh pour un roaming transparent." },
+    { question: "Puis-je avoir plusieurs réseaux WiFi séparés ?", answer: "Oui, nous configurons des SSID multiples (visiteurs, employés, IoT) avec isolation et niveaux de sécurité différents sur la même infrastructure." },
+    { question: "Le câblage est-il vraiment nécessaire avec le WiFi ?", answer: "Pour les postes fixes, serveurs et caméras IP, le câblage offre plus de stabilité, sécurité et débit. Nous recommandons une solution hybride." },
+    { question: "Comment protéger mon réseau des cyberattaques ?", answer: "Firewall nouvelle génération, segmentation VLAN, VPN chiffré, filtrage web et mises à jour automatiques. Nous incluons une formation sécurité." },
   ];
 
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main>
-        {/* Hero Section */}
+      <main className="pt-20">
+        {/* Section 1: Hero */}
         <section className="relative py-20 bg-gradient-to-br from-primary/10 to-accent/10">
           <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-center md:text-left">
-                Réseau & Connectivité
-              </h1>
-              <p className="text-xl text-muted-foreground mb-8 text-center md:text-left">
-                Installation de réseaux sécurisés pour vos équipements connectés professionnels et résidentiels. Du WiFi mesh domestique aux infrastructures d'entreprise avec fibre optique et supervision.
-              </p>
-              <Link to="/">
-                <Button size="lg" className="mr-4" onClick={() => {
-                  setTimeout(() => {
-                    const element = document.getElementById("quote");
-                    if (element) element.scrollIntoView({ behavior: "smooth" });
-                  }, 100);
-                }}>
-                  Demander un devis
-                </Button>
-              </Link>
-              <Link to="/">
-                <Button size="lg" variant="outline" onClick={() => {
-                  setTimeout(() => {
-                    const element = document.getElementById("contact");
-                    if (element) element.scrollIntoView({ behavior: "smooth" });
-                  }, 100);
-                }}>
-                  Nous contacter
-                </Button>
-              </Link>
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div className="text-center md:text-left">
+               <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-center md:text-left">
+                  {reseau.title}
+                </h1>
+                <p className="text-xl text-muted-foreground mb-8 text-center md:text-left">
+                  {reseau.description}
+                </p>
+                <Link to="/#quote">
+                  <Button size="lg" className="mr-4 bg-primary hover:bg-primary/90">
+                    Demander un devis
+                  </Button>
+                </Link>
+                <a href={`tel:${contactInfo.phoneMobile}`}>
+                  <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10">
+                    Intervention Urgente
+                  </Button>
+                </a>
+              </div>
+              <div className="rounded-lg overflow-hidden shadow-2xl">
+                <img src={reseau.heroImage} alt={reseau.title} className="w-full h-full object-cover" />
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Features Section */}
+        {/* Section 2: Arguments Clés (Features) */}
         <section className="py-20">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">
-              Caractéristiques et Avantages
+              Les Avantages d'une Infrastructure Réseau HD Connect
             </h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               {features.map((feature, index) => {
                 const Icon = feature.icon;
                 return (
-                  <div key={index} className="p-6 rounded-lg border bg-card hover:shadow-lg transition-shadow">
-                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-4">
-                      <Icon className="w-6 h-6 text-primary-foreground" />
+                  <Card key={index} className="hover:shadow-xl transition-shadow">
+                    <CardHeader className="flex flex-row items-center space-x-4">
+                      <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center flex-shrink-0">
+                        <Icon className="w-6 h-6 text-primary-foreground" />
+                      </div>
+                      <CardTitle className="text-xl">{feature.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-muted-foreground text-sm">{feature.description}</p>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* Section 3: Solutions Spécifiques (Particuliers vs Professionnels) */}
+        <section className="py-20 bg-secondary/30">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">
+              Réseau : Solutions Particuliers et Professionnels
+            </h2>
+            <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+              <Card className="p-8">
+                <CardTitle className="text-2xl mb-4 text-primary">Pour Particuliers</CardTitle>
+                <p className="text-muted-foreground mb-6">Installation de WiFi mesh pour une couverture totale de votre domicile et sécurisation de votre réseau domestique.</p>
+                <ul className="space-y-3 text-foreground">
+                  <li className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-green-500" /> WiFi mesh sans zone morte</li>
+                  <li className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-green-500" /> Sécurisation des équipements IoT</li>
+                  <li className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-green-500" /> Installation de la fibre optique</li>
+                </ul>
+              </Card>
+              <Card className="p-8">
+                <CardTitle className="text-2xl mb-4 text-primary">Pour Professionnels</CardTitle>
+                <p className="text-muted-foreground mb-6">Infrastructure réseau complète pour PME et grands comptes, incluant câblage, Firewall et VPN sécurisé.</p>
+                <ul className="space-y-3 text-foreground">
+                  <li className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-green-500" /> Câblage Cat 6A/7 certifié</li>
+                  <li className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-green-500" /> Firewall et VPN d'entreprise</li>
+                  <li className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-green-500" /> Maintenance et monitoring 24/7</li>
+                </ul>
+              </Card>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 4: Processus d'Installation */}
+        <section className="py-20">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">
+              Notre Processus d'Installation Réseau
+            </h2>
+            <div className="grid md:grid-cols-4 gap-8 max-w-6xl mx-auto">
+              {processSteps.map((step, index) => {
+                const Icon = step.icon;
+                return (
+                  <div key={index} className="text-center p-6 border rounded-lg bg-card shadow-sm">
+                    <div className="w-16 h-16 mx-auto rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                      <Icon className="w-8 h-8 text-primary" />
                     </div>
-                    <h3 className="text-xl font-semibold mb-2 text-center md:text-left">{feature.title}</h3>
-                    <p className="text-muted-foreground text-center md:text-left">{feature.description}</p>
+                    <h3 className="text-xl font-bold mb-2">{step.title}</h3>
+                    <p className="text-muted-foreground text-sm">{step.description}</p>
                   </div>
                 );
               })}
@@ -99,127 +143,43 @@ const Reseau = () => {
           </div>
         </section>
 
-        {/* Solutions Section */}
-        <section className="py-20 bg-secondary/30">
+        {/* Section 5: Formulaire de Contact (Quote) */}
+        <section id="quote" className="py-20 bg-primary/10">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">
-              Nos Solutions Réseau
+              Demandez Votre Audit Réseau Gratuit
             </h2>
-            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-              <div className="p-8 rounded-lg bg-card border">
-                <h3 className="text-2xl font-bold mb-4 text-center md:text-left">Pour Particuliers</h3>
-                <ul className="space-y-3 text-muted-foreground text-center md:text-left">
-                  <li className="flex items-start gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2"></div>
-                    <span>WiFi mesh pour toute la maison</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2"></div>
-                    <span>Sécurisation réseau domestique</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2"></div>
-                    <span>Installation box et équipements</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2"></div>
-                    <span>Support et dépannage rapide</span>
-                  </li>
-                </ul>
-              </div>
-              <div className="p-8 rounded-lg bg-card border">
-                <h3 className="text-2xl font-bold mb-4 text-center md:text-left">Pour Professionnels</h3>
-                <ul className="space-y-3 text-muted-foreground text-center md:text-left">
-                  <li className="flex items-start gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2"></div>
-                    <span>Infrastructure réseau entreprise</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2"></div>
-                    <span>Sécurité avancée et pare-feu</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2"></div>
-                    <span>VPN pour télétravail sécurisé</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2"></div>
-                    <span>Maintenance et monitoring 24/7</span>
-                  </li>
-                </ul>
-              </div>
+            <div className="max-w-xl mx-auto text-center">
+              <p className="text-xl text-muted-foreground mb-8">
+                Remplissez notre formulaire rapide sur la page d'accueil ou contactez-nous directement pour une étude personnalisée.
+              </p>
+              <Link to="/#quote">
+                <Button size="lg" className="mr-4 bg-primary hover:bg-primary/90">
+                  Accéder au Formulaire de Devis
+                </Button>
+              </Link>
+              <a href={`tel:${contactInfo.phoneMobile}`}>
+                <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10">
+                  Appeler un Expert
+                </Button>
+              </a>
             </div>
           </div>
         </section>
 
-        {/* CTA Section */}
-        <section className="py-20">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-              Optimisez votre infrastructure réseau
-            </h2>
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Bénéficiez d'un réseau performant et sécurisé adapté à vos besoins avec audit gratuit
-            </p>
-            <Link to="/">
-              <Button size="lg" onClick={() => {
-                setTimeout(() => {
-                  const element = document.getElementById("quote");
-                  if (element) element.scrollIntoView({ behavior: "smooth" });
-                }, 100);
-              }}>
-                Demander un devis gratuit
-              </Button>
-            </Link>
-          </div>
-        </section>
-
-        {/* Standards & Performance */}
-        <section className="py-20 bg-secondary/30">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">
-              Standards & Performance
-            </h2>
-            <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-              <div className="text-center">
-                <h3 className="text-xl font-bold mb-3">WiFi 6E & 7</h3>
-                <p className="text-muted-foreground">Dernière génération pour des débits jusqu'à 10 Gbps avec latence ultra-faible</p>
-              </div>
-              <div className="text-center">
-                <h3 className="text-xl font-bold mb-3">Certification ISO</h3>
-                <p className="text-muted-foreground">Câblage certifié ISO/IEC 11801 avec tests Fluke Networks et garantie constructeur</p>
-              </div>
-              <div className="text-center">
-                <h3 className="text-xl font-bold mb-3">SLA 99,9%</h3>
-                <p className="text-muted-foreground">Garantie de disponibilité réseau avec support 24/7 et pièces en stock</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* FAQ */}
+        {/* Section 6: FAQ */}
         <section className="py-20">
           <div className="container mx-auto px-4 max-w-3xl">
             <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">
-              Questions Fréquentes
+              Questions Fréquentes sur l'Infrastructure Réseau
             </h2>
             <div className="space-y-6">
-              <div className="p-6 rounded-lg bg-card border">
-                <h3 className="text-lg font-bold mb-2 text-center md:text-left">Combien de bornes WiFi faut-il pour mon local ?</h3>
-                <p className="text-muted-foreground text-center md:text-left">1 borne couvre environ 100-150m² selon les obstacles. Pour un bureau de 300m², comptez 2-3 bornes avec système mesh pour un roaming transparent.</p>
-              </div>
-              <div className="p-6 rounded-lg bg-card border">
-                <h3 className="text-lg font-bold mb-2 text-center md:text-left">Puis-je avoir plusieurs réseaux WiFi séparés ?</h3>
-                <p className="text-muted-foreground text-center md:text-left">Oui, nous configurons des SSID multiples (visiteurs, employés, IoT) avec isolation et niveaux de sécurité différents sur la même infrastructure.</p>
-              </div>
-              <div className="p-6 rounded-lg bg-card border">
-                <h3 className="text-lg font-bold mb-2 text-center md:text-left">Le câblage est-il vraiment nécessaire avec le WiFi ?</h3>
-                <p className="text-muted-foreground text-center md:text-left">Pour les postes fixes, serveurs et caméras IP, le câblage offre plus de stabilité, sécurité et débit. Nous recommandons une solution hybride.</p>
-              </div>
-              <div className="p-6 rounded-lg bg-card border">
-                <h3 className="text-lg font-bold mb-2 text-center md:text-left">Comment protéger mon réseau des cyberattaques ?</h3>
-                <p className="text-muted-foreground text-center md:text-left">Firewall nouvelle génération, segmentation VLAN, VPN chiffré, filtrage web et mises à jour automatiques. Nous incluons une formation sécurité.</p>
-              </div>
+              {faqItems.map((item, index) => (
+                <div key={index} className="p-6 rounded-lg bg-card border">
+                  <h3 className="text-lg font-bold mb-2">{item.question}</h3>
+                  <p className="text-muted-foreground">{item.answer}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>

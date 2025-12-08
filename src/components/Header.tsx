@@ -9,25 +9,40 @@ const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
   
-  const navLinks = content.nav;
+  const navLinks = [
+    { label: "Services", href: "/#services" },
+    { label: "À Propos", href: "/#about" },
+    { label: "Devis", href: "/#quote" },
+    { label: "Contact", href: "/#contact" },
+  ];
   const contactInfo = content.company.contact;
+
+  const HEADER_HEIGHT = 80; // Hauteur du header en pixels (h-20)
+
+  const performScroll = (targetId: string) => {
+    const element = document.getElementById(targetId);
+    if (element) {
+      const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+      const offsetPosition = elementPosition - HEADER_HEIGHT;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
+  };
 
   const scrollToSection = (id: string) => {
     setIsMenuOpen(false);
     
     if (location.pathname !== "/") {
       navigate("/#" + id);
+      // Utiliser un timeout pour s'assurer que la navigation est terminée avant de scroller
       setTimeout(() => {
-        const element = document.getElementById(id);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth" });
-        }
+        performScroll(id);
       }, 100);
     } else {
-      const element = document.getElementById(id);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
+      performScroll(id);
     }
   };
 
@@ -49,7 +64,7 @@ const Header = () => {
             {navLinks.map((link) => (
               <button
                 key={link.href}
-                onClick={() => scrollToSection(link.href.replace("/#", "") === "/" ? "accueil" : link.href.replace("/#", ""))}
+                onClick={() => scrollToSection(link.href.replace("/#", ""))}
                 className="text-foreground hover:text-primary transition-colors"
               >
                 {link.label}
@@ -69,7 +84,7 @@ const Header = () => {
                 <span className="font-semibold text-sm">{contactInfo.phoneFixe}</span>
               </a>
             </div>
-            <Button onClick={() => scrollToSection("contact")} className="bg-gradient-to-r from-primary to-accent hover:opacity-90">
+            <Button onClick={() => scrollToSection("quote")} className="bg-gradient-to-r from-primary to-accent hover:opacity-90">
               Devis Gratuit
             </Button>
           </div>
@@ -85,7 +100,7 @@ const Header = () => {
               {navLinks.map((link) => (
                 <button
                   key={link.href}
-                  onClick={() => scrollToSection(link.href.replace("/#", "") === "/" ? "accueil" : link.href.replace("/#", ""))}
+                  onClick={() => scrollToSection(link.href.replace("/#", ""))}
                   className="text-left text-foreground hover:text-primary transition-colors"
                 >
                   {link.label}
@@ -99,7 +114,7 @@ const Header = () => {
                 <Phone className="w-5 h-5" />
                 <span className="font-semibold">{contactInfo.phoneFixe}</span>
               </a>
-              <Button onClick={() => scrollToSection("contact")} className="bg-gradient-to-r from-primary to-accent hover:opacity-90">
+              <Button onClick={() => scrollToSection("quote")} className="bg-gradient-to-r from-primary to-accent hover:opacity-90">
                 Devis Gratuit
               </Button>
             </nav>

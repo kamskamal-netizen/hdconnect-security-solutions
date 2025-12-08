@@ -19,12 +19,10 @@ export const content = {
 
   // --- Navigation ---
   nav: [
-    { label: "Accueil", href: "/" },
     { label: "Services", href: "/#services" },
-    { label: "Devis", href: "/#quote" },
     { label: "À Propos", href: "/#about" },
+    { label: "Devis", href: "/#quote" },
     { label: "Contact", href: "/#contact" },
-    { label: "Admin", href: "/auth" },
   ],
 
   // --- Section Hero ---
@@ -42,37 +40,37 @@ export const content = {
     items: [
       {
         title: "Vidéosurveillance",
-        description: "Installation de caméras IP, systèmes d'enregistrement NVR, et accès à distance sécurisé.",
+        description: " dissuadez les intrus et surveillez vos biens à distance grâce à nos systèmes de vidéosurveillance haute définition. Nous installons des caméras IP discrètes et performantes, des enregistreurs NVR sécurisés et configurons l'accès à distance sur votre smartphone ou ordinateur.",
         icon: "Camera",
         link: "/services/videosurveillance",
       },
       {
         title: "Systèmes d'Alarme",
-        description: "Alarmes anti-intrusion, détecteurs de mouvement, et systèmes connectés pour une protection 24/7.",
+        description: "Protégez votre domicile ou votre entreprise contre les effractions avec nos systèmes d'alarme anti-intrusion. Nous proposons des solutions sans fil, connectées à votre smartphone, avec des détecteurs de mouvement, d'ouverture et des sirènes puissantes pour une protection optimale.",
         icon: "Shield",
         link: "/services/alarme",
       },
       {
         title: "Contrôle d'Accès",
-        description: "Interphones, digicodes, lecteurs de badges et solutions biométriques pour gérer les accès.",
+        description: "Contrôlez qui entre et sort de vos locaux avec nos solutions de contrôle d'accès modernes. Nous installons des interphones vidéo, des digicodes, des lecteurs de badges et des systèmes biométriques pour une gestion simple et sécurisée des accès.",
         icon: "Lock",
-        link: "/services/controleacces",
+        link: "/services/controle-acces",
       },
       {
         title: "Maintenance & Dépannage",
-        description: "Intervention rapide et contrat de maintenance préventive pour assurer la fiabilité de vos systèmes.",
+        description: "Un système de sécurité n'est efficace que s'il est parfaitement fonctionnel. Nous proposons des contrats de maintenance préventive et intervenons rapidement pour tout dépannage afin de garantir la fiabilité de vos installations.",
         icon: "Wrench",
         link: "/services/maintenance",
       },
       {
         title: "Réseau & Câblage",
-        description: "Installation de réseaux informatiques et câblage structuré pour une infrastructure solide.",
+        description: "Une infrastructure réseau fiable est la base de tout système de sécurité moderne. Nous réalisons l'installation et la certification de votre câblage informatique (RJ45) et fibre optique pour une connectivité sans faille.",
         icon: "Wifi",
         link: "/services/reseau",
       },
       {
         title: "Domotique Sécurité",
-        description: "Intégration de vos systèmes de sécurité à votre maison intelligente pour une gestion simplifiée.",
+        description: "Simplifiez la gestion de votre sécurité en l'intégrant à votre système domotique. Contrôlez vos alarmes, caméras et accès depuis une seule application, et créez des scénarios automatisés pour une tranquillité d'esprit absolue.",
         icon: "Home",
         link: "/services/domotique",
       },
@@ -83,8 +81,8 @@ export const content = {
   about: {
     title: "HD Connect : L'Expertise Sécurité à Votre Service",
     content: [
-      "Fondée sur une décennie d'expérience, HD Connect est votre partenaire de confiance pour la sécurité électronique. Nous nous engageons à fournir des solutions sur mesure, alliant technologie de pointe et installation professionnelle, pour garantir la tranquillité d'esprit de nos clients.",
-      "Notre équipe d'experts est spécialisée dans l'installation, la maintenance et le dépannage de systèmes de vidéosurveillance, d'alarmes et de contrôle d'accès. Nous intervenons rapidement en Île-de-France et dans les grandes métropoles pour répondre à tous vos besoins de sécurité, qu'ils soient résidentiels ou professionnels.",
+      "Fort d'une décennie d'expérience dans le domaine de la sécurité électronique, HD Connect s'est imposé comme un partenaire de confiance pour les particuliers et les professionnels. Notre mission est de vous fournir des solutions de sécurité sur mesure, alliant les dernières technologies à une installation irréprochable, pour une tranquillité d'esprit totale.",
+      "Notre équipe d'experts est dédiée à l'installation, la maintenance et le dépannage de systèmes de vidéosurveillance, d'alarmes et de contrôle d'accès. Basés en Île-de-France, nous intervenons rapidement à Paris et dans les grandes métropoles pour répondre à tous vos besoins de sécurité, que vous soyez un particulier soucieux de protéger sa famille ou un professionnel désireux de sécuriser ses locaux.",
     ],
     stats: [
       { value: "10+", label: "Années d'Expérience" },
@@ -105,18 +103,23 @@ export const content = {
     videosurveillance: {
       title: "Vidéosurveillance Professionnelle",
       heroImage: "/src/assets/service-camera.jpg",
-      description: "Protégez vos biens et vos proches avec nos systèmes de vidéosurveillance haute définition. Nous proposons des solutions sur mesure, de l'installation de caméras IP à la configuration de l'accès à distance sécurisé.",
+      description: "La vidéosurveillance est la première ligne de défense. Nous concevons des systèmes complets, de la sélection des caméras 4K à l'installation des enregistreurs (NVR/DVR) et à la configuration d'un accès sécurisé via mobile. Nos solutions incluent l'analyse vidéo intelligente (détection de mouvement, franchissement de ligne) pour une alerte proactive et une preuve irréfutable en cas d'incident.",
       features: [
         "Caméras IP et 4K",
         "Enregistrement NVR/DVR sécurisé",
         "Accès et consultation à distance (mobile/PC)",
         "Analyse vidéo intelligente (détection de mouvement, reconnaissance faciale)",
       ],
+      faq: [
+        { question: "Quelle est la durée de garantie de vos systèmes ?", answer: "Nous offrons une garantie de 5 ans sur l'ensemble de nos équipements et de l'installation." },
+        { question: "Puis-je consulter les images à distance ?", answer: "Oui, tous nos systèmes sont configurés pour un accès sécurisé via une application mobile ou un navigateur web." },
+        { question: "Vos caméras fonctionnent-elles la nuit ?", answer: "Absolument. Nos caméras sont équipées de vision nocturne infrarouge ou de technologie Starlight pour des images claires même dans l'obscurité totale." },
+      ],
     },
     alarme: {
       title: "Systèmes d'Alarme Anti-Intrusion",
       heroImage: "/src/assets/service-alarm.jpg",
-      description: "Nos systèmes d'alarme sont conçus pour détecter toute tentative d'intrusion et alerter immédiatement. Installation sans fil, connectée et conforme aux normes de sécurité.",
+      description: "Sécurisez votre espace avec des alarmes certifiées. Nous installons des systèmes anti-intrusion filaires ou sans fil, avec des détecteurs de mouvement, de bris de glace et d'ouverture. Nos alarmes sont connectées et peuvent être reliées à un centre de télésurveillance 24/7 pour une intervention immédiate, garantissant une protection maximale contre les cambriolages.",
       features: [
         "Alarmes sans fil et filaires",
         "Détecteurs de mouvement et d'ouverture",
@@ -127,7 +130,7 @@ export const content = {
     controleacces: {
       title: "Gestion et Contrôle d'Accès",
       heroImage: "/src/assets/service-access.jpg",
-      description: "Sécurisez les entrées de vos locaux professionnels ou de votre résidence avec nos solutions de contrôle d'accès modernes et fiables.",
+      description: "Gérez les flux de personnes avec précision. Nos solutions de contrôle d'accès vont des interphones vidéo aux systèmes biométriques de pointe. Que ce soit pour un immeuble résidentiel ou un site industriel, nous assurons l'installation de digicodes, lecteurs de badges et systèmes de gestion centralisée pour un contrôle total sur les accès.",
       features: [
         "Interphones et vidéophones",
         "Lecteurs de badges et de cartes",
@@ -138,7 +141,7 @@ export const content = {
     maintenance: {
       title: "Maintenance et Dépannage Express",
       heroImage: "/src/assets/service-maintenance.jpg",
-      description: "Un système de sécurité doit être fiable. Nous assurons la maintenance préventive et le dépannage rapide de tous vos équipements.",
+      description: "La maintenance est essentielle pour la pérennité de votre investissement. Nous proposons des contrats de maintenance préventive annuels pour vérifier, nettoyer et mettre à jour vos systèmes. En cas de panne, notre service de dépannage express intervient sous 24h en Île-de-France pour minimiser les temps d'arrêt de votre sécurité.",
       features: [
         "Contrats de maintenance annuels",
         "Intervention d'urgence 24/7",
@@ -149,7 +152,7 @@ export const content = {
     reseau: {
       title: "Infrastructure Réseau et Câblage",
       heroImage: "/src/assets/service-reseau.jpg",
-      description: "Une bonne sécurité repose sur un réseau solide. Nous installons et certifions vos infrastructures de câblage informatique et fibre optique.",
+      description: "La performance de votre sécurité dépend de la qualité de votre réseau. Nous sommes experts en câblage structuré (Cat 6/7) et en installation de fibre optique. Nous configurons vos baies de brassage, switchs et routeurs pour garantir une bande passante optimale et une fiabilité maximale pour vos caméras IP et systèmes connectés.",
       features: [
         "Installation de baies de brassage",
         "Câblage RJ45 Catégorie 6/7",
@@ -160,7 +163,7 @@ export const content = {
     domotique: {
       title: "Domotique et Maison Intelligente",
       heroImage: "/src/assets/service-domotique.jpg",
-      description: "Intégrez la sécurité à votre quotidien. Contrôlez vos alarmes, caméras, éclairages et chauffage depuis une seule application.",
+      description: "Transformez votre maison ou vos locaux en un espace intelligent et sécurisé. Nous intégrons vos systèmes de sécurité (alarme, caméras) avec la domotique (éclairage, chauffage, volets roulants) pour créer des scénarios automatisés. Par exemple, l'alarme se déclenche et toutes les lumières s'allument. Gestion simplifiée via une application unique.",
       features: [
         "Centralisation des commandes",
         "Scénarios de sécurité automatisés",

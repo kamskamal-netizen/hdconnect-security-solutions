@@ -1,97 +1,141 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Monitor, Zap, Smartphone, Home, Sun, Thermometer } from "lucide-react";
+import { content } from "@/data/content";
+import { Monitor, Zap, Smartphone, Home, Sun, Thermometer, CheckCircle, HardHat, Settings, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const Domotique = () => {
+  const { domotique } = content.pageServices;
+  const contactInfo = content.company.contact;
+
   const features = [
-    {
-      icon: Smartphone,
-      title: "Contrôle centralisé universel",
-      description: "Pilotez tous vos équipements depuis une interface unique compatible Google Home, Alexa et Apple HomeKit"
-    },
-    {
-      icon: Zap,
-      title: "Automatisation intelligente IA",
-      description: "Scénarios personnalisés auto-apprenants pour automatiser votre quotidien et économiser jusqu'à 30% d'énergie"
-    },
-    {
-      icon: Sun,
-      title: "Gestion éclairage avancée",
-      description: "Contrôle intelligent RGB + blanc variable avec détection de présence et adaptation automatique à la luminosité"
-    },
-    {
-      icon: Thermometer,
-      title: "Contrôle climatique optimisé",
-      description: "Optimisation chauffage/climatisation par zone avec apprentissage de vos habitudes et météo connectée"
-    },
-    {
-      icon: Home,
-      title: "Sécurité intégrée complète",
-      description: "Synchronisation totale avec alarme, caméras, accès et simulation de présence pendant vos absences"
-    },
-    {
-      icon: Monitor,
-      title: "Compatible tous protocoles",
-      description: "Intégration KNX, Z-Wave, Zigbee, Matter - Toutes les marques du marché avec évolutivité garantie"
-    }
+    { icon: Smartphone, title: "Contrôle Centralisé", description: "Pilotez tous vos équipements (sécurité, éclairage, chauffage) depuis une interface unique." },
+    { icon: Zap, title: "Scénarios Intelligents", description: "Créez des automatisations pour simuler une présence ou optimiser votre consommation d'énergie." },
+    { icon: Home, title: "Sécurité Intégrée", description: "Synchronisation totale avec vos systèmes d'alarme et de vidéosurveillance pour une protection complète." },
+    { icon: Monitor, title: "Multi-Protocoles", description: "Intégration de tous les standards (KNX, Z-Wave, Zigbee) pour une évolutivité garantie." },
+  ];
+
+  const processSteps = [
+    { icon: MapPin, title: "1. Audit des Besoins", description: "Analyse de vos habitudes et de votre infrastructure pour définir le système domotique idéal." },
+    { icon: HardHat, title: "2. Installation et Câblage", description: "Installation des modules, des capteurs et du câblage nécessaire (filaire ou sans fil)." },
+    { icon: Settings, title: "3. Programmation des Scénarios", description: "Configuration des automatisations, des interfaces utilisateur et des accès à distance." },
+    { icon: CheckCircle, title: "4. Formation et Support", description: "Formation complète à l'utilisation de votre nouveau système et support technique continu." },
+  ];
+
+  const faqItems = [
+    { question: "Puis-je installer la domotique dans une maison existante ?", answer: "Oui, avec des solutions sans fil (Z-Wave, Zigbee) l'installation se fait sans travaux majeurs. Pour du neuf, nous recommandons du KNX filaire plus robuste." },
+    { question: "Mes données sont-elles sécurisées ?", answer: "Oui, nous privilégions les solutions avec contrôle local (pas de cloud obligatoire) et chiffrement bout-en-bout. Vos données restent chez vous." },
+    { question: "Que se passe-t-il en cas de panne internet ou électrique ?", answer: "Les automatisations locales continuent de fonctionner. Seul l'accès à distance est temporairement indisponible. Possibilité d'onduleur pour maintien total." },
+    { question: "Combien de temps faut-il pour l'installation ?", answer: "Pour une maison de 100m², comptez 2-3 jours pour une installation complète avec formation incluse. Mise en service progressive possible." },
   ];
 
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main>
-        {/* Hero Section */}
+      <main className="pt-20">
+        {/* Section 1: Hero */}
         <section className="relative py-20 bg-gradient-to-br from-primary/10 to-accent/10">
           <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-center md:text-left">
-                Solutions Domotique Intelligentes
-              </h1>
-              <p className="text-xl text-muted-foreground mb-8 text-center md:text-left">
-                Intégration de systèmes domotiques pour une sécurité et un confort intelligents. De la maison connectée simple au Building Management System (BMS) industriel avec économies d'énergie garanties.
-              </p>
-              <Link to="/">
-                <Button size="lg" className="mr-4" onClick={() => {
-                  setTimeout(() => {
-                    const element = document.getElementById("quote");
-                    if (element) element.scrollIntoView({ behavior: "smooth" });
-                  }, 100);
-                }}>
-                  Demander un devis
-                </Button>
-              </Link>
-              <Link to="/">
-                <Button size="lg" variant="outline" onClick={() => {
-                  setTimeout(() => {
-                    const element = document.getElementById("contact");
-                    if (element) element.scrollIntoView({ behavior: "smooth" });
-                  }, 100);
-                }}>
-                  Nous contacter
-                </Button>
-              </Link>
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div className="text-center md:text-left">
+               <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-center md:text-left">
+                  {domotique.title}
+                </h1>
+                <p className="text-xl text-muted-foreground mb-8 text-center md:text-left">
+                  {domotique.description}
+                </p>
+                <Link to="/#quote">
+                  <Button size="lg" className="mr-4 bg-primary hover:bg-primary/90">
+                    Demander un devis
+                  </Button>
+                </Link>
+                <a href={`tel:${contactInfo.phoneMobile}`}>
+                  <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10">
+                    Intervention Urgente
+                  </Button>
+                </a>
+              </div>
+              <div className="rounded-lg overflow-hidden shadow-2xl">
+                <img src={domotique.heroImage} alt={domotique.title} className="w-full h-full object-cover" />
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Features Section */}
+        {/* Section 2: Arguments Clés (Features) */}
         <section className="py-20">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">
-              Caractéristiques et Avantages
+              Les Avantages de la Domotique HD Connect
             </h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               {features.map((feature, index) => {
                 const Icon = feature.icon;
                 return (
-                  <div key={index} className="p-6 rounded-lg border bg-card hover:shadow-lg transition-shadow">
-                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-4">
-                      <Icon className="w-6 h-6 text-primary-foreground" />
+                  <Card key={index} className="hover:shadow-xl transition-shadow">
+                    <CardHeader className="flex flex-row items-center space-x-4">
+                      <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center flex-shrink-0">
+                        <Icon className="w-6 h-6 text-primary-foreground" />
+                      </div>
+                      <CardTitle className="text-xl">{feature.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-muted-foreground text-sm">{feature.description}</p>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* Section 3: Solutions Spécifiques (Particuliers vs Professionnels) */}
+        <section className="py-20 bg-secondary/30">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">
+              Domotique : Maison Intelligente et Bâtiment Connecté
+            </h2>
+            <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+              <Card className="p-8">
+                <CardTitle className="text-2xl mb-4 text-primary">Pour Particuliers</CardTitle>
+                <p className="text-muted-foreground mb-6">Maison connectée pour plus de confort, de sécurité et des économies d'énergie (chauffage, éclairage, volets).</p>
+                <ul className="space-y-3 text-foreground">
+                  <li className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-green-500" /> Gestion du chauffage par zone</li>
+                  <li className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-green-500" /> Scénarios de vie quotidiens</li>
+                  <li className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-green-500" /> Simulation de présence en cas d'absence</li>
+                </ul>
+              </Card>
+              <Card className="p-8">
+                <CardTitle className="text-2xl mb-4 text-primary">Pour Professionnels</CardTitle>
+                <p className="text-muted-foreground mb-6">Building Management System (BMS) pour l'optimisation énergétique, la gestion des accès et la supervision technique des locaux.</p>
+                <ul className="space-y-3 text-foreground">
+                  <li className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-green-500" /> Optimisation énergétique (CVC)</li>
+                  <li className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-green-500" /> Supervision et reporting centralisés</li>
+                  <li className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-green-500" /> Intégration avec les systèmes de sécurité incendie</li>
+                </ul>
+              </Card>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 4: Processus d'Installation */}
+        <section className="py-20">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">
+              Notre Processus d'Installation Domotique
+            </h2>
+            <div className="grid md:grid-cols-4 gap-8 max-w-6xl mx-auto">
+              {processSteps.map((step, index) => {
+                const Icon = step.icon;
+                return (
+                  <div key={index} className="text-center p-6 border rounded-lg bg-card shadow-sm">
+                    <div className="w-16 h-16 mx-auto rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                      <Icon className="w-8 h-8 text-primary" />
                     </div>
-                    <h3 className="text-xl font-semibold mb-2 text-center md:text-left">{feature.title}</h3>
-                    <p className="text-muted-foreground text-center md:text-left">{feature.description}</p>
+                    <h3 className="text-xl font-bold mb-2">{step.title}</h3>
+                    <p className="text-muted-foreground text-sm">{step.description}</p>
                   </div>
                 );
               })}
@@ -99,127 +143,43 @@ const Domotique = () => {
           </div>
         </section>
 
-        {/* Solutions Section */}
-        <section className="py-20 bg-secondary/30">
+        {/* Section 5: Formulaire de Contact (Quote) */}
+        <section id="quote" className="py-20 bg-primary/10">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">
-              Nos Solutions Domotique
+              Demandez Votre Devis Domotique Gratuit
             </h2>
-            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-              <div className="p-8 rounded-lg bg-card border">
-                <h3 className="text-2xl font-bold mb-4 text-center md:text-left">Pour Particuliers</h3>
-                <ul className="space-y-3 text-muted-foreground text-center md:text-left">
-                  <li className="flex items-start gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2"></div>
-                    <span>Maison connectée complète</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2"></div>
-                    <span>Contrôle vocal (Alexa, Google Home)</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2"></div>
-                    <span>Scénarios personnalisés</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2"></div>
-                    <span>Économies d'énergie intelligentes</span>
-                  </li>
-                </ul>
-              </div>
-              <div className="p-8 rounded-lg bg-card border">
-                <h3 className="text-2xl font-bold mb-4 text-center md:text-left">Pour Professionnels</h3>
-                <ul className="space-y-3 text-muted-foreground text-center md:text-left">
-                  <li className="flex items-start gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2"></div>
-                    <span>Building Management System (BMS)</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2"></div>
-                    <span>Gestion énergétique optimisée</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2"></div>
-                    <span>Intégration sécurité complète</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2"></div>
-                    <span>Supervision et reporting centralisés</span>
-                  </li>
-                </ul>
-              </div>
+            <div className="max-w-xl mx-auto text-center">
+              <p className="text-xl text-muted-foreground mb-8">
+                Remplissez notre formulaire rapide sur la page d'accueil ou contactez-nous directement pour une étude personnalisée.
+              </p>
+              <Link to="/#quote">
+                <Button size="lg" className="mr-4 bg-primary hover:bg-primary/90">
+                  Accéder au Formulaire de Devis
+                </Button>
+              </Link>
+              <a href={`tel:${contactInfo.phoneMobile}`}>
+                <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10">
+                  Appeler un Expert
+                </Button>
+              </a>
             </div>
           </div>
         </section>
 
-        {/* CTA Section */}
-        <section className="py-20">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-              Transformez votre habitat en maison intelligente
-            </h2>
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Découvrez le confort et la sécurité d'une installation domotique professionnelle avec démonstration à domicile
-            </p>
-            <Link to="/">
-              <Button size="lg" onClick={() => {
-                setTimeout(() => {
-                  const element = document.getElementById("quote");
-                  if (element) element.scrollIntoView({ behavior: "smooth" });
-                }, 100);
-              }}>
-                Demander un devis gratuit
-              </Button>
-            </Link>
-          </div>
-        </section>
-
-        {/* Protocoles & Économies */}
-        <section className="py-20 bg-secondary/30">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">
-              Protocoles & Économies d'Énergie
-            </h2>
-            <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-              <div className="text-center">
-                <h3 className="text-xl font-bold mb-3">Multi-protocoles</h3>
-                <p className="text-muted-foreground">KNX, Z-Wave, Zigbee, Matter - Compatible avec 1000+ marques et évolutif</p>
-              </div>
-              <div className="text-center">
-                <h3 className="text-xl font-bold mb-3">Économies 20-35%</h3>
-                <p className="text-muted-foreground">Réduction garantie de vos factures énergétiques avec ROI en 2-4 ans selon usage</p>
-              </div>
-              <div className="text-center">
-                <h3 className="text-xl font-bold mb-3">Contrôle vocal</h3>
-                <p className="text-muted-foreground">Compatible Alexa, Google Assistant, Siri pour un contrôle mains-libres naturel</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* FAQ */}
+        {/* Section 6: FAQ */}
         <section className="py-20">
           <div className="container mx-auto px-4 max-w-3xl">
             <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">
-              Questions Fréquentes
+              Questions Fréquentes sur la Domotique
             </h2>
             <div className="space-y-6">
-              <div className="p-6 rounded-lg bg-card border">
-                <h3 className="text-lg font-bold mb-2 text-center md:text-left">Puis-je installer la domotique dans une maison existante ?</h3>
-                <p className="text-muted-foreground text-center md:text-left">Oui, avec des solutions sans fil (Z-Wave, Zigbee) l'installation se fait sans travaux majeurs. Pour du neuf, nous recommandons du KNX filaire plus robuste.</p>
-              </div>
-              <div className="p-6 rounded-lg bg-card border">
-                <h3 className="text-lg font-bold mb-2 text-center md:text-left">Mes données sont-elles sécurisées ?</h3>
-                <p className="text-muted-foreground text-center md:text-left">Oui, nous privilégions les solutions avec contrôle local (pas de cloud obligatoire) et chiffrement bout-en-bout. Vos données restent chez vous.</p>
-              </div>
-              <div className="p-6 rounded-lg bg-card border">
-                <h3 className="text-lg font-bold mb-2 text-center md:text-left">Que se passe-t-il en cas de panne internet ou électrique ?</h3>
-                <p className="text-muted-foreground text-center md:text-left">Les automatisations locales continuent de fonctionner. Seul l'accès à distance est temporairement indisponible. Possibilité d'onduleur pour maintien total.</p>
-              </div>
-              <div className="p-6 rounded-lg bg-card border">
-                <h3 className="text-lg font-bold mb-2 text-center md:text-left">Combien de temps faut-il pour l'installation ?</h3>
-                <p className="text-muted-foreground text-center md:text-left">Pour une maison de 100m², comptez 2-3 jours pour une installation complète avec formation incluse. Mise en service progressive possible.</p>
-              </div>
+              {faqItems.map((item, index) => (
+                <div key={index} className="p-6 rounded-lg bg-card border">
+                  <h3 className="text-lg font-bold mb-2">{item.question}</h3>
+                  <p className="text-muted-foreground">{item.answer}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>

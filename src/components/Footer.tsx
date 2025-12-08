@@ -5,6 +5,21 @@ import { Button } from "@/components/ui/button";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = { Facebook, Instagram, Linkedin };
 
+const HEADER_HEIGHT = 80; // Hauteur du header fixe (h-20)
+
+const performScroll = (targetId: string) => {
+  const element = document.getElementById(targetId);
+  if (element) {
+    const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+    const offsetPosition = elementPosition - HEADER_HEIGHT;
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: "smooth",
+    });
+  }
+};
+
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const contactInfo = content.company.contact;
@@ -24,7 +39,7 @@ const Footer = () => {
             <Button 
               size="lg"
               className="bg-gradient-to-r from-primary to-accent hover:opacity-90 text-white"
-              onClick={() => document.getElementById("quote")?.scrollIntoView({ behavior: "smooth" })}
+              onClick={() => performScroll("quote")}
             >
               Demander un devis
               <ArrowRight className="ml-2 w-4 h-4" />
@@ -97,19 +112,19 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <a href="/#services" className="text-background/70 hover:text-primary text-sm transition-colors">
+                <button onClick={() => performScroll("services")} className="text-background/70 hover:text-primary text-sm transition-colors">
                   Services
-                </a>
+                </button>
               </li>
               <li>
-                <a href="/#apropos" className="text-background/70 hover:text-primary text-sm transition-colors">
+                <button onClick={() => performScroll("about")} className="text-background/70 hover:text-primary text-sm transition-colors">
                   À Propos
-                </a>
+                </button>
               </li>
               <li>
-                <a href="/#quote" className="text-background/70 hover:text-primary text-sm transition-colors">
+                <button onClick={() => performScroll("quote")} className="text-background/70 hover:text-primary text-sm transition-colors">
                   Demander un Devis
-                </a>
+                </button>
               </li>
               <li>
                 <Link to="/mentions-legales" className="text-background/70 hover:text-primary text-sm transition-colors">

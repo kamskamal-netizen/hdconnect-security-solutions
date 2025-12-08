@@ -31,7 +31,7 @@ const About = () => {
   const aboutContent = content.about;
 
   return (
-    <section id="apropos" className="section-padding bg-background relative overflow-hidden">
+    <section id="about" className="section-padding bg-background relative overflow-hidden">
       {/* Background Decorations */}
       <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-to-bl from-primary/5 to-transparent rounded-bl-full"></div>
       
