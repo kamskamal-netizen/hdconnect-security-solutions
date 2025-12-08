@@ -46,16 +46,18 @@ const Maintenance = () => {
                 <p className="text-xl text-muted-foreground mb-8 text-center md:text-left">
                   {maintenance.description}
                 </p>
-                <Link to="/#quote">
-                  <Button size="lg" className="mr-4 bg-primary hover:bg-primary/90">
-                    Demander un devis
-                  </Button>
-                </Link>
-                <a href={`tel:${contactInfo.phoneMobile}`}>
-                  <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10">
-                    Intervention Urgente
-                  </Button>
-                </a>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Link to="/#quote">
+                    <Button size="lg" className="w-full sm:w-auto bg-primary hover:bg-primary/90">
+                      Demander un devis
+                    </Button>
+                  </Link>
+                  <a href={`tel:${contactInfo.phoneMobile}`}>
+                    <Button size="lg" variant="outline" className="w-full sm:w-auto border-primary text-primary hover:bg-primary/10">
+                      Intervention Urgente
+                    </Button>
+                  </a>
+                </div>
               </div>
               <div className="rounded-lg overflow-hidden shadow-2xl">
                 <img src={maintenance.heroImage} alt={maintenance.title} className="w-full h-full object-cover" />
@@ -165,16 +167,18 @@ const Maintenance = () => {
               <p className="text-xl text-muted-foreground mb-8">
                 Remplissez notre formulaire rapide sur la page d'accueil ou contactez-nous directement pour une étude personnalisée.
               </p>
-              <Link to="/#quote">
-                <Button size="lg" className="mr-4 bg-primary hover:bg-primary/90">
-                  Accéder au Formulaire de Devis
-                </Button>
-              </Link>
-              <a href={`tel:${contactInfo.phoneMobile}`}>
-                <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10">
-                  Appeler un Expert
-                </Button>
-              </a>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link to="/#quote">
+                  <Button size="lg" className="w-full sm:w-auto bg-primary hover:bg-primary/90">
+                    Accéder au Formulaire de Devis
+                  </Button>
+                </Link>
+                <a href={`tel:${contactInfo.phoneMobile}`}>
+                  <Button size="lg" variant="outline" className="w-full sm:w-auto border-primary text-primary hover:bg-primary/10">
+                    Appeler un Expert
+                  </Button>
+                </a>
+              </div>
             </div>
           </div>
         </section>
