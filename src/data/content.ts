@@ -40,7 +40,7 @@ export const content = {
     items: [
       {
         title: "Vidéosurveillance",
-        description: " dissuadez les intrus et surveillez vos biens à distance grâce à nos systèmes de vidéosurveillance haute définition. Nous installons des caméras IP discrètes et performantes, des enregistreurs NVR sécurisés et configurons l'accès à distance sur votre smartphone ou ordinateur.",
+        description: "Dissuadez les intrus et surveillez vos biens à distance grâce à nos systèmes de vidéosurveillance haute définition. Nous installons des caméras IP discrètes et performantes, des enregistreurs NVR sécurisés et configurons l'accès à distance sur votre smartphone ou ordinateur.",
         icon: "Camera",
         link: "/services/videosurveillance",
       },
@@ -102,7 +102,6 @@ export const content = {
   pageServices: {
     videosurveillance: {
       title: "Vidéosurveillance Professionnelle",
-      heroImage: "/src/assets/service-camera.jpg",
       description: "La vidéosurveillance est la première ligne de défense. Nous concevons des systèmes complets, de la sélection des caméras 4K à l'installation des enregistreurs (NVR/DVR) et à la configuration d'un accès sécurisé via mobile. Nos solutions incluent l'analyse vidéo intelligente (détection de mouvement, franchissement de ligne) pour une alerte proactive et une preuve irréfutable en cas d'incident.",
       features: [
         "Caméras IP et 4K",
@@ -118,7 +117,6 @@ export const content = {
     },
     alarme: {
       title: "Systèmes d'Alarme Anti-Intrusion",
-      heroImage: "/src/assets/service-alarm.jpg",
       description: "Sécurisez votre espace avec des alarmes certifiées. Nous installons des systèmes anti-intrusion filaires ou sans fil, avec des détecteurs de mouvement, de bris de glace et d'ouverture. Nos alarmes sont connectées et peuvent être reliées à un centre de télésurveillance 24/7 pour une intervention immédiate, garantissant une protection maximale contre les cambriolages.",
       features: [
         "Alarmes sans fil et filaires",
@@ -129,7 +127,6 @@ export const content = {
     },
     controleacces: {
       title: "Gestion et Contrôle d'Accès",
-      heroImage: "/src/assets/service-access.jpg",
       description: "Gérez les flux de personnes avec précision. Nos solutions de contrôle d'accès vont des interphones vidéo aux systèmes biométriques de pointe. Que ce soit pour un immeuble résidentiel ou un site industriel, nous assurons l'installation de digicodes, lecteurs de badges et systèmes de gestion centralisée pour un contrôle total sur les accès.",
       features: [
         "Interphones et vidéophones",
@@ -140,7 +137,6 @@ export const content = {
     },
     maintenance: {
       title: "Maintenance et Dépannage Express",
-      heroImage: "/src/assets/service-maintenance.jpg",
       description: "La maintenance est essentielle pour la pérennité de votre investissement. Nous proposons des contrats de maintenance préventive annuels pour vérifier, nettoyer et mettre à jour vos systèmes. En cas de panne, notre service de dépannage express intervient sous 24h en Île-de-France pour minimiser les temps d'arrêt de votre sécurité.",
       features: [
         "Contrats de maintenance annuels",
@@ -151,7 +147,6 @@ export const content = {
     },
     reseau: {
       title: "Infrastructure Réseau et Câblage",
-      heroImage: "/src/assets/service-reseau.jpg",
       description: "La performance de votre sécurité dépend de la qualité de votre réseau. Nous sommes experts en câblage structuré (Cat 6/7) et en installation de fibre optique. Nous configurons vos baies de brassage, switchs et routeurs pour garantir une bande passante optimale et une fiabilité maximale pour vos caméras IP et systèmes connectés.",
       features: [
         "Installation de baies de brassage",
@@ -162,7 +157,6 @@ export const content = {
     },
     domotique: {
       title: "Domotique et Maison Intelligente",
-      heroImage: "/src/assets/service-domotique.jpg",
       description: "Transformez votre maison ou vos locaux en un espace intelligent et sécurisé. Nous intégrons vos systèmes de sécurité (alarme, caméras) avec la domotique (éclairage, chauffage, volets roulants) pour créer des scénarios automatisés. Par exemple, l'alarme se déclenche et toutes les lumières s'allument. Gestion simplifiée via une application unique.",
       features: [
         "Centralisation des commandes",
@@ -177,11 +171,85 @@ export const content = {
   legal: {
     mentions: {
       title: "Mentions Légales",
-      content: "...", // Contenu à compléter
+      content: `Éditeur du site
+HD Connect
+Adresse : Paris, France
+Email : kamal@hdconnect.fr
+Téléphone : +33 6 27 13 53 04
+
+Directeur de la publication
+Kamal - Gérant de HD Connect
+
+Hébergement
+Ce site est hébergé par Lovable.
+Adresse : Lovable, San Francisco, CA, USA
+Site web : https://lovable.dev
+
+Propriété intellectuelle
+L'ensemble du contenu de ce site (textes, images, graphismes, logo, icônes, etc.) est la propriété exclusive de HD Connect, à l'exception des marques, logos ou contenus appartenant à d'autres sociétés partenaires ou auteurs.
+Toute reproduction, distribution, modification, adaptation, retransmission ou publication de ces différents éléments est strictement interdite sans l'accord exprès par écrit de HD Connect.
+
+Limitation de responsabilité
+HD Connect s'efforce d'assurer l'exactitude et la mise à jour des informations diffusées sur ce site. Toutefois, HD Connect ne peut garantir l'exactitude, la précision ou l'exhaustivité des informations mises à disposition.
+HD Connect décline toute responsabilité pour toute imprécision, inexactitude ou omission portant sur des informations disponibles sur ce site.
+
+Liens hypertextes
+Le site peut contenir des liens vers d'autres sites. HD Connect n'exerce aucun contrôle sur ces sites et décline toute responsabilité quant à leur contenu.
+
+Crédits
+Design et développement : HD Connect
+Images : Générées par intelligence artificielle (Flux AI)`,
     },
     privacy: {
       title: "Politique de Confidentialité",
-      content: "...", // Contenu à compléter
+      content: `Dernière mise à jour : Décembre 2024
+
+HD Connect s'engage à protéger la vie privée des utilisateurs de son site internet. Cette politique de confidentialité explique comment nous collectons, utilisons et protégeons vos informations personnelles.
+
+1. Collecte des données
+Nous collectons les informations que vous nous fournissez directement via nos formulaires de contact et de demande de devis :
+- Nom et prénom
+- Adresse email
+- Numéro de téléphone
+- Adresse postale (ville/code postal)
+- Description de votre projet ou problème
+
+2. Utilisation des données
+Vos données personnelles sont utilisées exclusivement pour :
+- Répondre à vos demandes de devis ou d'information
+- Vous recontacter dans le cadre de votre projet
+- Améliorer nos services
+- Respecter nos obligations légales
+
+3. Conservation des données
+Vos données sont conservées pendant une durée maximale de 3 ans à compter de notre dernier contact. Au-delà, elles sont supprimées ou anonymisées.
+
+4. Partage des données
+HD Connect ne vend, ne loue ni ne partage vos informations personnelles avec des tiers à des fins commerciales. Vos données peuvent être partagées uniquement avec :
+- Nos prestataires techniques (hébergement, email)
+- Les autorités compétentes si la loi l'exige
+
+5. Sécurité des données
+Nous mettons en œuvre des mesures de sécurité techniques et organisationnelles pour protéger vos données contre tout accès non autorisé, modification, divulgation ou destruction.
+
+6. Vos droits
+Conformément au RGPD, vous disposez des droits suivants :
+- Droit d'accès à vos données
+- Droit de rectification
+- Droit à l'effacement
+- Droit à la limitation du traitement
+- Droit à la portabilité
+- Droit d'opposition
+
+Pour exercer ces droits, contactez-nous à : kamal@hdconnect.fr
+
+7. Cookies
+Ce site utilise des cookies techniques nécessaires à son fonctionnement. Aucun cookie publicitaire ou de tracking n'est utilisé.
+
+8. Contact
+Pour toute question concernant cette politique de confidentialité :
+Email : kamal@hdconnect.fr
+Téléphone : +33 6 27 13 53 04`,
     },
   },
 };

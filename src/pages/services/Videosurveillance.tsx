@@ -5,7 +5,7 @@ import { content } from "@/data/content";
 import { Camera, Shield, Smartphone, Cloud, Eye, Clock, CheckCircle, Zap, HardHat, Settings, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
+import cameraImage from "@/assets/service-camera.jpg";
 
 const Videosurveillance = () => {
   const { videosurveillance } = content.pageServices;
@@ -28,54 +28,62 @@ const Videosurveillance = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-	      <main className="pt-20">
+      <main className="pt-20">
         {/* Section 1: Hero */}
         <section className="relative py-20 bg-gradient-to-br from-primary/10 to-accent/10">
           <div className="container mx-auto px-4">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="text-center md:text-left">
-               <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-center md:text-left">
+                <div className="badge-primary mb-6">
+                  <Camera className="w-4 h-4" />
+                  <span>Vidéosurveillance HD</span>
+                </div>
+                <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
                   {videosurveillance.title}
                 </h1>
-                <p className="text-xl text-muted-foreground mb-8 text-center md:text-left">
+                <p className="text-xl text-muted-foreground mb-8">
                   {videosurveillance.description}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link to="/#quote">
-                    <Button size="lg" className="w-full sm:w-auto bg-primary hover:bg-primary/90">
+                    <Button size="lg" className="w-full sm:w-auto bg-gradient-to-r from-primary to-accent hover:opacity-90">
                       Demander un devis
                     </Button>
                   </Link>
-                  <a href={`tel:${contactInfo.phoneMobile}`}>
+                  <a href={`tel:${contactInfo.phoneMobile.replace(/\s/g, '')}`}>
                     <Button size="lg" variant="outline" className="w-full sm:w-auto border-primary text-primary hover:bg-primary/10">
                       Intervention Urgente
                     </Button>
                   </a>
                 </div>
               </div>
-              <div className="rounded-lg overflow-hidden shadow-2xl">
-                <img src={videosurveillance.heroImage} alt={videosurveillance.title} className="w-full h-full object-cover" />
+              <div className="rounded-2xl overflow-hidden shadow-2xl">
+                <img 
+                  src={cameraImage} 
+                  alt="Installation de caméras de vidéosurveillance professionnelles HD Connect" 
+                  className="w-full h-80 object-cover"
+                />
               </div>
             </div>
           </div>
         </section>
 
         {/* Section 2: Arguments Clés (Features) */}
-        <section className="py-20">
+        <section className="section-padding">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">
+            <h2 className="section-title text-center mb-12">
               Pourquoi Choisir HD Connect pour votre Vidéosurveillance ?
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               {features.map((feature, index) => {
                 const Icon = feature.icon;
                 return (
-                  <Card key={index} className="hover:shadow-xl transition-shadow">
+                  <Card key={index} className="hover-lift">
                     <CardHeader className="flex flex-row items-center space-x-4">
-                      <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center flex-shrink-0">
-                        <Icon className="w-6 h-6 text-primary-foreground" />
+                      <div className="icon-container-sm flex-shrink-0">
+                        <Icon className="w-5 h-5 text-white" />
                       </div>
-                      <CardTitle className="text-xl">{feature.title}</CardTitle>
+                      <CardTitle className="text-lg">{feature.title}</CardTitle>
                     </CardHeader>
                     <CardContent>
                       <p className="text-muted-foreground text-sm">{feature.description}</p>
@@ -88,30 +96,30 @@ const Videosurveillance = () => {
         </section>
 
         {/* Section 3: Solutions Spécifiques (Particuliers vs Professionnels) */}
-        <section className="py-20 bg-secondary/30">
+        <section className="section-padding bg-secondary/30">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">
+            <h2 className="section-title text-center mb-12">
               Solutions Sur Mesure : Particuliers et Professionnels
             </h2>
             <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-              <Card className="p-8">
+              <Card className="p-8 hover-lift">
                 <CardTitle className="text-2xl mb-4 text-primary">Pour Particuliers</CardTitle>
                 <p className="text-muted-foreground mb-6">Protégez votre foyer avec des systèmes discrets et faciles à utiliser, axés sur la dissuasion et la surveillance à distance.</p>
                 <ul className="space-y-3 text-foreground">
-                  <li className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-green-500" /> Caméras Wi-Fi et autonomes</li>
-                  <li className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-green-500" /> Intégration domotique simple</li>
-                  <li className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-green-500" /> Stockage local sécurisé</li>
-                  <li className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-green-500" /> Installation en moins d'une journée</li>
+                  <li className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-accent flex-shrink-0" /> Caméras Wi-Fi et autonomes</li>
+                  <li className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-accent flex-shrink-0" /> Intégration domotique simple</li>
+                  <li className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-accent flex-shrink-0" /> Stockage local sécurisé</li>
+                  <li className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-accent flex-shrink-0" /> Installation en moins d'une journée</li>
                 </ul>
               </Card>
-              <Card className="p-8">
+              <Card className="p-8 hover-lift">
                 <CardTitle className="text-2xl mb-4 text-primary">Pour Professionnels</CardTitle>
                 <p className="text-muted-foreground mb-6">Des systèmes robustes et évolutifs, conformes aux réglementations, pour la surveillance de sites complexes et multi-sites.</p>
                 <ul className="space-y-3 text-foreground">
-                  <li className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-green-500" /> Systèmes NVR/DVR haute capacité</li>
-                  <li className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-green-500" /> Analyse vidéo pour la gestion des flux</li>
-                  <li className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-green-500" /> Conformité RGPD et CNIL</li>
-                  <li className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-green-500" /> Contrats de maintenance 24/7</li>
+                  <li className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-accent flex-shrink-0" /> Systèmes NVR/DVR haute capacité</li>
+                  <li className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-accent flex-shrink-0" /> Analyse vidéo pour la gestion des flux</li>
+                  <li className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-accent flex-shrink-0" /> Conformité RGPD et CNIL</li>
+                  <li className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-accent flex-shrink-0" /> Contrats de maintenance 24/7</li>
                 </ul>
               </Card>
             </div>
@@ -119,20 +127,20 @@ const Videosurveillance = () => {
         </section>
 
         {/* Section 4: Processus d'Installation */}
-        <section className="py-20">
+        <section className="section-padding">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">
+            <h2 className="section-title text-center mb-12">
               Notre Processus d'Installation en 4 Étapes
             </h2>
             <div className="grid md:grid-cols-4 gap-8 max-w-6xl mx-auto">
               {processSteps.map((step, index) => {
                 const Icon = step.icon;
                 return (
-                  <div key={index} className="text-center p-6 border rounded-lg bg-card shadow-sm">
-                    <div className="w-16 h-16 mx-auto rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                  <div key={index} className="text-center p-6 border rounded-2xl bg-card shadow-sm hover-lift">
+                    <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center mb-4">
                       <Icon className="w-8 h-8 text-primary" />
                     </div>
-                    <h3 className="text-xl font-bold mb-2">{step.title}</h3>
+                    <h3 className="text-lg font-bold mb-2">{step.title}</h3>
                     <p className="text-muted-foreground text-sm">{step.description}</p>
                   </div>
                 );
@@ -141,24 +149,23 @@ const Videosurveillance = () => {
           </div>
         </section>
 
-        {/* Section 5: Formulaire de Contact (Quote) */}
-        <section id="quote" className="py-20 bg-primary/10">
+        {/* Section 5: CTA Devis */}
+        <section id="quote" className="section-padding bg-gradient-to-br from-primary/10 to-accent/10">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">
-              Demandez Votre Devis Vidéosurveillance Gratuit
-            </h2>
-            {/* Note: Le formulaire complet est sur la page d'accueil, ici on met un CTA simple */}
-            <div className="max-w-xl mx-auto text-center">
+            <div className="max-w-3xl mx-auto text-center">
+              <h2 className="section-title text-center mb-6">
+                Demandez Votre Devis Vidéosurveillance Gratuit
+              </h2>
               <p className="text-xl text-muted-foreground mb-8">
                 Remplissez notre formulaire rapide sur la page d'accueil ou contactez-nous directement pour une étude personnalisée.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link to="/#quote">
-                  <Button size="lg" className="w-full sm:w-auto bg-primary hover:bg-primary/90">
+                  <Button size="lg" className="w-full sm:w-auto bg-gradient-to-r from-primary to-accent hover:opacity-90">
                     Accéder au Formulaire de Devis
                   </Button>
                 </Link>
-                <a href={`tel:${contactInfo.phoneMobile}`}>
+                <a href={`tel:${contactInfo.phoneMobile.replace(/\s/g, '')}`}>
                   <Button size="lg" variant="outline" className="w-full sm:w-auto border-primary text-primary hover:bg-primary/10">
                     Appeler un Expert
                   </Button>
@@ -168,15 +175,15 @@ const Videosurveillance = () => {
           </div>
         </section>
 
-        {/* Section 6: FAQ (Déjà présente, réutilisée) */}
-        <section className="py-20">
+        {/* Section 6: FAQ */}
+        <section className="section-padding">
           <div className="container mx-auto px-4 max-w-3xl">
-            <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">
+            <h2 className="section-title text-center mb-12">
               Questions Fréquentes sur la Vidéosurveillance
             </h2>
             <div className="space-y-6">
               {videosurveillance.faq.map((item, index) => (
-                <div key={index} className="p-6 rounded-lg bg-card border">
+                <div key={index} className="p-6 rounded-2xl bg-card border hover-lift">
                   <h3 className="text-lg font-bold mb-2">{item.question}</h3>
                   <p className="text-muted-foreground">{item.answer}</p>
                 </div>
@@ -184,7 +191,7 @@ const Videosurveillance = () => {
             </div>
           </div>
         </section>
-	      </main>
+      </main>
       <Footer />
     </div>
   );
