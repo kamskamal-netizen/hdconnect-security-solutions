@@ -10,6 +10,146 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
+// ============================================
+// INPUT VALIDATION & SANITIZATION
+// ============================================
+
+// Field length limits
+const MAX_LENGTHS = {
+  name: 100,
+  email: 255,
+  phone: 30,
+  address: 300,
+  message: 2000,
+  description: 2000,
+  service: 100,
+  timeline: 100,
+  budget: 50,
+  urgency: 50,
+  problemType: 100,
+};
+
+// Email regex validation
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+// Phone regex validation (allows international formats)
+const PHONE_REGEX = /^[\d\s\-+().]{6,30}$/;
+
+// HTML escape function to prevent XSS in emails
+function escapeHtml(text: string): string {
+  if (!text || typeof text !== 'string') return '';
+  const htmlEscapes: Record<string, string> = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+  };
+  return text.replace(/[&<>"']/g, (char) => htmlEscapes[char] || char);
+}
+
+// Sanitize and truncate string
+function sanitizeString(value: unknown, maxLength: number): string {
+  if (!value || typeof value !== 'string') return '';
+  return escapeHtml(value.trim().slice(0, maxLength));
+}
+
+// Validate email format
+function isValidEmail(email: string): boolean {
+  if (!email || typeof email !== 'string') return false;
+  return EMAIL_REGEX.test(email.trim()) && email.length <= MAX_LENGTHS.email;
+}
+
+// Validate phone format
+function isValidPhone(phone: string): boolean {
+  if (!phone || typeof phone !== 'string') return false;
+  return PHONE_REGEX.test(phone.trim());
+}
+
+// Validate request type
+function isValidRequestType(type: string): boolean {
+  return ['quote', 'intervention', 'contact'].includes(type);
+}
+
+// Sanitize client info object
+interface SanitizedClientInfo {
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+}
+
+function sanitizeClientInfo(clientInfo: unknown): SanitizedClientInfo | null {
+  if (!clientInfo || typeof clientInfo !== 'object') return null;
+  
+  const info = clientInfo as Record<string, unknown>;
+  const email = typeof info.email === 'string' ? info.email.trim() : '';
+  const phone = typeof info.phone === 'string' ? info.phone.trim() : '';
+  
+  // Email is required and must be valid
+  if (!isValidEmail(email)) {
+    return null;
+  }
+  
+  // Phone must be valid if provided
+  if (phone && !isValidPhone(phone)) {
+    return null;
+  }
+  
+  return {
+    name: sanitizeString(info.name, MAX_LENGTHS.name) || 'Client',
+    email: email.slice(0, MAX_LENGTHS.email),
+    phone: sanitizeString(info.phone, MAX_LENGTHS.phone),
+    address: sanitizeString(info.address, MAX_LENGTHS.address),
+  };
+}
+
+// Sanitize quote data
+interface SanitizedQuoteData {
+  service: string;
+  timeline: string;
+  budget: string;
+  description: string;
+}
+
+function sanitizeQuoteData(quoteData: unknown): SanitizedQuoteData {
+  if (!quoteData || typeof quoteData !== 'object') {
+    return { service: '', timeline: '', budget: '', description: '' };
+  }
+  
+  const data = quoteData as Record<string, unknown>;
+  return {
+    service: sanitizeString(data.service, MAX_LENGTHS.service),
+    timeline: sanitizeString(data.timeline, MAX_LENGTHS.timeline),
+    budget: sanitizeString(data.budget, MAX_LENGTHS.budget),
+    description: sanitizeString(data.description, MAX_LENGTHS.description),
+  };
+}
+
+// Sanitize intervention data
+interface SanitizedInterventionData {
+  problemType: string;
+  description: string;
+  urgency: string;
+}
+
+function sanitizeInterventionData(interventionData: unknown): SanitizedInterventionData {
+  if (!interventionData || typeof interventionData !== 'object') {
+    return { problemType: '', description: '', urgency: '' };
+  }
+  
+  const data = interventionData as Record<string, unknown>;
+  return {
+    problemType: sanitizeString(data.problemType, MAX_LENGTHS.problemType),
+    description: sanitizeString(data.description, MAX_LENGTHS.description),
+    urgency: sanitizeString(data.urgency, MAX_LENGTHS.urgency),
+  };
+}
+
+// ============================================
+// EMAIL TEMPLATES
+// ============================================
+
 // Email de confirmation pour le client
 const getClientConfirmationEmail = (clientName: string, requestType: string) => {
   const typeLabels: Record<string, string> = {
@@ -19,16 +159,17 @@ const getClientConfirmationEmail = (clientName: string, requestType: string) => 
   };
   
   const typeLabel = typeLabels[requestType] || "demande";
+  const safeName = escapeHtml(clientName);
   
   return `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #ffffff;">
       <div style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); padding: 30px; text-align: center;">
         <h1 style="color: #ffffff; margin: 0; font-size: 28px;">HD Connect</h1>
-        <p style="color: #bfdbfe; margin: 10px 0 0 0; font-size: 14px;">Sécurité & Technologie</p>
+        <p style="color: #bfdbfe; margin: 10px 0 0 0; font-size: 14px;">Sécurité &amp; Technologie</p>
       </div>
       
       <div style="padding: 40px 30px;">
-        <h2 style="color: #1f2937; margin-top: 0;">Bonjour ${clientName},</h2>
+        <h2 style="color: #1f2937; margin-top: 0;">Bonjour ${safeName},</h2>
         
         <p style="color: #4b5563; font-size: 16px; line-height: 1.6;">
           Nous avons bien reçu votre <strong>${typeLabel}</strong> et nous vous en remercions.
@@ -76,6 +217,10 @@ const getClientConfirmationEmail = (clientName: string, requestType: string) => 
   `;
 };
 
+// ============================================
+// MAIN HANDLER
+// ============================================
+
 serve(async (req: Request) => {
   // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
@@ -91,31 +236,40 @@ serve(async (req: Request) => {
   }
 
   try {
+    // Parse request body with size limit check
+    const contentLength = req.headers.get("content-length");
+    if (contentLength && parseInt(contentLength) > 50000) {
+      console.error("Request body too large:", contentLength);
+      return new Response(
+        JSON.stringify({ error: "Request body too large" }),
+        { status: 413, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
     const formData = await req.json();
-    console.log("Received form data:", formData);
+    console.log("Received form data (request type):", formData.requestType || "unknown");
 
     // Si c'est une demande de confirmation uniquement (Formspree gère la notification admin)
     if (formData.confirmationOnly) {
-      const clientEmail = formData.clientInfo?.email || "";
-      const clientName = formData.clientInfo?.name || "Client";
+      const sanitizedClient = sanitizeClientInfo(formData.clientInfo);
       
-      if (clientEmail) {
-        const clientEmailResponse = await resend.emails.send({
-          from: SENDER_EMAIL,
-          to: [clientEmail],
-          subject: "✅ Confirmation de votre demande - HD Connect",
-          html: getClientConfirmationEmail(clientName, formData.requestType || "contact"),
-        });
-        console.log("Client confirmation email sent:", clientEmailResponse);
-        
+      if (!sanitizedClient || !sanitizedClient.email) {
         return new Response(
-          JSON.stringify({ success: true, clientMessageId: (clientEmailResponse as any).id }),
+          JSON.stringify({ success: true, message: "No valid client email provided" }),
           { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
       }
       
+      const clientEmailResponse = await resend.emails.send({
+        from: SENDER_EMAIL,
+        to: [sanitizedClient.email],
+        subject: "✅ Confirmation de votre demande - HD Connect",
+        html: getClientConfirmationEmail(sanitizedClient.name, formData.requestType || "contact"),
+      });
+      console.log("Client confirmation email sent:", clientEmailResponse);
+      
       return new Response(
-        JSON.stringify({ success: true, message: "No client email provided" }),
+        JSON.stringify({ success: true, clientMessageId: (clientEmailResponse as any).id }),
         { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
@@ -125,10 +279,23 @@ serve(async (req: Request) => {
     let clientEmail = "";
     let clientName = "";
 
-    // Construction de l'email selon le type de demande (pour usage futur si besoin)
+    // Construction de l'email selon le type de demande
     if (formData.requestType === "quote") {
-      clientEmail = formData.clientInfo?.email || "";
-      clientName = formData.clientInfo?.name || "Client";
+      const sanitizedClient = sanitizeClientInfo(formData.clientInfo);
+      
+      if (!sanitizedClient) {
+        console.error("Invalid client info for quote request");
+        return new Response(
+          JSON.stringify({ error: "Invalid client information. Please check email and phone format." }),
+          { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+      
+      const sanitizedQuote = sanitizeQuoteData(formData.quoteData);
+      const sanitizedMessage = sanitizeString(formData.message, MAX_LENGTHS.message);
+      
+      clientEmail = sanitizedClient.email;
+      clientName = sanitizedClient.name;
       
       subject = "🔔 Nouvelle demande de devis - HD Connect";
       body = `
@@ -139,24 +306,24 @@ serve(async (req: Request) => {
           
           <div style="background-color: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
             <h3 style="color: #1f2937; margin-top: 0;">Informations client</h3>
-            <p><strong>Nom :</strong> ${formData.clientInfo.name}</p>
-            <p><strong>Email :</strong> <a href="mailto:${formData.clientInfo.email}">${formData.clientInfo.email}</a></p>
-            <p><strong>Téléphone :</strong> <a href="tel:${formData.clientInfo.phone}">${formData.clientInfo.phone}</a></p>
-            <p><strong>Adresse :</strong> ${formData.clientInfo.address}</p>
+            <p><strong>Nom :</strong> ${sanitizedClient.name}</p>
+            <p><strong>Email :</strong> <a href="mailto:${sanitizedClient.email}">${sanitizedClient.email}</a></p>
+            <p><strong>Téléphone :</strong> <a href="tel:${sanitizedClient.phone}">${sanitizedClient.phone}</a></p>
+            <p><strong>Adresse :</strong> ${sanitizedClient.address}</p>
           </div>
           
           <div style="background-color: #eff6ff; padding: 20px; border-radius: 8px; margin: 20px 0;">
             <h3 style="color: #1f2937; margin-top: 0;">Détails du projet</h3>
-            <p><strong>Service demandé :</strong> ${formData.quoteData.service}</p>
-            <p><strong>Période souhaitée :</strong> ${formData.quoteData.timeline}</p>
-            ${formData.quoteData.budget ? `<p><strong>Budget estimé :</strong> ${formData.quoteData.budget}</p>` : ''}
-            ${formData.quoteData.description ? `<p><strong>Description :</strong><br/>${formData.quoteData.description.replace(/\n/g, '<br/>')}</p>` : ''}
+            <p><strong>Service demandé :</strong> ${sanitizedQuote.service}</p>
+            <p><strong>Période souhaitée :</strong> ${sanitizedQuote.timeline}</p>
+            ${sanitizedQuote.budget ? `<p><strong>Budget estimé :</strong> ${sanitizedQuote.budget}</p>` : ''}
+            ${sanitizedQuote.description ? `<p><strong>Description :</strong><br/>${sanitizedQuote.description.replace(/\n/g, '<br/>')}</p>` : ''}
           </div>
           
-          ${formData.message ? `
+          ${sanitizedMessage ? `
             <div style="background-color: #fef3c7; padding: 20px; border-radius: 8px; margin: 20px 0;">
               <h3 style="color: #1f2937; margin-top: 0;">Message supplémentaire</h3>
-              <p>${formData.message.replace(/\n/g, '<br/>')}</p>
+              <p>${sanitizedMessage.replace(/\n/g, '<br/>')}</p>
             </div>
           ` : ''}
           
@@ -166,8 +333,21 @@ serve(async (req: Request) => {
         </div>
       `;
     } else if (formData.requestType === "intervention") {
-      clientEmail = formData.clientInfo?.email || "";
-      clientName = formData.clientInfo?.name || "Client";
+      const sanitizedClient = sanitizeClientInfo(formData.clientInfo);
+      
+      if (!sanitizedClient) {
+        console.error("Invalid client info for intervention request");
+        return new Response(
+          JSON.stringify({ error: "Invalid client information. Please check email and phone format." }),
+          { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+      
+      const sanitizedIntervention = sanitizeInterventionData(formData.interventionData);
+      const sanitizedMessage = sanitizeString(formData.message, MAX_LENGTHS.message);
+      
+      clientEmail = sanitizedClient.email;
+      clientName = sanitizedClient.name;
       
       subject = "🚨 Demande d'intervention urgente - HD Connect";
       body = `
@@ -177,27 +357,27 @@ serve(async (req: Request) => {
           </h2>
           
           <div style="background-color: #fee2e2; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #dc2626;">
-            <h3 style="color: #991b1b; margin-top: 0;">Niveau d'urgence : ${formData.interventionData.urgency}</h3>
+            <h3 style="color: #991b1b; margin-top: 0;">Niveau d'urgence : ${sanitizedIntervention.urgency}</h3>
           </div>
           
           <div style="background-color: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
             <h3 style="color: #1f2937; margin-top: 0;">Informations client</h3>
-            <p><strong>Nom :</strong> ${formData.clientInfo.name}</p>
-            <p><strong>Email :</strong> <a href="mailto:${formData.clientInfo.email}">${formData.clientInfo.email}</a></p>
-            <p><strong>Téléphone :</strong> <a href="tel:${formData.clientInfo.phone}">${formData.clientInfo.phone}</a></p>
-            <p><strong>Adresse :</strong> ${formData.clientInfo.address}</p>
+            <p><strong>Nom :</strong> ${sanitizedClient.name}</p>
+            <p><strong>Email :</strong> <a href="mailto:${sanitizedClient.email}">${sanitizedClient.email}</a></p>
+            <p><strong>Téléphone :</strong> <a href="tel:${sanitizedClient.phone}">${sanitizedClient.phone}</a></p>
+            <p><strong>Adresse :</strong> ${sanitizedClient.address}</p>
           </div>
           
           <div style="background-color: #fef3c7; padding: 20px; border-radius: 8px; margin: 20px 0;">
             <h3 style="color: #1f2937; margin-top: 0;">Détails du problème</h3>
-            <p><strong>Type de problème :</strong> ${formData.interventionData.problemType}</p>
-            <p><strong>Description :</strong><br/>${formData.interventionData.description.replace(/\n/g, '<br/>')}</p>
+            <p><strong>Type de problème :</strong> ${sanitizedIntervention.problemType}</p>
+            <p><strong>Description :</strong><br/>${sanitizedIntervention.description.replace(/\n/g, '<br/>')}</p>
           </div>
           
-          ${formData.message ? `
+          ${sanitizedMessage ? `
             <div style="background-color: #eff6ff; padding: 20px; border-radius: 8px; margin: 20px 0;">
               <h3 style="color: #1f2937; margin-top: 0;">Message supplémentaire</h3>
-              <p>${formData.message.replace(/\n/g, '<br/>')}</p>
+              <p>${sanitizedMessage.replace(/\n/g, '<br/>')}</p>
             </div>
           ` : ''}
           
@@ -208,8 +388,37 @@ serve(async (req: Request) => {
       `;
     } else {
       // Contact simple (depuis le formulaire Contact)
-      clientEmail = formData.email || "";
-      clientName = formData.name || "Client";
+      const email = typeof formData.email === 'string' ? formData.email.trim() : '';
+      const phone = typeof formData.phone === 'string' ? formData.phone.trim() : '';
+      
+      if (!isValidEmail(email)) {
+        console.error("Invalid email for contact request");
+        return new Response(
+          JSON.stringify({ error: "Invalid email address" }),
+          { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+      
+      if (phone && !isValidPhone(phone)) {
+        console.error("Invalid phone for contact request");
+        return new Response(
+          JSON.stringify({ error: "Invalid phone number format" }),
+          { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+      
+      clientEmail = email.slice(0, MAX_LENGTHS.email);
+      clientName = sanitizeString(formData.name, MAX_LENGTHS.name) || "Client";
+      const sanitizedPhone = sanitizeString(formData.phone, MAX_LENGTHS.phone);
+      const sanitizedMessage = sanitizeString(formData.message, MAX_LENGTHS.message);
+      
+      if (!sanitizedMessage) {
+        console.error("Empty message for contact request");
+        return new Response(
+          JSON.stringify({ error: "Message is required" }),
+          { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
       
       subject = "📧 Nouveau message de contact - HD Connect";
       body = `
@@ -220,14 +429,14 @@ serve(async (req: Request) => {
           
           <div style="background-color: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
             <h3 style="color: #1f2937; margin-top: 0;">Informations</h3>
-            <p><strong>Nom :</strong> ${formData.name}</p>
-            <p><strong>Email :</strong> <a href="mailto:${formData.email}">${formData.email}</a></p>
-            ${formData.phone ? `<p><strong>Téléphone :</strong> <a href="tel:${formData.phone}">${formData.phone}</a></p>` : ''}
+            <p><strong>Nom :</strong> ${clientName}</p>
+            <p><strong>Email :</strong> <a href="mailto:${clientEmail}">${clientEmail}</a></p>
+            ${sanitizedPhone ? `<p><strong>Téléphone :</strong> <a href="tel:${sanitizedPhone}">${sanitizedPhone}</a></p>` : ''}
           </div>
           
           <div style="background-color: #eff6ff; padding: 20px; border-radius: 8px; margin: 20px 0;">
             <h3 style="color: #1f2937; margin-top: 0;">Message</h3>
-            <p>${formData.message.replace(/\n/g, '<br/>')}</p>
+            <p>${sanitizedMessage.replace(/\n/g, '<br/>')}</p>
           </div>
           
           <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e7eb; color: #6b7280; font-size: 12px;">
@@ -249,7 +458,7 @@ serve(async (req: Request) => {
 
     // Envoi de l'email de confirmation au client
     let clientEmailResponse = null;
-    if (clientEmail) {
+    if (clientEmail && isValidEmail(clientEmail)) {
       try {
         clientEmailResponse = await resend.emails.send({
           from: SENDER_EMAIL,
@@ -278,7 +487,7 @@ serve(async (req: Request) => {
   } catch (error: any) {
     console.error("Error in send-quote-email function:", error);
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: "An error occurred processing your request" }),
       {
         status: 500,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
