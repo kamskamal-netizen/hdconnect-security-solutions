@@ -36,26 +36,26 @@ const About = () => {
       <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-to-bl from-primary/5 to-transparent rounded-bl-full"></div>
       
       <div className="container mx-auto px-4 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left Content */}
           <div>
-            <div className="badge-primary mb-6">
+            <div className="badge-primary mb-4">
               <Award className="w-4 h-4" />
               <span>À Propos de HD Connect</span>
             </div>
             
-            <h2 className="section-title text-center md:text-left mb-6">
+            <h2 className="section-title text-center md:text-left mb-4">
               {aboutContent.title}
             </h2>
             
-            <div className="space-y-4 text-muted-foreground text-base md:text-lg text-center md:text-left mb-8">
+            <div className="space-y-3 text-muted-foreground text-sm md:text-base text-center md:text-left mb-6">
               {aboutContent.content.map((paragraph, index) => (
                 <p key={index} className="leading-relaxed">{paragraph}</p>
               ))}
             </div>
 
             {/* Values Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6">
               {values.map((value, index) => (
                 <div 
                   key={index}
@@ -72,13 +72,13 @@ const About = () => {
           </div>
 
           {/* Right Content - Stats & Image */}
-          <div className="space-y-8">
+          <div className="space-y-6">
             {/* Team Image */}
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+            <div className="relative rounded-2xl overflow-hidden shadow-xl">
               <img 
                 src={aboutTeamImage} 
                 alt="Équipe HD Connect - Experts en sécurité"
-                className="w-full h-64 md:h-80 object-cover"
+                className="w-full h-56 md:h-64 object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-transparent to-transparent"></div>
               <div className="absolute bottom-6 left-6 right-6">

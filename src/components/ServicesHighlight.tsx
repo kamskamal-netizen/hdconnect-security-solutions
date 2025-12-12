@@ -62,8 +62,8 @@ const ServicesHighlight = () => {
       
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="badge-accent mb-4">
+        <div className="text-center max-w-3xl mx-auto mb-10">
+          <div className="badge-accent mb-3">
             <Truck className="w-4 h-4" />
             <span>Nos Prestations</span>
           </div>
@@ -77,7 +77,7 @@ const ServicesHighlight = () => {
         </div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
           {services.map((service, index) => {
             const Icon = service.icon;
             return (
