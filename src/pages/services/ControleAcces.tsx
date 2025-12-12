@@ -5,6 +5,7 @@ import { content } from "@/data/content";
 import { Lock, Fingerprint, CreditCard, History, Users, Key, CheckCircle, Zap, HardHat, Settings, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import ServicePrestations from "@/components/ServicePrestations";
 import accessImage from "@/assets/service-access.jpg";
 
 const ControleAcces = () => {
@@ -132,6 +133,9 @@ const ControleAcces = () => {
             </div>
           </div>
         </section>
+
+        {/* Section: Installation, Dépannage, Location */}
+        <ServicePrestations serviceName="Contrôle d'Accès" />
 
         {/* Section 4: Processus d'Installation */}
         <section className="section-padding">

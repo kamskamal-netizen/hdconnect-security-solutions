@@ -5,6 +5,7 @@ import { content } from "@/data/content";
 import { Camera, Shield, Smartphone, Cloud, Eye, Clock, CheckCircle, Zap, HardHat, Settings, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import ServicePrestations from "@/components/ServicePrestations";
 import cameraImage from "@/assets/service-camera.jpg";
 
 const Videosurveillance = () => {
@@ -125,6 +126,9 @@ const Videosurveillance = () => {
             </div>
           </div>
         </section>
+
+        {/* Section: Installation, Dépannage, Location */}
+        <ServicePrestations serviceName="Vidéosurveillance" />
 
         {/* Section 4: Processus d'Installation */}
         <section className="section-padding">

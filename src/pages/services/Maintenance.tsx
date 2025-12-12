@@ -5,6 +5,7 @@ import { content } from "@/data/content";
 import { Wrench, Clock, PhoneCall, Shield, CheckCircle, TrendingUp, MapPin, HardHat, Settings } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import ServicePrestations from "@/components/ServicePrestations";
 import maintenanceImage from "@/assets/service-maintenance.jpg";
 
 const Maintenance = () => {
@@ -142,6 +143,9 @@ const Maintenance = () => {
             </div>
           </div>
         </section>
+
+        {/* Section: Installation, Dépannage, Location */}
+        <ServicePrestations serviceName="Maintenance & Dépannage" />
 
         {/* Section 4: Processus d'Installation */}
         <section className="section-padding">

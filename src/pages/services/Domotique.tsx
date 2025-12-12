@@ -5,6 +5,7 @@ import { content } from "@/data/content";
 import { Monitor, Zap, Smartphone, Home, Sun, Thermometer, CheckCircle, HardHat, Settings, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import ServicePrestations from "@/components/ServicePrestations";
 import domotiqueImage from "@/assets/service-domotique.jpg";
 
 const Domotique = () => {
@@ -130,6 +131,9 @@ const Domotique = () => {
             </div>
           </div>
         </section>
+
+        {/* Section: Installation, Dépannage, Location */}
+        <ServicePrestations serviceName="Domotique" />
 
         {/* Section 4: Processus d'Installation */}
         <section className="section-padding">
