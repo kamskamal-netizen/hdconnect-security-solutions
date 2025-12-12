@@ -5,6 +5,7 @@ import { content } from "@/data/content";
 import { Wifi, Cable, Shield, Server, Network, Settings, CheckCircle, Zap, HardHat, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import ServicePrestations from "@/components/ServicePrestations";
 import reseauImage from "@/assets/service-reseau.jpg";
 
 const Reseau = () => {
@@ -130,6 +131,9 @@ const Reseau = () => {
             </div>
           </div>
         </section>
+
+        {/* Section: Installation, Dépannage, Location */}
+        <ServicePrestations serviceName="Infrastructure Réseau" />
 
         {/* Section 4: Processus d'Installation */}
         <section className="section-padding">

@@ -5,6 +5,7 @@ import { content } from "@/data/content";
 import { ShieldAlert, Bell, Smartphone, Radio, Home, Building2, CheckCircle, Zap, HardHat, Settings, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import ServicePrestations from "@/components/ServicePrestations";
 import alarmImage from "@/assets/service-alarm.jpg";
 
 const Alarme = () => {
@@ -132,6 +133,9 @@ const Alarme = () => {
             </div>
           </div>
         </section>
+
+        {/* Section: Installation, Dépannage, Location */}
+        <ServicePrestations serviceName="Systèmes d'Alarme" />
 
         {/* Section 4: Processus d'Installation */}
         <section className="section-padding">
