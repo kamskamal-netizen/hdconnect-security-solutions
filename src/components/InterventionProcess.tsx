@@ -73,8 +73,8 @@ const InterventionProcess = () => {
       
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="badge-primary mb-4">
+        <div className="text-center max-w-3xl mx-auto mb-10">
+          <div className="badge-primary mb-3">
             <Truck className="w-4 h-4" />
             <span>Notre Méthode</span>
           </div>
@@ -88,11 +88,11 @@ const InterventionProcess = () => {
         </div>
 
         {/* Process Steps */}
-        <div className="relative max-w-5xl mx-auto mb-16">
+        <div className="relative max-w-5xl mx-auto mb-10">
           {/* Connection Line (Desktop) */}
-          <div className="hidden lg:block absolute top-24 left-8 right-8 h-0.5 bg-gradient-to-r from-primary via-accent to-primary"></div>
+          <div className="hidden lg:block absolute top-20 left-8 right-8 h-0.5 bg-gradient-to-r from-primary via-accent to-primary"></div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {steps.map((step, index) => {
               const Icon = step.icon;
               return (

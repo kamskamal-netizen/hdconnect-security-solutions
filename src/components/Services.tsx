@@ -45,8 +45,8 @@ const Services = () => {
       
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="badge-accent mb-4">
+        <div className="text-center max-w-3xl mx-auto mb-10">
+          <div className="badge-accent mb-3">
             <Sparkles className="w-4 h-4" />
             <span>Solutions Complètes</span>
           </div>
@@ -59,7 +59,7 @@ const Services = () => {
         </div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {content.services.items.map((service, index) => {
             const Icon = iconMap[service.icon] || Camera;
             const image = imageMap[service.title];
@@ -71,9 +71,9 @@ const Services = () => {
                 className="group hover-lift overflow-hidden bg-card border-border/50 hover:border-primary/30 transition-all duration-300"
               >
                 {/* Image */}
-                <div className="relative h-52 overflow-hidden">
+                <div className="relative h-44 overflow-hidden">
                   <img 
-                    src={image} 
+                    src={image}
                     alt={service.title}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />
@@ -111,8 +111,8 @@ const Services = () => {
         </div>
 
         {/* Bottom CTA */}
-        <div className="mt-16 text-center">
-          <p className="text-muted-foreground mb-6">
+        <div className="mt-10 text-center">
+          <p className="text-muted-foreground mb-4">
             Vous ne trouvez pas ce que vous cherchez ?
           </p>
           <Button 

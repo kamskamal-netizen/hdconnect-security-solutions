@@ -393,8 +393,8 @@ const QuoteFunnelSimple = () => {
       
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="badge-accent mb-4">
+        <div className="text-center max-w-3xl mx-auto mb-8">
+          <div className="badge-accent mb-3">
             <Sparkles className="w-4 h-4" />
             <span>Devis Gratuit</span>
           </div>

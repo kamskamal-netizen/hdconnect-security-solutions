@@ -113,18 +113,18 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-24 bg-secondary/30">
+    <section id="contact" className="section-padding bg-secondary/30">
       <div className="container mx-auto px-4">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 text-center">
+        <div className="text-center max-w-3xl mx-auto mb-10">
+          <h2 className="section-title text-center">
             {content.contact.title}
           </h2>
-          <p className="text-xl text-muted-foreground text-center">
+          <p className="section-subtitle text-center">
             {content.contact.subtitle}
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           <Card className="hover:shadow-lg transition-shadow">
             <CardHeader>
               <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-4">
@@ -177,7 +177,7 @@ const Contact = () => {
           </Card>
         </div>
 
-        <Card className="max-w-2xl mx-auto mt-12">
+        <Card className="max-w-2xl mx-auto mt-8">
           <CardHeader>
             <CardTitle className="text-2xl">{content.contact.formTitle}</CardTitle>
             <CardDescription>Remplissez ce formulaire et nous vous recontacterons rapidement</CardDescription>

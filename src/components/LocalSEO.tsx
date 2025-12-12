@@ -57,8 +57,8 @@ const LocalSEO = () => {
       
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
-        <div className="text-center mb-12">
-          <div className="badge-primary mb-4">
+        <div className="text-center mb-8">
+          <div className="badge-primary mb-3">
             <MapPin className="w-4 h-4" />
             <span>Zones d'Intervention</span>
           </div>
@@ -71,17 +71,17 @@ const LocalSEO = () => {
         </div>
 
         {/* Main Locations Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 mb-6">
           {mainLocations.map((location) => (
             <div 
               key={location.city}
-              className={`p-4 rounded-xl text-center transition-all duration-300 hover:-translate-y-1 ${
+              className={`p-3 rounded-xl text-center transition-all duration-300 hover:-translate-y-1 ${
                 location.highlight 
                   ? 'bg-gradient-to-br from-primary to-accent text-white shadow-lg' 
                   : 'bg-card border border-border hover:border-primary/30 hover:shadow-md'
               }`}
             >
-              <MapPin className={`w-5 h-5 mx-auto mb-2 ${location.highlight ? 'text-white' : 'text-primary'}`} />
+              <MapPin className={`w-4 h-4 mx-auto mb-1 ${location.highlight ? 'text-white' : 'text-primary'}`} />
               <p className="font-semibold text-sm">{location.city}</p>
               <p className={`text-xs ${location.highlight ? 'text-white/80' : 'text-muted-foreground'}`}>
                 ({location.dept})
@@ -91,9 +91,9 @@ const LocalSEO = () => {
         </div>
 
         {/* IDF Cities */}
-        <div className="bg-card rounded-2xl border border-border p-6 md:p-8 mb-8">
-          <h3 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
-            <CheckCircle className="w-5 h-5 text-accent" />
+        <div className="bg-card rounded-2xl border border-border p-5 md:p-6 mb-6">
+          <h3 className="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+            <CheckCircle className="w-4 h-4 text-accent" />
             Également en Île-de-France
           </h3>
           <div className="flex flex-wrap gap-2">
@@ -112,10 +112,10 @@ const LocalSEO = () => {
         </div>
 
         {/* Info Card */}
-        <div className="bg-gradient-to-r from-foreground to-foreground/90 rounded-2xl p-8 md:p-10 text-background">
+        <div className="bg-gradient-to-r from-foreground to-foreground/90 rounded-2xl p-6 md:p-8 text-background">
           <div className="max-w-3xl mx-auto text-center">
-            <h3 className="text-2xl md:text-3xl font-bold mb-4">Notre Couverture Nationale</h3>
-            <p className="text-background/80 leading-relaxed mb-6">
+            <h3 className="text-xl md:text-2xl font-bold mb-3">Notre Couverture Nationale</h3>
+            <p className="text-background/80 leading-relaxed mb-4 text-sm md:text-base">
               Nous intervenons principalement dans la région de <strong className="text-background">Paris (75) et la petite couronne (94)</strong>, incluant des villes comme Créteil et Vincennes, pour garantir une réactivité maximale. Notre expertise s'étend également aux grandes métropoles françaises.
             </p>
             <Button 
