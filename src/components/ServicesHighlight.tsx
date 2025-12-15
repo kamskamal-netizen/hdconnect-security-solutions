@@ -29,7 +29,7 @@ const services = [
       "Techniciens certifiés et équipés"
     ],
     image: serviceAccessImage,
-    color: "from-red-500 to-orange-500"
+    color: "from-indigo-500 to-blue-500"
   },
   {
     icon: Package,
@@ -42,7 +42,7 @@ const services = [
       "Installation et retrait inclus"
     ],
     image: serviceMaintenanceImage,
-    color: "from-green-500 to-emerald-500"
+    color: "from-sky-500 to-cyan-500"
   }
 ];
 

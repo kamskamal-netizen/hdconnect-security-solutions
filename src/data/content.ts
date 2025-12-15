@@ -74,6 +74,18 @@ export const content = {
         icon: "Home",
         link: "/services/domotique",
       },
+      {
+        title: "Antennes & Satellite",
+        description: "Installation et dépannage d'antennes hertziennes, paraboles et systèmes TNT. Nous assurons une réception optimale de vos chaînes TV, que ce soit pour des maisons individuelles, des copropriétés ou des locaux professionnels.",
+        icon: "Radio",
+        link: "/services/antenne-satellite",
+      },
+      {
+        title: "Portails & Parking",
+        description: "Automatisation et sécurisation de vos accès : portails coulissants et battants, portes de garage, barrières de parking, interphones et vidéophones d'immeuble. Solutions pour résidences et professionnels.",
+        icon: "DoorOpen",
+        link: "/services/portails-parking",
+      },
     ],
   },
 
@@ -163,6 +175,39 @@ export const content = {
         "Scénarios de sécurité automatisés",
         "Compatibilité avec les principaux écosystèmes (Google Home, Alexa)",
         "Installation de systèmes KNX et Z-Wave",
+      ],
+    },
+    antenneSatellite: {
+      title: "Antennes Hertziennes & Satellite",
+      description: "Une réception TV de qualité est essentielle pour votre confort quotidien. Nous installons, réglons et dépannons tous types d'antennes : râteaux TNT, paraboles satellite, antennes collectives pour immeubles. Notre expertise garantit une réception optimale de toutes vos chaînes, même dans les zones difficiles.",
+      features: [
+        "Installation antennes TNT et râteaux",
+        "Pose et orientation de paraboles satellite",
+        "Antennes collectives pour copropriétés",
+        "Dépannage et réglage de réception",
+        "Amplificateurs et répartiteurs de signal",
+      ],
+      faq: [
+        { question: "Quelles sont les chaînes disponibles en TNT ?", answer: "La TNT offre plus de 30 chaînes gratuites en HD. Nous optimisons votre installation pour capter toutes les chaînes disponibles dans votre région." },
+        { question: "Puis-je recevoir les chaînes étrangères ?", answer: "Oui, avec une parabole satellite correctement orientée, vous pouvez recevoir des centaines de chaînes internationales selon le satellite visé (Astra, Hotbird, etc.)." },
+        { question: "Intervenez-vous sur les antennes collectives ?", answer: "Absolument. Nous installons et maintenons les systèmes d'antennes collectives pour les copropriétés, avec amplification et distribution vers tous les appartements." },
+      ],
+    },
+    portailsParking: {
+      title: "Portails, Parking & Automatismes",
+      description: "Sécurisez et automatisez tous vos accès extérieurs. Du portail coulissant motorisé à la porte de garage, en passant par les barrières de parking et les interphones d'immeuble, nous proposons des solutions complètes pour les résidences, les copropriétés et les entreprises. Installation, programmation et maintenance de qualité professionnelle.",
+      features: [
+        "Motorisation de portails coulissants et battants",
+        "Portes de garage sectionnelles et basculantes",
+        "Barrières automatiques de parking",
+        "Interphones et vidéophones d'immeuble",
+        "Télécommandes et badges d'accès",
+        "Contrôle à distance via smartphone",
+      ],
+      faq: [
+        { question: "Peut-on motoriser un portail existant ?", answer: "Dans la plupart des cas, oui. Nous évaluons la structure de votre portail et proposons la motorisation adaptée (vérins, bras articulés, coulissant)." },
+        { question: "Quelle garantie sur les automatismes ?", answer: "Nous offrons une garantie de 2 à 5 ans selon les équipements, avec possibilité de contrat de maintenance pour prolonger la durée de vie de votre installation." },
+        { question: "Proposez-vous des solutions pour les copropriétés ?", answer: "Oui, nous sommes spécialisés dans les systèmes d'accès pour immeubles : interphones multi-logements, digicodes, vidéophones et portails automatiques." },
       ],
     },
   },
