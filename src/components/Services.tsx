@@ -1,6 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Camera, Shield, Lock, Wifi, Home, Wrench, ArrowRight, Sparkles } from "lucide-react";
+import { Camera, Shield, Lock, Wifi, Home, Wrench, ArrowRight, Sparkles, Radio, DoorOpen } from "lucide-react";
 import { content } from "@/data/content";
 import { Link } from "react-router-dom";
 import cameraImage from "@/assets/service-camera.jpg";
@@ -9,6 +9,8 @@ import accessImage from "@/assets/service-access.jpg";
 import maintenanceImage from "@/assets/service-maintenance.jpg";
 import reseauImage from "@/assets/service-reseau.jpg";
 import domotiqueImage from "@/assets/service-domotique.jpg";
+import antenneImage from "@/assets/service-antenne.jpg";
+import portailImage from "@/assets/service-portail.jpg";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Camera,
@@ -17,6 +19,8 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Wifi,
   Home,
   Wrench,
+  Radio,
+  DoorOpen,
 };
 
 const imageMap: Record<string, string> = {
@@ -26,15 +30,19 @@ const imageMap: Record<string, string> = {
   "Maintenance & Dépannage": maintenanceImage,
   "Réseau & Câblage": reseauImage,
   "Domotique Sécurité": domotiqueImage,
+  "Antennes & Satellite": antenneImage,
+  "Portails & Parking": portailImage,
 };
 
 const colorMap: Record<string, string> = {
   "Vidéosurveillance": "from-blue-500 to-cyan-500",
-  "Systèmes d'Alarme": "from-red-500 to-orange-500",
-  "Contrôle d'Accès": "from-green-500 to-emerald-500",
-  "Maintenance & Dépannage": "from-purple-500 to-pink-500",
-  "Réseau & Câblage": "from-indigo-500 to-blue-500",
-  "Domotique Sécurité": "from-amber-500 to-yellow-500",
+  "Systèmes d'Alarme": "from-blue-600 to-blue-400",
+  "Contrôle d'Accès": "from-sky-500 to-cyan-500",
+  "Maintenance & Dépannage": "from-indigo-500 to-blue-500",
+  "Réseau & Câblage": "from-blue-700 to-blue-500",
+  "Domotique Sécurité": "from-cyan-500 to-sky-500",
+  "Antennes & Satellite": "from-blue-500 to-indigo-500",
+  "Portails & Parking": "from-sky-600 to-blue-500",
 };
 
 const Services = () => {
@@ -59,7 +67,7 @@ const Services = () => {
         </div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
           {content.services.items.map((service, index) => {
             const Icon = iconMap[service.icon] || Camera;
             const image = imageMap[service.title];

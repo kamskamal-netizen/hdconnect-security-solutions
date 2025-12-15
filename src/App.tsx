@@ -15,6 +15,8 @@ import ControleAcces from "./pages/services/ControleAcces";
 import Reseau from "./pages/services/Reseau";
 import Domotique from "./pages/services/Domotique";
 import Maintenance from "./pages/services/Maintenance";
+import AntenneSatellite from "./pages/services/AntenneSatellite";
+import PortailsParking from "./pages/services/PortailsParking";
 
 const queryClient = new QueryClient();
 
@@ -35,6 +37,8 @@ const App = () => (
           <Route path="/services/reseau" element={<Reseau />} />
           <Route path="/services/domotique" element={<Domotique />} />
           <Route path="/services/maintenance" element={<Maintenance />} />
+          <Route path="/services/antenne-satellite" element={<AntenneSatellite />} />
+          <Route path="/services/portails-parking" element={<PortailsParking />} />
           <Route path="/:type(mentions-legales|politique-confidentialite)" element={<LegalPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
